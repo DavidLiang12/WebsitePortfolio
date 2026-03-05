@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0f0f0f;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1.2rem 0;
+  background: rgba(15, 15, 15, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #999;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  transition: color 0.25s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #fff;
+}
+
+/* ── Dropdown ── */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  list-style: none;
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 0.4rem 0;
+  min-width: 100px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown.open .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 0.5rem 1.2rem;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.dropdown-menu li a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Content area ── */
+.content {
+  padding-top: 5rem;
+  min-height: 100vh;
+}
