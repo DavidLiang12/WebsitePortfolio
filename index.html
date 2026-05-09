@@ -3,45 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - Games</title>
+  <title>Portfolio - Home</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <nav class="navbar">
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Games</a></li>
+    <a href="index.html" class="nav-brand">David Liang</a>
+    <div class="nav-content">
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="projects.html">Other Projects</a></li>
+        <li><a href="art-3d.html">3D Art</a></li>
+        <li><a href="art-2d.html">2D Art</a></li>
+      </ul>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">☀️</button>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Toggle menu">&#9776;</button>
+    <ul class="nav-links-mobile">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="games.html">Games</a></li>
       <li><a href="projects.html">Other Projects</a></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle">Art</a>
-        <ul class="dropdown-menu">
-          <li><a href="art-3d.html">3D</a></li>
-          <li><a href="art-2d.html">2D</a></li>
-        </ul>
-      </li>
-      <li><a href="about.html">About</a></li>
+      <li><a href="art-3d.html">3D Art</a></li>
+      <li><a href="art-2d.html">2D Art</a></li>
     </ul>
   </nav>
   <main class="content">
-    <div class="games-grid">
-      <a href="games/game1.html" class="game-card">
-        <img src="images/games/game1.jpg" alt="Game 1">
-      </a>
-      <a href="games/game2.html" class="game-card">
-        <img src="images/games/game2.jpg" alt="Game 2">
-      </a>
-      <a href="games/game3.html" class="game-card">
-        <img src="images/games/game3.jpg" alt="Game 3">
-      </a>
-      <a href="games/game4.html" class="game-card">
-        <img src="images/games/game4.jpg" alt="Game 4">
-      </a>
-      <a href="games/game5.html" class="game-card">
-        <img src="images/games/game5.jpg" alt="Game 5">
-      </a>
-      <a href="games/game6.html" class="game-card">
-        <img src="images/games/game6.jpg" alt="Game 6">
-      </a>
+
+    <!-- Hero: profile + intro -->
+    <div class="home-hero">
+      <div class="home-profile">
+        <img src="images/Me.jpg" alt="Profile photo" class="home-profile-img">
+        <div class="home-contact">
+          <div class="location-link">📍 Los Angeles, CA</div>
+          <span class="email-link" onclick="copyEmail()">✉ Email</span>
+          <a href="https://www.linkedin.com/in/david-liang-0a73032ab" target="_blank" class="linkedin-link">
+            <img src="images/linkedin.png" alt="LinkedIn" class="linkedin-icon">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div class="home-intro">
+        <h1 class="home-name">David Liang</h1>
+        <p>A student at Washington University in St. Louis, studying Computer Science, Human Centered Interaction and Design. I'm passionate about game development because it lets me be creative and turn ideas into reality. Most of my current work is in Unity, but I'm getting into Unreal for my newest project to keep exploring new ways of building experiences.</p>
+        <p>I truly care about making a game feel polished and complete to the smallest details. Whether it's the sound effects of clicking a button or dialogs that tell a story, I think every element in a game should feel natural and intentional to the player. I enjoy working with teams and greatly value feedback from others, since that's often where I learn the most and see what needs to be improved from another perspective.</p>
+        <p>Outside of game development, I love exploring other creative outlets — things like cooking, sketching, or working on cars. I also have a passion for interior design, a field I once considered pursuing.</p>
+      </div>
     </div>
+
+    <!-- Featured Games -->
+    <div class="home-section">
+      <h2 class="home-section-title">Featured Games</h2>
+      <div class="games-grid">
+        <a href="games/game1.html" class="game-card">
+          <img src="images/games/game1.jpg" alt="Game 1">
+        </a>
+        <a href="games/game2.html" class="game-card">
+          <img src="images/games/game2.jpg" alt="Game 2">
+        </a>
+      </div>
+    </div>
+
   </main>
   <script src="js/main.js"></script>
 </body>
