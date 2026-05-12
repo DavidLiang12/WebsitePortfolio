@@ -8,17 +8,14 @@
 </head>
 <body>
   <nav class="navbar">
-    <a href="index.html" class="nav-brand">David Liang</a>
-    <div class="nav-content">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="games.html" class="active">Games</a></li>
-        <li><a href="projects.html">Other Projects</a></li>
-        <li><a href="art-3d.html">3D Art</a></li>
-        <li><a href="art-2d.html">2D Art</a></li>
-      </ul>
+    <div class="nav-buttons">
+      <a href="index.html" class="nav-button"><img src="images/UI/Home.png" alt="Home"></a>
+      <a href="games.html" class="nav-button"><img src="images/UI/Games.png" alt="Games"></a>
+      <a href="projects.html" class="nav-button"><img src="images/UI/OtherProjects.png" alt="Other Projects"></a>
+      <a href="art-3d.html" class="nav-button"><img src="images/UI/3d.png" alt="3D Art"></a>
+      <a href="art-2d.html" class="nav-button"><img src="images/UI/2d.png" alt="2D Art"></a>
     </div>
-    <button class="nav-hamburger" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Toggle menu">&#9776;</button>
     <ul class="nav-links-mobile">
       <li><a href="index.html">Home</a></li>
       <li><a href="games.html" class="active">Games</a></li>

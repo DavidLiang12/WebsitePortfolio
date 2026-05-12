@@ -6,34 +6,13 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--bg-primary);
+  background: #decbad;
   color: var(--text-primary);
   min-height: 100vh;
 }
 
 /* ── Theme Variables ── */
 :root {
-  --bg-primary: #0f0f0f;
-  --bg-secondary: #1a1a1a;
-  --bg-navbar: rgba(15, 15, 15, 0.95);
-  --text-primary: #e0e0e0;
-  --text-secondary: #c0c0c0;
-  --text-muted: #888;
-  --text-accent: #999;
-  --border-color: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(255, 255, 255, 0.15);
-  --card-bg: #1a1a1a;
-  --tag-animation: #FF6B6B;
-  --tag-rigging: #4ECDC4;
-  --tag-modeling: #45B7D1;
-  --tag-maya: #96CEB4;
-  --tag-blender: #FFEAA7;
-}
-
-.light-mode {
-  --bg-primary: #F3E4C9;
-  --bg-secondary: #BFA28C;
-  --bg-navbar: rgba(169, 139, 118, 0.95);
   --text-primary: #2d3436;
   --text-secondary: #636e72;
   --text-muted: #636e72;
@@ -48,94 +27,73 @@ body {
   --tag-blender: #FFEAA7;
 }
 
-/* ── Theme Toggle ── */
-.theme-toggle {
-  position: absolute;
-  right: 2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--text-accent);
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0.3rem;
-  transition: color 0.2s;
-  z-index: 101;
-}
-
-.theme-toggle:hover {
-  color: var(--text-primary);
-}
-
-.light-mode .theme-toggle {
-  color: var(--text-accent);
-}
-
-.light-mode .theme-toggle:hover {
-  color: var(--text-primary);
-}
-
-@media (max-width: 700px) {
-  .theme-toggle {
-    left: auto;
-    right: 5rem;
-  }
-}
-
 /* ── Navbar ── */
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.2rem 2rem;
-  background: var(--bg-navbar);
-  backdrop-filter: blur(8px);
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 717px;
+  height: 78px;
+  background-image: url('../images/UI/NavbarBG.png');
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
   z-index: 100;
-  border-bottom: 1px solid var(--border-color);
 }
 
-.nav-brand {
-  text-decoration: none;
-  color: var(--text-primary);
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  transition: opacity 0.2s;
-}
+.nav-buttons {
 
-.nav-brand:hover {
-  opacity: 0.7;
-}
-
-.nav-content {
-  flex: 1;
   display: flex;
-  justify-content: center;
+  gap: 2rem;
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2.5rem;
-  align-items: center;
+.nav-button img {
+  height: 40px;
+  width: auto;
+  transition: opacity 0.2s, transform 0s;
 }
 
-.nav-links a {
-  text-decoration: none;
-  color: var(--text-accent);
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  transition: color 0.25s;
+.nav-button img:hover {
+  opacity: 0.8;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--text-primary);
+
+.nav-button img.clicked {
+  transform: scale(0.95);
+}
+.nav-button:nth-child(1) { /* Home */
+  position: absolute;
+  left: 27.5px;
+  top: 16.5px;
+}
+
+.nav-button:nth-child(2) { /* Games */
+  position: absolute;
+  left: 95px;
+  top: 17px;
+}
+
+.nav-button:nth-child(3) { /* Other Projects */
+  position: absolute;
+  left: 242px;
+  top: 17px;
+}
+
+.nav-button:nth-child(4) { /* 3D Art */
+  position: absolute;
+  left: 431px;
+  top: 17px;
+}
+
+.nav-button:nth-child(5) { /* 2D Art */
+  position: absolute;
+  left: 575px;
+  top: 17px;
+}
+
+.nav-button:first-child img {
+  height: 38px;
 }
 
 .nav-hamburger {
@@ -149,9 +107,10 @@ body {
 @media (max-width: 700px) {
   .navbar {
     justify-content: space-between;
+    background-image: none;
   }
 
-  .nav-content {
+  .nav-buttons {
     display: none;
   }
 
@@ -171,7 +130,7 @@ body {
   }
 
   .nav-hamburger:hover {
-    color: #fff;
+    color: var(--text-primary);
   }
 
   .nav-links-mobile {
@@ -203,7 +162,7 @@ body {
     display: block;
     padding: 0.6rem 1.4rem;
     text-decoration: none;
-    color: #999;
+    color: var(--text-accent);
     font-size: 0.95rem;
     letter-spacing: 0.04em;
     transition: color 0.2s, background 0.2s;
@@ -211,8 +170,8 @@ body {
 
   .nav-links-mobile a:hover,
   .nav-links-mobile a.active {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    background: rgba(45, 52, 54, 0.05);
   }
 }
 
@@ -277,44 +236,18 @@ body {
   color: var(--text-primary);
   transition: transform 0.25s, border-color 0.25s;
   background: var(--card-bg);
+  position: relative;
+}
+
+.art-card.no-bg {
+  background: none;
+  border: none;
+  overflow: visible;
 }
 
 .art-card:hover {
-  transform: scale(1.03);
+  transform: scale(1);
   border-color: var(--border-hover);
-}
-
-.art-tags {
-  padding: 1rem 0.8rem;
-  background: var(--card-bg);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  border-top: 1px solid var(--border-color);
-}
-
-.tag {
-  display: inline-block;
-  padding: 0.25rem 0.6rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: #fff;
-}
-
-.tag.animation { background: #FF6B6B; }
-.tag.rigging { background: #4ECDC4; }
-.tag.modeling { background: #45B7D1; }
-.tag.maya { background: #96CEB4; }
-.tag.blender { background: #FFEAA7; color: #2d3436; }
-
-.art-card-img-placeholder {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #1e1e1e;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .art-card-img {
@@ -322,6 +255,49 @@ body {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   display: block;
+}
+
+.cyber-case {
+  display: block;
+  width: 437px;
+  height: 437px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  opacity: 0.85;
+}
+
+.cyber-case-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0.8;  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.4));}
+
+.cyber-cover {
+  width: 294px;
+  height: 294px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  position: absolute;
+  left: 170px;
+  top: 72px;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.art-card.no-bg:hover .cyber-cover {
+  transform: translateX(30px);
+}
+
+.cyber-cover.spin {
+  animation: spin 1s ease-in-out;
+  transform-origin: center center;
+}
+
+@keyframes spin {
+  0% { transform: translateX(30px); }
+  100% { transform: translateX(30px) rotate(720deg); }
 }
 
 .art-card-label {
