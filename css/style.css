@@ -220,10 +220,9 @@ body {
 /* ── Art Grid ── */
 .art-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  max-width: 900px;
-  margin: 0 auto;
+  grid-template-columns: repeat(2, max-content);
+  justify-content: center;
+  gap: 2rem;
   padding: 2rem 1.5rem;
 }
 
@@ -264,7 +263,7 @@ body {
   object-fit: contain;
   position: relative;
   z-index: 2;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .cyber-case-back {
@@ -284,6 +283,10 @@ body {
   top: 72px;
   z-index: 1;
   pointer-events: auto;
+}
+
+.art-grid .art-card.no-bg:last-child {
+  padding-right: 80px;
 }
 
 .art-card.no-bg:hover .cyber-cover {
@@ -306,9 +309,9 @@ body {
   color: #bbb;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 960px) {
   .art-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: max-content;
   }
 }
 

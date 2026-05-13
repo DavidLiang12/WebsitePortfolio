@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const projectSound = new Audio('../Sound/CD.MP3');
   document.querySelectorAll('a[href*="games/"], a[href*="art/"]').forEach(link => {
     if (link.href.includes('cyberpunk-character.html')) return;
+    if (link.href.includes('pixar-studio.html')) return;
     link.addEventListener('click', (e) => {
       e.preventDefault();
       projectSound.play();
@@ -40,6 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { once: true });
     });
   });
+
+  // Pixar cover click animation
+  const pixarLink = document.querySelector('a[href="art/pixar-studio.html"]');
+  if (pixarLink) {
+    pixarLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      projectSound.play();
+      const img = pixarLink.querySelector('.cyber-cover');
+      img.classList.add('spin');
+      setTimeout(() => {
+        window.location.href = pixarLink.href;
+      }, 1000);
+    });
+  }
 
   // Cyberpunk cover click animation
   const cyberLink = document.querySelector('a[href="art/cyberpunk-character.html"]');
