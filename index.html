@@ -3,64 +3,309 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - Home</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <nav class="navbar">
-    <div class="nav-buttons">
-      <a href="index.html" class="nav-button"><img src="images/UI/Home.png" alt="Home"></a>
-      <a href="games.html" class="nav-button"><img src="images/UI/Games.png" alt="Games"></a>
-      <a href="projects.html" class="nav-button"><img src="images/UI/OtherProjects.png" alt="Other Projects"></a>
-      <a href="art-3d.html" class="nav-button"><img src="images/UI/3d.png" alt="3D Art"></a>
-      <a href="art-2d.html" class="nav-button"><img src="images/UI/2d.png" alt="2D Art"></a>
-    </div>
-    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Toggle menu">&#9776;</button>
-    <ul class="nav-links-mobile">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="games.html">Games</a></li>
-      <li><a href="projects.html">Other Projects</a></li>
-      <li><a href="art-3d.html">3D Art</a></li>
-      <li><a href="art-2d.html">2D Art</a></li>
-    </ul>
-  </nav>
-  <main class="content">
+  <meta name="description" content="David Liang's portfolio of games, 3D art, and human-centered design.">
+  <meta name="theme-color" content="#f5dcb7">
+  <title>David Liang — Games, Art &amp; Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,800;9..144,900&display=swap" rel="stylesheet">
+  <!-- Page-local styling keeps the other portfolio sections unchanged. -->
+  <style>
+/* Used only by index.html and art-3d.html. Legacy pages use style.css. */
+:root {
+  color-scheme: light;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+a { color: inherit; }
+img { max-width: 100%; }
+h1, h2, p, figure { margin: 0; }
+.retro-page {
+  --paper: #f5dcb7;
+  --ink: #4b3b34;
+  --green: #397959;
+  --rust: #be421c;
+  --yellow: #ffca45;
+  --body-background: var(--paper);
+  --body-color: var(--ink);
+  --active-color: var(--green);
+  --line: #4b3b3459;
+  background: var(--body-background);
+  color: var(--body-color);
+  line-height: 1.6;
+  min-width: 280px;
+}
+.page-width { width: min(100% - 5rem, 1240px); margin-inline: auto; }
+.site-header { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-block: 1.65rem; }
+.site-logo { font-family: 'Fraunces', Georgia, serif; font-size: 2.2rem; font-weight: 900; letter-spacing: -.075em; line-height: 1; text-decoration: none; }
+.site-nav { display: flex; align-items: center; flex-wrap: wrap; gap: .35rem 1.65rem; }
+.site-nav a { padding: .65rem 0; text-decoration: none; font-size: .9375rem; font-weight: 500; position: relative; }
+.site-nav a::after { content: ''; position: absolute; height: 3px; bottom: .25rem; left: 0; right: 0; background: var(--active-color); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+.site-nav a[aria-current='page']::after, .site-nav a:hover::after { transform: scaleX(1); }
+.eyebrow { text-transform: uppercase; font-size: .8125rem; letter-spacing: .12em; font-weight: 700; line-height: 1.6; }
+.text-link { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; padding: .55rem 0; text-decoration: none; border: 0; border-bottom: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer; font-size: .9375rem; line-height: 1.5; }
+.text-link:hover { border-bottom-width: 2px; padding-bottom: calc(.55rem - 1px); }
+:focus-visible { outline: 3px solid var(--active-color); outline-offset: 5px; }
+.skip-link { position: absolute; z-index: 20; top: .5rem; left: .5rem; padding: .8rem 1rem; background: var(--body-color); color: var(--body-background); transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+.site-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; padding-block: 1.65rem 1.9rem; border-top: 1px solid var(--line); font-size: .8125rem; }
+.footer-contact { display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap; }
 
-    <!-- Hero: profile + intro -->
-    <div class="home-hero">
-      <div class="home-profile">
-        <img src="images/Me.jpg" alt="Profile photo" class="home-profile-img">
-        <div class="home-contact">
-          <div class="location-link">📍 Los Angeles, CA</div>
-          <span class="email-link" onclick="copyEmail()">✉ Email</span>
-          <a href="https://www.linkedin.com/in/david-liang-0a73032ab" target="_blank" class="linkedin-link">
-            <img src="images/linkedin.png" alt="LinkedIn" class="linkedin-icon">
-            LinkedIn
-          </a>
+/* Golden Hour homepage. */
+.home-title { font-family: 'Fraunces', Georgia, serif; font-weight: 900; letter-spacing: -.078em; font-size: clamp(5rem, 11.4vw, 10.75rem); line-height: .96; padding-block: 1.4rem 2.1rem; }
+.home-hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: .8rem; }
+.home-statement { background: var(--green); color: var(--paper); padding: clamp(1.7rem, 3.2vw, 3.1rem); border-top-right-radius: clamp(4rem, 10vw, 9rem); display: flex; flex-direction: column; align-items: flex-start; gap: 1.65rem; }
+.home-statement h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 900; font-size: clamp(2.7rem, 5.2vw, 5rem); line-height: .98; letter-spacing: -.06em; }
+.statement-copy { font-size: clamp(1rem, 1.4vw, 1.125rem); line-height: 1.65; max-width: 28rem; margin-top: auto; }
+.home-portrait-column { display: flex; flex-direction: column; gap: .8rem; min-width: 0; }
+.home-portrait { position: relative; flex: 1; min-height: 350px; background: #b47e52; }
+.home-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; object-position: 60% 53%; }
+.home-portrait figcaption { position: absolute; bottom: 1.1rem; left: 1.1rem; padding: .75rem 1rem; background: var(--paper); font-size: .8125rem; font-weight: 700; text-transform: uppercase; }
+.home-work-link { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.2rem 1.6rem; background: var(--yellow); color: var(--ink); text-decoration: none; font-size: clamp(1rem, 1.8vw, 1.35rem); font-weight: 700; }
+.home-work-link span { display: inline-block; transition: transform .2s ease; }
+.home-work-link:hover span { transform: translate(3px, 3px); }
+.home-curve-banner { margin-top: .8rem; height: clamp(6rem, 10.6vw, 9rem); position: relative; overflow: hidden; isolation: isolate; background: var(--rust); }
+.home-curve-lines { position: absolute; width: 81%; height: 240px; left: -13%; top: -224px; border: 18px solid var(--paper); border-radius: 0 0 195px 0; box-shadow: 0 14px 0 var(--rust), 0 32px 0 var(--yellow), 0 46px 0 var(--rust), 0 64px 0 var(--paper), 0 78px 0 var(--rust), 0 96px 0 var(--green); transform: rotate(-6deg); }
+.home-curve-caption { position: absolute; bottom: 1.05rem; right: 1.7rem; background: var(--rust); padding-left: .4rem; color: var(--paper); font-family: 'Fraunces', Georgia, serif; font-weight: 900; font-size: clamp(1.7rem, 3.2vw, 2.9rem); letter-spacing: -.055em; line-height: .94; text-align: right; }
+.home-about { display: grid; grid-template-columns: .85fr 1.3fr; gap: 4rem; padding-block: 4.5rem; }
+.section-intro h2 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(2.5rem, 4vw, 3.5rem); line-height: 1.03; letter-spacing: -.06em; font-weight: 900; margin-top: 1.15rem; }
+.about-copy p { font-size: 1rem; line-height: 1.85; }
+.about-copy p + p { margin-top: 1.3rem; }
+.home-games { padding-bottom: 3.8rem; }
+.section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; }
+.section-heading h2 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(2.15rem, 3.5vw, 3rem); font-weight: 900; line-height: 1.15; letter-spacing: -.06em; }
+.home-game-links { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.home-game-links a { display: flex; align-items: center; gap: 1.2rem; padding: 1.3rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-decoration: none; font-size: 1.25rem; font-weight: 600; }
+.home-game-links a > :last-child { margin-left: auto; }
+.home-game-links a:hover { color: var(--rust); }
+.game-number { font-family: 'Fraunces', Georgia, serif; font-size: 2.15rem; font-weight: 900; color: var(--rust); line-height: 1; }
+
+/* Midnight Stereo 3D gallery. */
+.stereo-page { --paper: #f6e7c7; --body-background: #1e302e; --body-color: var(--paper); --active-color: #e8ba46; --line: #f6e7c744; color-scheme: dark; min-height: 100svh; display: flex; flex-direction: column; }
+.stereo-page .site-header { border-bottom: 1px solid var(--line); }
+.stereo-main { flex: 1; }
+.stereo-heading { text-align: center; padding: 2.6rem 0 2.4rem; }
+.stereo-eyebrow { color: var(--active-color); display: flex; align-items: center; justify-content: center; gap: 1.3rem; }
+.stereo-eyebrow::before, .stereo-eyebrow::after { content: ''; width: 7rem; height: 4px; border-block: 1px solid currentColor; }
+.stereo-heading h1 { font-family: 'Archivo Black', 'Arial Black', Arial, sans-serif; font-size: clamp(4.5rem, 9vw, 8rem); font-weight: 900; line-height: 1; letter-spacing: -.07em; margin: 1rem 0 1.2rem; }
+.stereo-heading > p:last-child { font-size: 1rem; }
+.cd-collection { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 3.5rem; padding: .5rem 1rem 3rem; }
+.cd-project { min-width: 0; }
+.cd-project-link { display: flex; align-items: center; flex-direction: column; text-decoration: none; height: 100%; border-radius: 2px; }
+.cd-artwork { display: block; width: min(100%, 380px); aspect-ratio: 1; margin-inline: auto; }
+.cd-disc { width: 100%; height: auto; display: block; object-fit: contain; filter: drop-shadow(3px 9px 9px #08171388); transform-origin: 50% 50%; transition: transform .3s ease, filter .3s ease; }
+.cd-caption { display: block; width: 100%; text-align: center; margin-top: 1.6rem; }
+.cd-meta { color: var(--active-color); display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .7rem 1.2rem; font-size: .75rem; line-height: 1.6; text-transform: uppercase; letter-spacing: .09em; font-weight: 700; }
+.cd-meta::before { content: ''; display: block; height: 3px; width: 24px; background: #ec7045; }
+.cd-caption h2 { font-size: clamp(1.45rem, 2.3vw, 1.9rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.2; margin-top: .95rem; }
+.cd-tools { display: block; margin-top: .9rem; font-size: .8125rem; line-height: 1.7; text-transform: uppercase; letter-spacing: .025em; }
+.cd-project-link:hover .cd-disc, .cd-project-link:focus-visible .cd-disc { transform: rotate(7deg); filter: drop-shadow(4px 12px 12px #08171399); }
+.cd-project-link:hover h2, .cd-project-link:focus-visible h2 { color: var(--active-color); }
+.cd-project-link.is-spinning .cd-disc { animation: retro-cd-spin .85s cubic-bezier(.25,.1,.25,1); }
+@keyframes retro-cd-spin { from { transform: rotate(0); } to { transform: rotate(720deg); } }
+.stereo-stripes { height: 28px; width: 82%; border-radius: 0 80px 0 0; background: linear-gradient(180deg, #e8ba46 0% 25%, #ec7045 25% 50%, #994534 50% 75%, #5e3530 75%); }
+.stereo-page .site-footer { margin-top: 1.5rem; }
+.stereo-footer-note { text-transform: uppercase; font-size: .75rem; letter-spacing: .045em; }
+
+@media (min-width: 1500px) { .home-statement { min-height: 480px; } }
+@media (max-width: 900px) {
+  .page-width { width: calc(100% - 3rem); }
+  .site-header { gap: 1.4rem; }
+  .site-nav { gap: .35rem 1.1rem; }
+  .home-title { font-size: 11.9vw; }
+  .home-statement { gap: 1.3rem; padding: 1.8rem; }
+  .home-statement h2 { font-size: clamp(2.7rem, 5.6vw, 4rem); }
+  .home-portrait { min-height: 310px; }
+  .home-about { gap: 2rem; padding-block: 3.5rem; }
+  .cd-collection { gap: 2rem; padding-inline: 0; }
+}
+@media (max-width: 640px) {
+  .page-width { width: calc(100% - 2.5rem); }
+  .site-header { flex-wrap: wrap; padding-block: 1.3rem 1rem; gap: .9rem; }
+  .site-nav { width: 100%; gap: .1rem 1.1rem; }
+  .site-nav a { font-size: .875rem; padding-block: .65rem; }
+  .site-logo { font-size: 1.9rem; }
+  .home-title { font-size: clamp(4.8rem, 17.7vw, 6.8rem); line-height: .93; padding-block: 1.1rem 1.7rem; }
+  .home-hero-grid { grid-template-columns: 1fr; }
+  .home-statement { padding: 1.85rem; gap: 1.5rem; border-top-right-radius: 6rem; }
+  .home-statement h2 { font-size: clamp(3rem, 11vw, 4rem); }
+  .statement-copy { max-width: 28rem; }
+  .home-portrait { min-height: 0; aspect-ratio: 1.15; }
+  .home-portrait figcaption { bottom: .8rem; left: .8rem; font-size: .75rem; }
+  .home-work-link { padding: 1.1rem 1.3rem; }
+  .home-curve-banner { height: 93px; }
+  .home-curve-lines { width: 120%; left: -58%; top: -230px; }
+  .home-curve-caption { font-size: 1.8rem; right: .85rem; bottom: 1rem; }
+  .home-about { grid-template-columns: 1fr; gap: 1.8rem; padding-block: 3rem; }
+  .section-intro h2 { font-size: 2.7rem; }
+  .home-game-links { grid-template-columns: 1fr; gap: 1rem; }
+  .section-heading { flex-wrap: wrap; }
+  .site-footer { flex-direction: column; align-items: flex-start; gap: .8rem; padding-block: 1.5rem; }
+  .footer-contact { gap: 1.35rem; }
+  .stereo-heading { padding-block: 2.1rem 2.5rem; }
+  .stereo-eyebrow { font-size: .75rem; gap: .8rem; }
+  .stereo-eyebrow::before, .stereo-eyebrow::after { width: 2rem; flex: 0 0 2rem; }
+  .stereo-heading h1 { font-size: clamp(4.15rem, 15vw, 5.5rem); }
+  .cd-collection { grid-template-columns: 1fr; gap: 3.2rem; padding: 0 .25rem 2.5rem; }
+  .cd-artwork { width: min(100%, 340px); }
+  .cd-caption { margin-top: 1.3rem; }
+  .cd-caption h2 { font-size: 1.65rem; }
+  .cd-tools { font-size: .75rem; }
+  .stereo-stripes { width: 88%; height: 23px; }
+}
+@media (max-width: 350px) {
+  .page-width { width: calc(100% - 2rem); }
+  .site-nav { gap: .1rem .9rem; }
+  .site-nav a { font-size: .875rem; }
+  .home-title { font-size: 4.7rem; }
+  .home-statement { padding: 1.5rem; }
+  .home-statement h2 { font-size: 2.8rem; }
+  .stereo-eyebrow { letter-spacing: .065em; gap: .65rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  .cd-project-link:hover .cd-disc, .cd-project-link:focus-visible .cd-disc { transform: none; }
+}
+
+  </style>
+</head>
+<body class="retro-page home-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header page-width">
+    <a class="site-logo" href="index.html" aria-label="David Liang home">d/l</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="games.html">Games</a>
+      <a href="projects.html">Other Projects</a>
+      <a href="art-3d.html">3D Art</a>
+      <a href="art-2d.html">2D Art</a>
+    </nav>
+  </header>
+  <main id="main-content" class="home-main page-width">
+    <section class="home-hero" aria-labelledby="home-title">
+      <h1 id="home-title" class="home-title">David Liang.</h1>
+      <div class="home-hero-grid">
+        <div class="home-statement">
+          <p class="eyebrow">Games / Art / Design</p>
+          <h2>A playful<br>point of<br>view.</h2>
+          <p class="statement-copy">I make games and visual worlds with curiosity, care, and a love for the little details.</p>
+        </div>
+        <div class="home-portrait-column">
+          <figure class="home-portrait">
+            <img src="images/Me.jpg" alt="David Liang outdoors" width="720" height="720" fetchpriority="high">
+            <figcaption>Los Angeles, CA</figcaption>
+          </figure>
+          <a class="home-work-link" href="art-3d.html">Step into my work <span aria-hidden="true">↘</span></a>
         </div>
       </div>
-      <div class="home-intro">
-        <h1 class="home-name">David Liang</h1>
+      <div class="home-curve-banner" aria-label="Always exploring">
+        <span class="home-curve-lines" aria-hidden="true"></span>
+        <span class="home-curve-caption" aria-hidden="true">Always<br>exploring.</span>
+      </div>
+    </section>
+
+    <section class="home-about" aria-labelledby="about-title">
+      <div class="section-intro"><p class="eyebrow">A little about me</p><h2 id="about-title">Curiosity,<br>in every detail.</h2></div>
+      <div class="about-copy">
         <p>A student at Washington University in St. Louis, studying Computer Science, Human Centered Interaction and Design. I'm passionate about game development because it lets me be creative and turn ideas into reality. Most of my current work is in Unity, but I'm getting into Unreal for my newest project to keep exploring new ways of building experiences.</p>
         <p>I truly care about making a game feel polished and complete to the smallest details. Whether it's the sound effects of clicking a button or dialogs that tell a story, I think every element in a game should feel natural and intentional to the player. I enjoy working with teams and greatly value feedback from others, since that's often where I learn the most and see what needs to be improved from another perspective.</p>
         <p>Outside of game development, I love exploring other creative outlets — things like cooking, sketching, or working on cars. I also have a passion for interior design, a field I once considered pursuing.</p>
       </div>
-    </div>
+    </section>
 
-    <!-- Featured Games -->
-    <div class="home-section">
-      <h2 class="home-section-title">Featured Games</h2>
-      <div class="games-grid">
-        <a href="games/game1.html" class="game-card">
-          <img src="images/games/game1.jpg" alt="Game 1">
-        </a>
-        <a href="games/game2.html" class="game-card">
-          <img src="images/games/game2.jpg" alt="Game 2">
-        </a>
+    <section class="home-games" aria-labelledby="featured-title">
+      <div class="section-heading"><h2 id="featured-title">Featured Games</h2><a class="text-link" href="games.html">All games <span aria-hidden="true">↗</span></a></div>
+      <div class="home-game-links">
+        <a href="games/game1.html"><span class="game-number" aria-hidden="true">01</span><span>Game 1</span><span aria-hidden="true">↗</span></a>
+        <a href="games/game2.html"><span class="game-number" aria-hidden="true">02</span><span>Game 2</span><span aria-hidden="true">↗</span></a>
       </div>
-    </div>
-
+    </section>
   </main>
-  <script src="js/main.js"></script>
+  <footer class="site-footer page-width">
+    <p>David Liang · Los Angeles, CA</p>
+    <div class="footer-contact">
+      <button type="button" class="text-link copy-email" data-email="200446junqi@gmail.com">Copy email</button>
+      <a class="text-link" href="mailto:200446junqi@gmail.com">Email <span aria-hidden="true">↗</span></a>
+      <a class="text-link" href="https://www.linkedin.com/in/david-liang-0a73032ab" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+      <span class="sr-only" id="copy-status" role="status" aria-live="polite"></span>
+    </div>
+  </footer>
+  <script>
+(() => {
+  'use strict';
+
+  // Native links still work without JavaScript, with modifier keys, or if audio fails.
+  const projectLinks = document.querySelectorAll('[data-cd-link]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let navigationTimer;
+  let navigating = false;
+  let projectSound;
+
+  const resetNavigation = () => {
+    window.clearTimeout(navigationTimer);
+    navigating = false;
+    projectLinks.forEach(link => link.classList.remove('is-spinning'));
+  };
+
+  projectLinks.forEach(link => {
+    link.addEventListener('click', event => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank' || reducedMotion.matches) return;
+      event.preventDefault();
+      if (navigating) return;
+      navigating = true;
+      link.classList.add('is-spinning');
+
+      // Navigation is independent of playback so muted or failed audio cannot trap visitors.
+      navigationTimer = window.setTimeout(() => window.location.assign(link.href), 850);
+      try {
+        projectSound ||= new Audio('Sound/CD.MP3');
+        projectSound.currentTime = 0;
+        const playing = projectSound.play();
+        if (playing && typeof playing.catch === 'function') playing.catch(() => {});
+      } catch (_) {
+        // The original CD sound is optional; the project link is not.
+      }
+    });
+  });
+  window.addEventListener('pagehide', resetNavigation);
+  window.addEventListener('pageshow', resetNavigation);
+
+  const copyButton = document.querySelector('.copy-email');
+  const copyStatus = document.getElementById('copy-status');
+  let copyTimer;
+  if (copyButton) {
+    copyButton.addEventListener('click', async () => {
+      const email = copyButton.dataset.email;
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(email);
+        copied = true;
+      } catch (_) {
+        const input = document.createElement('textarea');
+        input.value = email;
+        input.setAttribute('readonly', '');
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.select();
+        try { copied = document.execCommand('copy'); } catch (_) { copied = false; }
+        input.remove();
+        copyButton.focus();
+      }
+      window.clearTimeout(copyTimer);
+      copyButton.textContent = copied ? 'Email copied!' : 'Copy email';
+      if (copyStatus) copyStatus.textContent = copied ? 'Email address copied to your clipboard.' : 'Could not copy the address. Use the Email link to get in touch.';
+      copyTimer = window.setTimeout(() => { copyButton.textContent = 'Copy email'; }, 2200);
+    });
+  }
+})();
+
+  </script>
 </body>
 </html>
