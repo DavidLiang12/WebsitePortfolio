@@ -1,0 +1,77 @@
+/* Shared navigation across both the retro and legacy pages. */
+.portfolio-header { position: relative; z-index: 10; color: var(--body-color, var(--ink, #4b3b34)); font-family: 'DM Sans', Arial, sans-serif; border-bottom: 1px solid var(--line, #4b3b3433); }
+.portfolio-header-inner { width: min(100% - 5rem, 1240px); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.5rem 0; }
+.portfolio-logo { font-family: 'Fraunces', Georgia, serif; font-size: 2.2rem; font-weight: 900; letter-spacing: -.075em; line-height: 1; color: inherit; text-decoration: none; }
+.portfolio-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.8rem; font-size: .9375rem; line-height: 1.5; }
+.portfolio-nav a, .portfolio-nav summary { display: flex; align-items: center; gap: .6rem; padding: .65rem 0; color: inherit; font-weight: 500; text-decoration: none; cursor: pointer; }
+.portfolio-nav > a, .portfolio-nav summary { border-bottom: 2px solid transparent; }
+.portfolio-nav > a:hover, .portfolio-nav > a[aria-current], .nav-group.is-current summary, .nav-group[open] summary { border-bottom-color: var(--active-color, var(--green, #397959)); }
+.portfolio-nav :focus-visible, .portfolio-logo:focus-visible { outline: 3px solid var(--active-color, var(--green, #397959)); outline-offset: 4px; }
+.nav-group { position: relative; }
+.nav-group summary { list-style: none; }
+.nav-group summary::-webkit-details-marker { display: none; }
+.nav-chevron { width: .4rem; height: .4rem; border-right: 1.5px solid; border-bottom: 1.5px solid; transform: rotate(45deg) translateY(-2px); }
+.nav-group[open] .nav-chevron { transform: rotate(225deg) translate(-1px,-1px); }
+.nav-dropdown { position: absolute; top: 100%; left: -.9rem; min-width: 11rem; padding: .45rem; border: 1px solid #4b3b3444; background: #f5dcb7; color: #4b3b34; box-shadow: 4px 6px 0 #4b3b341a; }
+.portfolio-nav .nav-dropdown a { white-space: nowrap; padding: .65rem .8rem; }
+.portfolio-nav .nav-dropdown a:hover, .portfolio-nav .nav-dropdown a:focus-visible, .portfolio-nav .nav-dropdown a[aria-current] { background: #397959; color: #fff4dd; }
+/* The shared header is in normal flow on legacy pages, too. */
+.portfolio-header + .content { padding-top: 2rem; }
+.section-placeholder { max-width: 1240px; margin: 0 auto; padding-inline: 2.5rem; }
+.section-placeholder h1 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(2.5rem,6vw,5rem); }
+.section-placeholder p { margin-top: 1rem; }
+.portfolio-main { padding-bottom: 4.5rem; }
+.landing-intro { padding: 3.5rem 0 3rem; }
+.landing-intro h1 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(3.5rem, 7.8vw, 7.5rem); line-height: 1; font-weight: 900; letter-spacing: -.035em; margin: 1.25rem 0 1.6rem; }
+.landing-deck { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.landing-deck > p { max-width: 35rem; font-size: 1.125rem; }
+.selected-work { padding: 1rem 0 3.5rem; }
+.feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.feature-card { display: block; text-decoration: none; min-width: 0; }
+.feature-image { aspect-ratio: 4 / 3; overflow: hidden; background: #397959; }
+.feature-image img { display: block; width: 100%; height: 100%; object-fit: contain; transition: transform .25s ease; }
+.feature-card:first-child .feature-image { background: #ded8ca; border-top-right-radius: 5rem; }
+.feature-card:last-child .feature-image { background: #26342f; }
+.feature-card:hover .feature-image img { transform: scale(1.03); }
+.feature-caption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+.feature-caption h3 { margin: .4rem 0 0; font-size: 1.35rem; letter-spacing: -.03em; }
+.feature-caption > span { font-size: 1.6rem; }
+.feature-card:hover h3 { color: var(--rust); }
+.explore-section { scroll-margin-top: 2rem; }
+.explore-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .85rem; }
+.explore-card { padding: 2rem; background: #397959; color: #fff4dd; display: flex; flex-direction: column; align-items: stretch; }
+.explore-card:nth-child(2) { background: #ffca45; color: #4b3b34; }
+.explore-card:nth-child(3) { background: #a9361c; }
+.explore-card h3 { font-family: 'Fraunces', Georgia, serif; font-size: 2.8rem; letter-spacing: -.05em; margin: 1.5rem 0 .6rem; line-height: 1.1; }
+.explore-card p { margin-bottom: 1.5rem; flex: 1; }
+.explore-card a { display: flex; justify-content: space-between; gap: 1rem; text-decoration: none; border-top: 1px solid currentColor; padding: .85rem 0; }
+.explore-card a:hover { text-decoration: underline; text-underline-offset: .25rem; }
+.about-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem,5vw,5rem); align-items: start; padding: 0 0 2rem; }
+.about-portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 60% 53%; border-top-right-radius: 5rem; }
+.about-portrait figcaption { font-size: .8125rem; border-bottom: 1px solid var(--line); padding: .8rem 0; }
+.about-layout h2, .audio-message h2 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(2.5rem,4vw,3.6rem); line-height: 1.05; letter-spacing: -.05em; margin: 1rem 0 1.5rem; }
+.about-layout .text-link { margin-top: 1.5rem; }
+.audio-shelf { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 3rem; padding: 2.5rem; background: #397959; color: #fff4dd; border-top-right-radius: 6rem; }
+.record-art { aspect-ratio: 1; width: min(100%,360px); margin: auto; border-radius: 50%; display: grid; place-items: center; background: repeating-radial-gradient(circle,#202a26 0 3px,#3b4941 4px,#202a26 5px 7px); box-shadow: 6px 12px 0 #16241d44; }
+.record-label { border-radius: 50%; width: 36%; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; text-align: center; background: #ffca45; color: #4b3b34; font-family: 'Fraunces',Georgia,serif; font-size: 2.5rem; font-weight: 900; line-height: 1; }
+.record-label span { font-family: 'DM Sans',Arial,sans-serif; font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; margin-top: .65rem; }
+.audio-message .text-link { margin-top: 1.5rem; }
+@media (max-width: 900px) { .portfolio-header-inner { width: calc(100% - 3rem); } .portfolio-nav { gap: .25rem 1.25rem; } .explore-card { padding: 1.5rem; } }
+@media (max-width: 640px) {
+  .portfolio-header-inner { width: calc(100% - 2.5rem); align-items: flex-start; flex-direction: column; padding: 1.2rem 0 .7rem; gap: .8rem; }
+  .portfolio-nav { width: 100%; gap: .2rem 1rem; font-size: .875rem; }
+  .portfolio-logo { font-size: 1.9rem; }
+  .landing-intro { padding: 2rem 0; }
+  .landing-intro h1 { font-size: clamp(3rem,12vw,4.8rem); }
+  .landing-deck { flex-direction: column; align-items: flex-start; gap: .8rem; }
+  .feature-grid, .explore-grid, .about-layout, .audio-shelf { grid-template-columns: 1fr; }
+  .feature-grid { gap: 2rem; }
+  .feature-image { aspect-ratio: 4 / 3; }
+  .selected-work { padding-bottom: 2.5rem; }
+  .explore-card h3 { margin-top: 1rem; }
+  .about-portrait { max-width: 400px; }
+  .audio-shelf { padding: 2rem 1.5rem; gap: 2rem; border-top-right-radius: 4rem; }
+  .record-art { max-width: 260px; }
+  .portfolio-main { padding-bottom: 3rem; }
+}
+@media (prefers-reduced-motion: reduce) { .feature-image img { transition: none; } }
