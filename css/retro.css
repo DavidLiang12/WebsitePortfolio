@@ -77,7 +77,7 @@ h1, h2, p, figure { margin: 0; }
 /* Midnight Stereo 3D gallery. */
 .stereo-page { --paper: #f6e7c7; --body-background: #1e302e; --body-color: var(--paper); --active-color: #e8ba46; --line: #f6e7c744; color-scheme: dark; min-height: 100svh; display: flex; flex-direction: column; }
 .stereo-page .site-header { border-bottom: 1px solid var(--line); }
-.stereo-main { flex: 1; }
+.stereo-main { flex: 1; display: flex; flex-direction: column; }
 .stereo-heading { text-align: center; padding: 2.6rem 0 2.4rem; }
 .stereo-eyebrow { color: var(--active-color); display: flex; align-items: center; justify-content: center; gap: 1.3rem; }
 .stereo-eyebrow::before, .stereo-eyebrow::after { content: ''; width: 7rem; height: 4px; border-block: 1px solid currentColor; }
@@ -97,8 +97,8 @@ h1, h2, p, figure { margin: 0; }
 .cd-project-link:hover h2, .cd-project-link:focus-visible h2 { color: var(--active-color); }
 .cd-project-link.is-spinning .cd-disc { animation: retro-cd-spin .85s cubic-bezier(.25,.1,.25,1); }
 @keyframes retro-cd-spin { from { transform: rotate(0); } to { transform: rotate(720deg); } }
-.stereo-stripes { height: 28px; width: 82%; border-radius: 0 80px 0 0; background: linear-gradient(180deg, #e8ba46 0% 25%, #ec7045 25% 50%, #994534 50% 75%, #5e3530 75%); }
-.stereo-page .site-footer { margin-top: 1.5rem; }
+.stereo-stripes { margin-top: auto; flex-shrink: 0; height: 28px; width: 82%; border-radius: 0 80px 0 0; background: linear-gradient(180deg, #e8ba46 0% 25%, #ec7045 25% 50%, #994534 50% 75%, #5e3530 75%); }
+.stereo-page .site-footer { margin-top: 0; }
 .stereo-footer-note { text-transform: uppercase; font-size: .75rem; letter-spacing: .045em; }
 
 @media (min-width: 1500px) { .home-statement { min-height: 480px; } }
