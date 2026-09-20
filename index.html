@@ -19,7 +19,6 @@
   --rust: #b93825;
   --cassette-orange: #dc632d;
   --cassette-gold: #d9a12e;
-  --cassette-pink: #df8797;
   --body-background: var(--paper);
   --body-color: var(--ink);
   --active-color: var(--rust);
@@ -45,12 +44,20 @@
 .cassette-home h2 { font-size: clamp(2rem, 3.5vw, 3.25rem); line-height: 1.08; }
 .cassette-home h3 { line-height: 1.25; }
 .cassette-home section[id] { scroll-margin-top: 2rem; }
+.cassette-intro {
+  min-height: calc(100vh - var(--cassette-header-height, 0px));
+  min-height: calc(100dvh - var(--cassette-header-height, 0px));
+  display: flex;
+  flex-direction: column;
+}
 .cassette-hero {
+  flex: 1;
+  align-content: center;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.13fr);
   gap: 6%;
   align-items: center;
-  padding-block: clamp(2.5rem, 4.5vw, 4.5rem) 2rem;
+  padding-block: clamp(1.75rem, 3.5vh, 3rem);
 }
 .cassette-identity h1 {
   color: var(--rust);
@@ -58,186 +65,151 @@
   line-height: .88;
   margin-block: 1.7rem;
 }
-.cassette-identity h1 span { color: var(--ink); }
+/* Offset the font's left side bearings so the visible D and L align with the copy. */
+.cassette-identity h1 span { display: block; transform: translateX(-.06em); }
 .cassette-tagline { font-size: clamp(1.1rem, 2vw, 1.5rem); }
-.cassette-photo-column { min-width: 0; }
-/* Keep the photograph's complete 3:2 frame at every viewport size. */
-.cassette-portrait img { display: block; width: 100%; height: auto; object-fit: contain; }
-.cassette-portrait figcaption {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: .25rem 1rem;
-  padding-top: .7rem;
-  font-size: .6875rem;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-.cassette-photo-note { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
-.cassette-color-dots { display: flex; flex-shrink: 0; }
-.cassette-color-dots i { display: block; width: 25px; height: 25px; border-radius: 50%; background: var(--rust); }
-.cassette-color-dots i + i { margin-left: -3px; background: var(--cassette-orange); }
-.cassette-color-dots i:last-child { background: var(--cassette-gold); }
-.cassette-tape { position: relative; height: clamp(110px, 15vw, 205px); }
-.cassette-tape svg { display: block; width: 100%; height: 100%; }
-.cassette-stripe-red { fill: var(--rust); }
-.cassette-stripe-orange { fill: var(--cassette-orange); }
-.cassette-stripe-gold { fill: var(--cassette-gold); }
-.cassette-tape-copy { position: absolute; inset: 29% 0 auto; height: 36%; display: flex; align-items: center; }
-.cassette-tape-copy p { max-width: 72%; font-size: clamp(.8125rem, 2.6vw, 2.25rem); line-height: 1.15; letter-spacing: -.045em; text-transform: uppercase; color: var(--paper); }
-.cassette-about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.13fr); gap: 6%; padding-block: clamp(3rem, 5.5vw, 5rem); }
-.cassette-about-heading h2 { margin-top: 1.2rem; }
-.cassette-about-heading .text-link { margin-top: 1.8rem; gap: 2rem; font-weight: 700; }
-.cassette-about .about-copy p { line-height: 1.8; }
-.cassette-featured {
-  position: relative;
-  padding-block: clamp(2.5rem, 4vw, 4rem) clamp(3rem, 5vw, 5rem);
-  background-color: var(--cassette-pink);
-  background-image: var(--cassette-texture);
-  background-size: 4px 4px;
-  /* Dark focus and divider colors stay readable on the pink panel. */
-  --active-color: var(--ink);
-  --line: #30272070;
-}
-.cassette-featured::before { content: ''; position: absolute; inset: 0 0 auto; height: 10px; background: linear-gradient(90deg, var(--rust) 0 40%, var(--cassette-orange) 40% 73%, var(--cassette-gold) 73%); }
-.cassette-section-heading { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; }
-.cassette-cd-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5%; margin-top: 2rem; }
-.cassette-cd-grid article { min-width: 0; }
-.cassette-cd-link { display: flex; flex-direction: column; height: 100%; text-decoration: none; }
-.cassette-cd-artwork { position: relative; padding: 1.25rem 10% 1.8rem; }
-.cassette-track { position: absolute; top: .5rem; left: 0; font-size: .75rem; letter-spacing: .1em; }
-.cassette-cd-artwork .cd-disc { width: 100%; max-width: 400px; margin-inline: auto; filter: drop-shadow(4px 10px 8px #30272030); }
-.cassette-cd-caption { flex: 1; border-block: 1px solid var(--line); padding-block: 1rem 1.1rem; }
-.cassette-cd-caption h3 { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: clamp(1.2rem, 2vw, 1.6rem); margin-top: .6rem; }
-.cassette-cd-caption h3 span { flex-shrink: 0; }
-.cassette-cd-link:hover .cd-disc,
-.cassette-cd-link:focus-visible .cd-disc { transform: rotate(7deg); filter: drop-shadow(5px 13px 10px #30272040); }
-.cassette-cd-link:hover h3,
-.cassette-cd-link:focus-visible h3 { text-decoration: underline; text-underline-offset: .2em; }
-.cassette-cd-link.is-spinning .cd-disc { animation: retro-cd-spin .85s cubic-bezier(.25,.1,.25,1); }
-.cassette-explore { padding-block: clamp(3rem, 5vw, 5rem); }
-.cassette-explore-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; margin-top: 1.8rem; }
-.cassette-explore-card { display: flex; flex-direction: column; padding: clamp(1.3rem, 2.5vw, 2.2rem); color: var(--paper); background: var(--rust); --active-color: var(--paper); }
-.cassette-explore-card:nth-child(2) { background: var(--cassette-gold); color: var(--ink); --active-color: var(--ink); }
-.cassette-explore-card:nth-child(3) { background: var(--ink); }
-.cassette-explore-card h3 { font-size: clamp(1.8rem, 3vw, 2.75rem); margin-top: 1rem; }
-.cassette-explore-card p { flex: 1; font-size: .9375rem; margin-block: .8rem 1.5rem; }
-.cassette-explore-card a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 44px; padding-block: .8rem; border-top: 1px solid currentColor; font-size: .9375rem; text-decoration: none; }
-.cassette-explore-card a:hover { text-decoration: underline; text-underline-offset: .25rem; }
-.cassette-home .site-footer { gap: 1rem 2rem; }
+.cassette-contact { display: flex; flex-wrap: wrap; gap: .5rem 1.6rem; }
+.cassette-contact .text-link { min-height: 44px; }
+.cassette-tape { flex: none; height: clamp(27px, 3vw, 48px); background: linear-gradient(var(--rust) 0 33.3333%, var(--cassette-orange) 33.3333% 66.6667%, var(--cassette-gold) 66.6667%); }
 @media (max-width: 900px) {
-  .cassette-hero, .cassette-about { gap: 4%; }
+  .cassette-hero { gap: 4%; }
   .cassette-identity h1 { font-size: clamp(4.25rem, 10vw, 6rem); }
-  .cassette-photo-note { margin-top: 1.5rem; }
-  .cassette-explore-card { padding: 1.2rem; }
-  .cassette-home .site-footer { flex-wrap: wrap; }
 }
 @media (max-width: 640px) {
   .cassette-home .nav-group:last-of-type .nav-dropdown { left: auto; right: 0; }
-  .cassette-hero { grid-template-columns: 1fr; gap: 2rem; padding-block: 2rem 1.5rem; }
+  .cassette-hero { grid-template-columns: 1fr; gap: 2rem; padding-block: 2rem; }
   .cassette-identity h1 { font-size: clamp(4.5rem, 19vw, 7rem); margin-block: 1.4rem; }
   .cassette-home h2 { font-size: clamp(1.85rem, 7vw, 2.6rem); }
   .cassette-home .eyebrow { font-size: .6875rem; letter-spacing: .075em; }
-  .cassette-tape { height: 95px; }
-  .cassette-tape-copy p { max-width: 75%; font-size: clamp(.75rem, 2.7vw, 1.1rem); }
-  .cassette-about { grid-template-columns: 1fr; gap: 1.8rem; padding-block: 2.5rem; }
-  .cassette-about-heading .text-link { margin-top: 1.1rem; }
-  .cassette-featured { padding-block: 2.5rem; }
-  .cassette-section-heading { gap: .6rem; }
-  .cassette-cd-grid { grid-template-columns: 1fr; gap: 2.2rem; margin-top: 1.5rem; }
-  .cassette-cd-artwork { padding: 1rem 10% 1.5rem; }
-  .cassette-cd-artwork .cd-disc { max-width: 340px; }
-  .cassette-cd-caption h3 { font-size: 1.35rem; }
-  .cassette-explore { padding-block: 2.5rem; }
-  .cassette-explore-grid { grid-template-columns: 1fr; gap: .6rem; }
-  .cassette-explore-card { padding: 1.5rem; }
-  .cassette-explore-card h3 { font-size: 2.3rem; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .cassette-cd-link:hover .cd-disc,
-  .cassette-cd-link:focus-visible .cd-disc { transform: none; }
+/* Open gallery: a manually controlled carousel, with no automatic rotation. */
+.cassette-games { min-width: 0; width: 100%; max-width: 540px; justify-self: end; }
+.cassette-games-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem; }
+.cassette-games-heading h2 { font-size: clamp(1.4rem, 2.3vw, 1.9rem); }
+.cassette-game-stage { width: clamp(240px, calc(100dvh - 520px), 360px); max-width: 82%; aspect-ratio: 1; margin: 1.4rem auto; }
+.cassette-game-disc { --disc-ground: var(--rust); --disc-ink: var(--paper); position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%; filter: drop-shadow(4px 10px 8px #30272035); container-type: inline-size; }
+.cassette-game-print { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; color: var(--disc-ink); background: var(--disc-ground); border: 1px solid #f3ead280; outline: 1px solid #30272040; outline-offset: 1px; mask-image: radial-gradient(circle, transparent 0 7%, #000 7.2%); }
+.cassette-game-print::before { content: ''; position: absolute; width: 120%; height: 36%; left: -10%; bottom: 11%; transform: rotate(-28deg); background: linear-gradient(var(--cassette-orange) 0 50%, var(--cassette-gold) 50%); opacity: .9; }
+.cassette-game-print::after { content: ''; position: absolute; inset: 40%; border: 8px solid #ded3b49c; border-radius: 50%; box-shadow: 0 0 0 1px #30272055, inset 0 0 0 1px #30272055; }
+.cassette-disc-label, .cassette-disc-note { position: absolute; z-index: 1; left: 10%; width: 80%; text-align: center; font-size: clamp(9px, 3.1cqw, 11px); line-height: 1.3; letter-spacing: .06em; text-transform: uppercase; }
+.cassette-disc-label { top: 13%; }
+.cassette-disc-note { bottom: 12%; }
+.cassette-disc-word, .cassette-disc-number { position: absolute; z-index: 1; left: 10%; width: 80%; text-align: center; font-family: 'Archivo Black', 'Arial Black', Arial, sans-serif; font-weight: 900; line-height: 1; letter-spacing: -.075em; }
+.cassette-disc-word { top: 30%; font-size: 17cqw; }
+.cassette-disc-number { top: 58%; font-size: 13cqw; }
+.cassette-game-disc[data-game='1'] { --disc-ground: var(--cassette-gold); --disc-ink: var(--ink); }
+.cassette-game-disc[data-game='1'] .cassette-game-print::before { height: 130%; width: 28%; left: 55%; bottom: -10%; background: var(--rust); transform: rotate(30deg); }
+.cassette-game-disc[data-game='2'] { --disc-ground: var(--ink); --disc-ink: var(--paper); }
+.cassette-game-disc[data-game='2'] .cassette-game-print::before { height: 100%; width: 100%; left: 0; bottom: 0; transform: none; background: repeating-radial-gradient(circle at 90% 10%, transparent 0 21px, var(--cassette-orange) 22px 32px, transparent 33px 43px); opacity: .65; }
+.cassette-game-caption { text-align: center; min-height: 3.8rem; }
+.cassette-game-caption h3 { font-size: 1.4rem; margin: 0; }
+.cassette-game-caption .eyebrow { font-size: .625rem; margin-top: .35rem; }
+.cassette-game-controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: .75rem; padding-top: .8rem; border-top: 1px solid var(--line); }
+.cassette-game-controls[hidden] { display: none; }
+.cassette-game-arrow { display: grid; place-items: center; min-width: 52px; min-height: 44px; border: 1px solid var(--line); background: transparent; color: var(--ink); font: 400 1.6rem/1 Arial, sans-serif; cursor: pointer; }
+.cassette-game-arrow:hover { background: var(--ink); color: var(--paper); }
+.cassette-game-arrow:active { transform: translateY(1px); }
+.cassette-game-position { font-size: .75rem; letter-spacing: .15em; font-variant-numeric: tabular-nums; }
+.cassette-identity .cassette-contact { margin-top: 1.8rem; }
+.cassette-intro-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-bottom: 1rem; font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; }
+@media (max-width: 640px) {
+  .cassette-games { max-width: 440px; justify-self: center; }
+  .cassette-games-heading h2 { font-size: 1.5rem; }
+  .cassette-game-stage { width: min(82%, 340px); max-width: none; }
+  .cassette-identity .cassette-contact { margin-top: 1rem; }
 }
   </style>
 </head>
 <body class="retro-page home-page cassette-home">
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <header class="portfolio-header"><div class="portfolio-header-inner"><a class="portfolio-logo" href="index.html" aria-label="David Liang home">d/l</a><nav class="portfolio-nav" aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><details class="nav-group"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="games.html">Games</a><a href="projects.html">Other Projects</a></div></details><details class="nav-group"><summary>Art<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="art-2d.html">2D Art</a><a href="art-3d.html">3D Art</a></div></details><a href="audio.html">Audio</a><a href="#about-me">About Me</a></nav></div></header>
+  <header class="portfolio-header"><div class="portfolio-header-inner"><a class="portfolio-logo" href="index.html" aria-label="David Liang home">d/l</a><nav class="portfolio-nav" aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><details class="nav-group"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="games.html">Games</a><a href="projects.html">Other Projects</a></div></details><details class="nav-group"><summary>Art<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="art-2d.html">2D Art</a><a href="art-3d.html">3D Art</a></div></details><a href="audio.html">Audio</a><a href="about.html">About Me</a></nav></div></header>
   <main id="main-content" class="cassette-main">
+    <div class="cassette-intro">
     <section class="cassette-hero page-width" aria-labelledby="home-title">
       <div class="cassette-identity">
-        <p class="eyebrow">Games, art &amp; audio / Creative portfolio</p>
-        <h1 id="home-title">David<br>Liang<span>.</span></h1>
-        <p class="cassette-tagline">A playful point of view.</p>
+        <p class="eyebrow">Creative Portfolio</p>
+        <h1 id="home-title" aria-label="David Liang"><span>David</span><span>Liang</span></h1>
+        <p class="cassette-tagline">Game Designer | Developer</p>
+        <div class="cassette-contact"><a class="text-link" href="mailto:200446junqi@gmail.com">Email <span aria-hidden="true">↗</span></a><a class="text-link" href="https://www.linkedin.com/in/david-liang-0a73032ab" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></div>
       </div>
-      <div class="cassette-photo-column">
-        <figure class="cassette-portrait">
-          <img src="images/Me.jpg" alt="David Liang reaching toward a cat in a window" width="1920" height="1280" fetchpriority="high">
-          <figcaption><span>Behind the work</span><span>Los Angeles, CA</span></figcaption>
-        </figure>
-        <div class="cassette-photo-note"><span class="eyebrow">Made with curiosity.</span><span class="cassette-color-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
-      </div>
-    </section>
-
-    <div class="cassette-tape">
-      <svg viewBox="0 0 1024 180" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <path class="cassette-stripe-red" d="M0 52H710L880 -118H974L740 116H0Z"/>
-        <path class="cassette-stripe-orange" d="M0 116H740L974 -118H1001L767 143H0Z"/>
-        <path class="cassette-stripe-gold" d="M0 143H767L1001 -118H1028L794 170H0Z"/>
-      </svg>
-      <div class="cassette-tape-copy page-width"><p>Worlds to play. Things to feel.</p></div>
-    </div>
-
-    <section id="about-me" class="cassette-about page-width" aria-labelledby="about-title">
-      <div class="cassette-about-heading">
-        <p class="eyebrow">01 / About me</p>
-        <h2 id="about-title">Small details.<br>Big possibilities.</h2>
-        <a class="text-link" href="#featured-work">Explore my work <span aria-hidden="true">↗</span></a>
-      </div>
-      <div class="about-copy">
-        <p>A student at Washington University in St. Louis, studying Computer Science, Human Centered Interaction and Design. I'm passionate about game development because it lets me be creative and turn ideas into reality. Most of my current work is in Unity, but I'm getting into Unreal for my newest project to keep exploring new ways of building experiences.</p>
-        <p>I truly care about making a game feel polished and complete to the smallest details. Whether it's the sound effects of clicking a button or dialogs that tell a story, I think every element in a game should feel natural and intentional to the player. I enjoy working with teams and greatly value feedback from others, since that's often where I learn the most and see what needs to be improved from another perspective.</p>
-        <p>Outside of game development, I love exploring other creative outlets — things like cooking, sketching, or working on cars. I also have a passion for interior design, a field I once considered pursuing.</p>
-      </div>
-    </section>
-
-    <section id="featured-work" class="cassette-featured" aria-labelledby="featured-title">
-      <div class="page-width">
-        <div class="cassette-section-heading"><h2 id="featured-title">Featured Work</h2><p class="eyebrow">02 / Art in rotation</p></div>
-        <div class="cassette-cd-grid">
-          <article>
-            <a class="cassette-cd-link" href="art/pixar-studio.html" data-cd-link aria-labelledby="pixar-title">
-              <div class="cassette-cd-artwork"><span class="cassette-track" aria-hidden="true">01</span><img class="cd-disc" src="images/PIXARCover.png" alt="Inside the PIXAR Studio CD artwork" width="578" height="578" loading="lazy" decoding="async"></div>
-              <div class="cassette-cd-caption"><p class="eyebrow">Animation / Maya / 2023</p><h3 id="pixar-title">Inside the PIXAR Studio <span aria-hidden="true">↗</span></h3></div>
-            </a>
-          </article>
-          <article>
-            <a class="cassette-cd-link" href="art/cyberpunk-character.html" data-cd-link aria-labelledby="cyber-title">
-              <div class="cassette-cd-artwork"><span class="cassette-track" aria-hidden="true">02</span><img class="cd-disc" src="images/CyberCover.png" alt="Cyberpunk Character CD artwork" width="578" height="578" loading="lazy" decoding="async"></div>
-              <div class="cassette-cd-caption"><p class="eyebrow">Character / Maya + Blender / 2023</p><h3 id="cyber-title">Cyberpunk Character <span aria-hidden="true">↗</span></h3></div>
-            </a>
-          </article>
+      <section class="cassette-games" aria-labelledby="featured-games-title" aria-roledescription="carousel">
+        <div class="cassette-games-heading"><h2 id="featured-games-title">Featured Games</h2><span class="eyebrow">In rotation</span></div>
+        <div class="cassette-game-stage">
+          <div class="cassette-game-disc" data-game="0" role="img" aria-label="Placeholder CD cover for Game 01">
+            <div class="cassette-game-print" aria-hidden="true"><span class="cassette-disc-label">David Liang / Games</span><span class="cassette-disc-word">GAME</span><span class="cassette-disc-number">01</span><span class="cassette-disc-note">Cover artwork placeholder</span></div>
+          </div>
         </div>
-      </div>
+        <div class="cassette-game-caption" aria-live="polite" aria-atomic="true"><h3 class="cassette-game-title">Game 01</h3><p class="eyebrow">Cover artwork placeholder</p><span class="sr-only cassette-game-announcement">1 of 3</span></div>
+        <div class="cassette-game-controls" hidden>
+          <button class="cassette-game-arrow" type="button" data-game-step="-1" aria-label="Previous featured game"><span aria-hidden="true">←</span></button>
+          <span class="cassette-game-position" aria-hidden="true">01 / 03</span>
+          <button class="cassette-game-arrow" type="button" data-game-step="1" aria-label="Next featured game"><span aria-hidden="true">→</span></button>
+        </div>
+      </section>
     </section>
+    <div class="cassette-intro-bottom page-width"><span>Los Angeles, CA</span></div>
 
-    <section id="explore" class="cassette-explore page-width" aria-labelledby="explore-title">
-      <div class="cassette-section-heading"><h2 id="explore-title">Keep exploring.</h2><p class="eyebrow">03 / Follow your curiosity</p></div>
-      <div class="cassette-explore-grid">
-        <div class="cassette-explore-card"><span class="eyebrow">01 / Make &amp; play</span><h3>Projects</h3><p>Games and experiments in interactive design.</p><a href="games.html">Games <span aria-hidden="true">↗</span></a><a href="projects.html">Other Projects <span aria-hidden="true">↗</span></a></div>
-        <div class="cassette-explore-card"><span class="eyebrow">02 / Look closer</span><h3>Art</h3><p>Images, characters, and worlds in two and three dimensions.</p><a href="art-2d.html">2D Art <span aria-hidden="true">↗</span></a><a href="art-3d.html">3D Art <span aria-hidden="true">↗</span></a></div>
-        <div class="cassette-explore-card"><span class="eyebrow">03 / Tune in</span><h3>Audio</h3><p>A space for original music and songs.</p><a href="audio.html">Explore Audio <span aria-hidden="true">↗</span></a></div>
-      </div>
-    </section>
-  </main>
-  <footer class="site-footer page-width">
-    <p>David Liang · Los Angeles, CA</p>
-    <div class="footer-contact">
-      <button type="button" class="text-link copy-email" data-email="200446junqi@gmail.com">Copy email</button>
-      <a class="text-link" href="mailto:200446junqi@gmail.com">Email <span aria-hidden="true">↗</span></a>
-      <a class="text-link" href="https://www.linkedin.com/in/david-liang-0a73032ab" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-      <span class="sr-only" id="copy-status" role="status" aria-live="polite"></span>
+    <div class="cassette-tape" aria-hidden="true"></div>
     </div>
-  </footer>
+
+
+  </main>
+  <script>
+  (() => {
+    // Account for navigation wrapping and font loading without fixed offsets.
+    const header = document.querySelector('.portfolio-header');
+    const sizeIntro = () => document.documentElement.style.setProperty(
+      '--cassette-header-height', `${header.getBoundingClientRect().height}px`
+    );
+    sizeIntro();
+    if ('ResizeObserver' in window) new ResizeObserver(sizeIntro).observe(header);
+    else window.addEventListener('resize', sizeIntro);
+  })();
+  </script>
+  <script>
+  (() => {
+    const carousel = document.querySelector('.cassette-games');
+    const disc = carousel.querySelector('.cassette-game-disc');
+    const number = carousel.querySelector('.cassette-disc-number');
+    const title = carousel.querySelector('.cassette-game-title');
+    const position = carousel.querySelector('.cassette-game-position');
+    const announcement = carousel.querySelector('.cassette-game-announcement');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    // Sample labels until finished game titles and cover artwork are available.
+    const games = ['Game 01', 'Game 02', 'Game 03'];
+    let selected = 0;
+    let animation;
+    const changeGame = step => {
+      selected = (selected + step + games.length) % games.length;
+      const label = String(selected + 1).padStart(2, '0');
+      disc.dataset.game = String(selected);
+      disc.setAttribute('aria-label', `Placeholder CD cover for ${games[selected]}`);
+      number.textContent = label;
+      title.textContent = games[selected];
+      position.textContent = `${label} / ${String(games.length).padStart(2, '0')}`;
+      announcement.textContent = `${selected + 1} of ${games.length}`;
+      animation?.cancel();
+      if (!reducedMotion.matches && typeof disc.animate === 'function') {
+        animation = disc.animate([
+          { transform: `translateX(${step * 14}px) rotate(${step * 8}deg)` },
+          { transform: 'translateX(0) rotate(0deg)' }
+        ], { duration: 260, easing: 'ease-out' });
+      }
+    };
+    carousel.querySelectorAll('[data-game-step]').forEach(button => {
+      button.addEventListener('click', () => changeGame(Number(button.dataset.gameStep)));
+    });
+    carousel.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      changeGame(event.key === 'ArrowRight' ? 1 : -1);
+    });
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) animation?.cancel();
+    });
+    carousel.querySelector('.cassette-game-controls').hidden = false;
+  })();
+  </script>
   <script src="js/retro.js"></script>
   <script src="js/navigation.js"></script>
 </body>
