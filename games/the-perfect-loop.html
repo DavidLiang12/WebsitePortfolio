@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Perfect LOOP by David Liang: a cozy Unity puzzle game made for GMTK Game Jam 2025. Explore the design process, playtesting, and development.">
+  <meta name="theme-color" content="#f5dcb7">
+  <title>The Perfect LOOP — David Liang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&amp;display=swap" rel="stylesheet">
+  <!-- Golden Hour styles are local to this project page. -->
+  <style>
+:root {
+  color-scheme: light;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+h1, h2, p, figure, dl, dd { margin: 0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+.golden-project {
+  --paper: #f5dcb7;
+  --ink: #4b3b34;
+  --muted: #615046;
+  --green: #397959;
+  --on-green: #fff4dd;
+  --rust: #ad391b;
+  --yellow: #ffca45;
+  --line: #b6a086;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+}
+.site-width { width: min(100% - 5rem, 1240px); margin-inline: auto; }
+.project-width { width: min(100% - 5rem, 1120px); margin-inline: auto; }
+.site-header { border-bottom: 1px solid var(--line); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-block: 1.65rem; }
+.site-logo { font-family: 'Fraunces', Georgia, serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -.075em; line-height: 1; text-decoration: none; }
+.site-nav { display: flex; align-items: center; flex-wrap: wrap; gap: .35rem 1.65rem; }
+.site-nav a { padding: .65rem 0; text-decoration: none; font-size: .9375rem; font-weight: 500; position: relative; }
+.site-nav a::after { content: ''; position: absolute; height: 3px; bottom: .25rem; left: 0; right: 0; background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+.site-nav a[aria-current='location']::after, .site-nav a:hover::after { transform: scaleX(1); }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 5px; }
+.skip-link { position: absolute; z-index: 10; top: .5rem; left: .5rem; padding: .8rem 1rem; background: var(--ink); color: var(--paper); transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+.project-breadcrumb { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; padding-block: 1.7rem 2.2rem; color: var(--muted); font-size: .8125rem; }
+.project-breadcrumb a { padding-block: .35rem; text-decoration: none; }
+.project-breadcrumb a:hover { text-decoration: underline; text-underline-offset: .3em; }
+.project-breadcrumb span { letter-spacing: .08em; }
+.project-heading { display: grid; grid-template-columns: minmax(0, 1fr) clamp(10rem, 20vw, 16rem); align-items: end; gap: 2.5rem; margin-bottom: 2.2rem; }
+.eyebrow { color: var(--rust); font-size: .8125rem; font-weight: 700; letter-spacing: .12em; line-height: 1.6; margin-bottom: 1rem; }
+.project-title { font-family: 'Fraunces', Georgia, serif; font-size: clamp(3rem, 6.1vw, 5.5rem); font-weight: 700; line-height: 1.03; letter-spacing: -.055em; overflow-wrap: anywhere; }
+.project-title span { color: var(--rust); }
+/* The stripes run edge to edge through the green block, with no interior ends. */
+.project-mark {
+  height: clamp(8rem, 14vw, 11rem);
+  border-top-right-radius: 5rem;
+  background: linear-gradient(to bottom,
+    var(--green) 0 43%,
+    var(--paper) 43% 50%,
+    var(--green) 50% 55%,
+    var(--yellow) 55% 62%,
+    var(--green) 62% 67%,
+    #ec7045 67% 74%,
+    var(--green) 74%);
+}
+.project-film { margin-bottom: 3.3rem; }
+.film-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .8rem 1rem; background: var(--green); color: var(--on-green); font-size: .8125rem; font-weight: 600; letter-spacing: .06em; }
+.project-video { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 0; background: #332c27; }
+.project-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.film-edge { height: .5rem; background: linear-gradient(to right, var(--green) 0 35%, var(--yellow) 35% 60%, #be421c 60%); }
+.project-body { display: grid; grid-template-columns: 225px minmax(0, 1fr); gap: clamp(2rem, 4vw, 3.5rem); }
+.project-meta { align-self: start; background: var(--green); color: var(--on-green); padding: 1.7rem 1.45rem 1.9rem; border-top-right-radius: 3.2rem; }
+.meta-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; font-size: .8125rem; font-weight: 700; letter-spacing: .08em; margin-bottom: 1.8rem; }
+.project-meta dl { display: grid; gap: 1.65rem; }
+.meta-label { font-size: .75rem; letter-spacing: .09em; margin-bottom: .3rem; }
+.meta-value { font-size: 1rem; font-weight: 500; line-height: 1.55; overflow-wrap: anywhere; }
+.project-content { min-width: 0; }
+.section-heading { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.25rem; }
+.section-number { color: var(--rust); font-size: .8125rem; border-bottom: 2px solid currentColor; }
+.project-section h2 { min-width: 0; font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.9rem, 3vw, 2.5rem); font-weight: 600; line-height: 1.2; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.project-section p { color: var(--muted); font-size: 1.0625rem; line-height: 1.85; }
+.project-section + .project-section { border-top: 1px solid var(--line); padding-top: 2.2rem; margin-top: 2.6rem; }
+.project-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; align-items: start; margin-top: 1.6rem; }
+.project-images.single { grid-template-columns: 1fr; }
+.project-images figure { min-width: 0; background: #edd1a9; padding: .65rem; }
+.project-images img { width: 100%; height: auto; }
+.project-images figcaption { color: var(--muted); padding: .65rem .15rem .1rem; font-size: .75rem; line-height: 1.5; }
+.project-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem 2rem; padding-block: 1.8rem 2rem; border-top: 1px solid var(--line); margin-top: 4.5rem; }
+.collection-link { display: inline-flex; align-items: baseline; gap: 1.5rem; font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; line-height: 1.3; text-decoration: none; }
+.collection-link:hover { text-decoration: underline; text-underline-offset: .2em; }
+.collection-link span { color: var(--rust); }
+.footer-credit { color: var(--muted); font-size: .75rem; letter-spacing: .08em; }
+@media (max-width: 850px) {
+  .site-width, .project-width { width: min(100% - 3rem, 1120px); }
+  .header-inner { gap: 1.5rem; }
+  .site-nav { gap: .25rem 1.1rem; }
+  .project-body { grid-template-columns: 185px minmax(0, 1fr); gap: 1.8rem; }
+  .project-meta { padding: 1.5rem 1.1rem; }
+  .meta-heading { font-size: .75rem; }
+  .project-title { font-size: clamp(3rem, 7vw, 4.5rem); }
+  .project-heading { gap: 1.6rem; grid-template-columns: minmax(0, 1fr) 9rem; }
+  .project-mark { height: 8rem; border-top-right-radius: 3.5rem; }
+  .project-images { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .site-width, .project-width { width: calc(100% - 2.5rem); }
+  .header-inner { align-items: flex-start; padding-block: 1.25rem; }
+  .site-nav { justify-content: flex-end; gap: 0 1rem; }
+  .site-nav a { font-size: .8125rem; padding-block: .55rem; }
+  .project-breadcrumb { padding-block: 1.25rem 1.5rem; font-size: .75rem; gap: .4rem 1rem; }
+  .project-heading { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; margin-bottom: 1.7rem; }
+  .project-title { font-size: clamp(2.5rem, 10.2vw, 3.7rem); }
+  .eyebrow { font-size: .75rem; letter-spacing: .08em; }
+  .project-mark { width: 100%; height: 3.5rem; border-top-right-radius: 2rem; }
+  .project-film { margin-bottom: 2rem; }
+  .film-label { padding: .75rem; font-size: .75rem; letter-spacing: .03em; }
+  .project-body { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .project-meta { padding: 1.5rem; border-top-right-radius: 3rem; }
+  .meta-heading { font-size: .8125rem; margin-bottom: 1.3rem; }
+  .project-meta dl { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.3rem; }
+  .meta-item:last-child { grid-column: 1 / -1; }
+  .project-section p { font-size: 1rem; }
+  .project-section h2 { font-size: 2rem; }
+  .section-heading { gap: .8rem; }
+  .project-footer { margin-top: 3rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-nav a::after { transition: none; }
+}
+
+.project-intro { max-width: 48rem; color: var(--muted); font-size: 1.125rem; margin-bottom: 1.25rem; }
+.project-actions { display: flex; flex-wrap: wrap; gap: .8rem 1.5rem; align-items: center; margin-bottom: 2.2rem; }
+.play-link { display: inline-flex; align-items: center; gap: 2rem; padding: .8rem 1.2rem; background: var(--green); color: var(--on-green); text-decoration: none; font-weight: 700; }
+.play-link:hover { background: var(--ink); }
+.project-actions > span { color: var(--muted); font-size: .8125rem; }
+.project-section p + p { margin-top: 1rem; }
+.project-reflection { display: inline-block; margin-top: 1.3rem; text-underline-offset: .25em; }
+  </style>
+  <link rel="stylesheet" href="../css/portfolio.css">
+</head>
+<body class="golden-project">
+  <a class="skip-link" href="#project">Skip to project</a>
+  <header class="portfolio-header"><div class="portfolio-header-inner"><a class="portfolio-logo" href="../index.html" aria-label="David Liang home">d/l</a><nav class="portfolio-nav" aria-label="Main navigation"><a href="../index.html">Home</a><details class="nav-group is-current"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="../games.html" aria-current="location">Games</a><a href="../projects.html">Other Projects</a></div></details><details class="nav-group"><summary>Art<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="../art-2d.html">2D Art</a><a href="../art-3d.html">3D Art</a></div></details><a href="../audio.html">Audio</a><a href="../about.html">About Me</a></nav></div></header>
+  <main class="project-width" id="project">
+    <div class="project-breadcrumb"><a href="../games.html">← Back to Games</a><span>PUZZLE GAME / 2025</span></div>
+    <div class="project-heading">
+      <div><p class="eyebrow">DAVID LIANG · GMTK GAME JAM 2025</p><h1 class="project-title">The Perfect<br><span>LOOP</span></h1></div>
+      <div class="project-mark" aria-hidden="true"></div>
+    </div>
+    <p class="project-intro">A cozy puzzle game about building one continuous path. Made in Unity for GMTK Game Jam 2025 and featured on the official jam livestream.</p>
+    <div class="project-actions"><a class="play-link" href="https://cdsio.itch.io/the-perfect-loop" target="_blank" rel="noopener noreferrer">Play on itch.io <span aria-hidden="true">↗</span></a><span>Playable in your browser</span></div>
+    <div class="project-film">
+      <div class="film-label"><span>THE GAME</span><span>PUZZLE · UNITY</span></div>
+      <div class="project-video"><iframe src="https://www.youtube.com/embed/gwjFUBb6aSU" title="The Perfect LOOP — gameplay video" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+      <div class="film-edge" aria-hidden="true"></div>
+    </div>
+    <div class="project-body">
+      <aside class="project-meta" aria-labelledby="notes-heading">
+        <h2 class="meta-heading" id="notes-heading">PROJECT NOTES <span aria-hidden="true">↘</span></h2>
+        <dl>
+          <div class="meta-item"><dt class="meta-label">ROLE</dt><dd class="meta-value">Individual Project</dd></div>
+          <div class="meta-item"><dt class="meta-label">SOFTWARE USED</dt><dd class="meta-value">Unity, Maya</dd></div>
+          <div class="meta-item"><dt class="meta-label">TIME</dt><dd class="meta-value">July 30 – August 3, 2025<br>Ongoing updates</dd></div>
+        </dl>
+      </aside>
+      <div class="project-content">
+        <section class="project-section">
+          <div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2>About the Game</h2></div>
+          <p>The Perfect LOOP is a minimalist puzzle game about building a single continuous path, based on the theme “Loop.” Each tile gives a clue about how many of its edges belong to the loop. Players place and adjust pieces until everything connects, guided by environmental clues, ambient sound, and visual feedback.</p>
+          <div class="project-images single"><figure><img src="../images/PerfectLOOp/lss6LGYWhjUY72PnPUuPiohe6cE%20%281%29.jpg" alt="The Perfect LOOP title screen with a river winding through a forest puzzle" width="2048" height="1145" loading="lazy" decoding="async"><figcaption>01 / A loop through the landscape</figcaption></figure></div>
+          <div class="project-images"><figure><img src="../images/PerfectLOOp/T0T1MCnvIjByu2ZSyRNeov9NWU.jpg" alt="Completed road loop around a low-poly city" width="2048" height="1140" loading="lazy" decoding="async"><figcaption>02 / City theme</figcaption></figure><figure><img src="../images/PerfectLOOp/3be6G3XMuEy0vt3At5Q5gaGBAQ.jpg" alt="A looping route connecting a Mars colony" width="2048" height="1147" loading="lazy" decoding="async"><figcaption>03 / Mars colony theme</figcaption></figure></div>
+        </section>
+        <section class="project-section">
+          <div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
+          <p>I wanted to explore the theme of “loop” through puzzles. My starting inspiration was a river flowing through land and bringing life to its surroundings: more trees needed more water. This became a mechanic in which different tiles require a specific number of surrounding loop edges.</p>
+          <p>The idea expanded into cities and Mars colonies, giving players a sense of progression through different environments. I sketched a 3 × 3 grid to introduce the mechanic, then added complexity by combining clue types and increasing the grid size. Each level needed testing to ensure it had one unique solution.</p>
+          <div class="project-images single"><figure><img src="../images/PerfectLOOp/5VeRzEX2tvoHAGzHrEbStMWL7Ak.jpg" alt="Hand-drawn 3 by 3 and 4 by 3 puzzle grids with vertical and horizontal edge coordinates" width="2048" height="1236" loading="lazy" decoding="async"><figcaption>04 / Early level sketches and solution maps</figcaption></figure></div>
+          <p>Within the jam deadline, I couldn't implement a fully dynamic grid checker. Instead, I separated vertical and horizontal lines into two grid maps and manually defined each level's solution through coordinates. This was less scalable, but let me validate solutions reliably and finish the prototype on time.</p>
+          <div class="project-images single"><figure><img src="../images/PerfectLOOp/RJyuC5EfgLSOww077fxA5vnLC58.jpg" alt="Unity Inspector showing the manually defined solution edges alongside a forest level" width="1999" height="1296" loading="lazy" decoding="async"><figcaption>05 / Defining level solutions in Unity</figcaption></figure></div>
+        </section>
+        <section class="project-section">
+          <div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2>Challenges</h2></div>
+          <p>The biggest challenge was the tutorial. I initially hoped the game could teach itself entirely through visuals and discovery, but playtesting showed that the opening was too difficult and the mechanics needed a more gradual introduction.</p>
+          <p>During the official GMTK livestream, a bug also revealed that the first level allowed multiple solutions. I addressed these problems in a later update. The experience showed me how valuable player feedback is: seeing the game from someone else's perspective helped me improve both its clarity and its level design.</p>
+          <div class="project-images single"><figure><img src="../images/PerfectLOOp/RNlZe2ZsgtjATlIEzZSDDmIGI.jpg" alt="Tutorial diagram showing tile clues and how river edges form one continuous loop" width="2048" height="1146" loading="lazy" decoding="async"><figcaption>06 / Explaining the loop and its clues</figcaption></figure></div>
+          <a class="project-reflection" href="https://drive.google.com/file/d/1DirKJxiC1BTpUCyPtpLMxl5hhFEazVrU/view?usp=sharing" target="_blank" rel="noopener noreferrer">Read the reflection <span aria-hidden="true">↗</span></a>
+        </section>
+      </div>
+    </div>
+    <footer class="project-footer"><a class="collection-link" href="../games.html">Back to Games <span aria-hidden="true">↗</span></a><span class="footer-credit">DAVID LIANG / GAMES</span></footer>
+  </main>
+  <script src="../js/navigation.js"></script>
+</body>
+</html>

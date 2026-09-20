@@ -86,7 +86,7 @@
 .cassette-games { min-width: 0; width: 100%; max-width: 540px; justify-self: end; }
 .cassette-games-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem; }
 .cassette-games-heading h2 { font-size: clamp(1.4rem, 2.3vw, 1.9rem); }
-.cassette-game-stage { width: clamp(240px, calc(100dvh - 520px), 360px); max-width: 82%; aspect-ratio: 1; margin: 1.4rem auto; }
+.cassette-game-stage { width: clamp(280px, calc(100dvh - 470px), 420px); max-width: 90%; aspect-ratio: 1; margin: 1.4rem auto; }
 .cassette-game-disc { --disc-ground: var(--rust); --disc-ink: var(--paper); position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%; filter: drop-shadow(4px 10px 8px #30272035); container-type: inline-size; }
 .cassette-game-print { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; color: var(--disc-ink); background: var(--disc-ground); border: 1px solid #f3ead280; outline: 1px solid #30272040; outline-offset: 1px; mask-image: radial-gradient(circle, transparent 0 7%, #000 7.2%); }
 .cassette-game-print::before { content: ''; position: absolute; width: 120%; height: 36%; left: -10%; bottom: 11%; transform: rotate(-28deg); background: linear-gradient(var(--cassette-orange) 0 50%, var(--cassette-gold) 50%); opacity: .9; }
@@ -115,8 +115,21 @@
 @media (max-width: 640px) {
   .cassette-games { max-width: 440px; justify-self: center; }
   .cassette-games-heading h2 { font-size: 1.5rem; }
-  .cassette-game-stage { width: min(82%, 340px); max-width: none; }
+  .cassette-game-stage { width: min(90%, 380px); max-width: none; }
   .cassette-identity .cassette-contact { margin-top: 1rem; }
+}
+.cassette-game-cover-link { position: absolute; inset: 0; display: block; border-radius: 50%; }
+.cassette-game-cover-link[hidden], .cassette-game-print[hidden] { display: none; }
+.cassette-game-cover-link img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.cassette-game-title a { color: inherit; text-decoration: none; }
+.cassette-game-title a:hover { text-decoration: underline; text-underline-offset: .2em; }
+/* Use the shared 3D CD hover, spin and sound behavior for the game cover. */
+.cassette-game-disc:has(.cassette-game-cover-link:not([hidden])) { filter: none; }
+.cassette-game-print { transition: transform .3s ease; transform-origin: 50% 50%; }
+.cassette-game-disc:hover .cassette-game-print { transform: rotate(7deg); }
+@media (prefers-reduced-motion: reduce) {
+  .cassette-game-print { transition: none; }
+  .cassette-game-disc:hover .cassette-game-print { transform: none; }
 }
   </style>
 </head>
@@ -137,6 +150,7 @@
         <div class="cassette-game-stage">
           <div class="cassette-game-disc" data-game="0" role="img" aria-label="Placeholder CD cover for Game 01">
             <div class="cassette-game-print" aria-hidden="true"><span class="cassette-disc-label">David Liang / Games</span><span class="cassette-disc-word">GAME</span><span class="cassette-disc-number">01</span><span class="cassette-disc-note">Cover artwork placeholder</span></div>
+            <a class="cassette-game-cover-link cd-project-link" data-cd-link href="games/the-perfect-loop.html" aria-label="View The Perfect LOOP project" hidden><img class="cd-disc" src="images/PerfectLOOp/PerfectLOOPCover.png" alt="The Perfect LOOP CD cover" width="319" height="315" decoding="async"></a>
           </div>
         </div>
         <div class="cassette-game-caption" aria-live="polite" aria-atomic="true"><h3 class="cassette-game-title">Game 01</h3><p class="eyebrow">Cover artwork placeholder</p><span class="sr-only cassette-game-announcement">1 of 3</span></div>
@@ -175,17 +189,40 @@
     const position = carousel.querySelector('.cassette-game-position');
     const announcement = carousel.querySelector('.cassette-game-announcement');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    // Sample labels until finished game titles and cover artwork are available.
-    const games = ['Game 01', 'Game 02', 'Game 03'];
+    const cover = carousel.querySelector('.cassette-game-cover-link');
+    const samplePrint = carousel.querySelector('.cassette-game-print');
+    const description = carousel.querySelector('.cassette-game-caption .eyebrow');
+    const games = [
+      { title: 'Game 01', description: 'Cover artwork placeholder' },
+      { title: 'The Perfect LOOP', description: 'Puzzle / Unity / 2025', href: 'games/the-perfect-loop.html' },
+      { title: 'Game 03', description: 'Cover artwork placeholder' }
+    ];
     let selected = 0;
     let animation;
     const changeGame = step => {
       selected = (selected + step + games.length) % games.length;
       const label = String(selected + 1).padStart(2, '0');
       disc.dataset.game = String(selected);
-      disc.setAttribute('aria-label', `Placeholder CD cover for ${games[selected]}`);
+      const game = games[selected];
+      cover.hidden = !game.href;
+      samplePrint.hidden = Boolean(game.href);
+      if (game.href) {
+        disc.removeAttribute('role');
+        disc.removeAttribute('aria-label');
+        const link = document.createElement('a');
+        link.href = game.href;
+        link.textContent = game.title;
+        title.replaceChildren(link);
+      } else {
+        if (cover.contains(document.activeElement) || title.contains(document.activeElement)) {
+          carousel.querySelector(`[data-game-step="${step > 0 ? 1 : -1}"]`).focus();
+        }
+        disc.setAttribute('role', 'img');
+        disc.setAttribute('aria-label', `Placeholder CD cover for ${game.title}`);
+        title.textContent = game.title;
+      }
       number.textContent = label;
-      title.textContent = games[selected];
+      description.textContent = game.description;
       position.textContent = `${label} / ${String(games.length).padStart(2, '0')}`;
       announcement.textContent = `${selected + 1} of ${games.length}`;
       animation?.cancel();
