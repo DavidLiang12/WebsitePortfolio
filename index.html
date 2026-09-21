@@ -118,9 +118,14 @@
   .cassette-game-stage { width: min(90%, 380px); max-width: none; }
   .cassette-identity .cassette-contact { margin-top: 1rem; }
 }
-.cassette-game-cover-link { position: absolute; inset: 0; display: block; border-radius: 50%; }
+.cassette-game-cover-link { position: absolute; inset: 0; display: block; border-radius: 50%; filter: drop-shadow(3px 9px 9px #08171366); transition: filter .3s ease; }
+.cassette-game-cover-link:hover, .cassette-game-cover-link:focus-visible { filter: drop-shadow(4px 12px 12px #08171377); }
 .cassette-game-cover-link[hidden], .cassette-game-print[hidden] { display: none; }
-.cassette-game-cover-link img { display: block; width: 100%; height: 100%; object-fit: contain; }
+/* Normalize the 638 × 630 cover around its hub (309, 307) and 570px disc diameter.
+   This excludes the uneven transparent margins without changing the source PNG. */
+.cassette-game-cover-link img { position: absolute; display: block; width: 111.929825%; height: 110.526316%; max-width: none; left: -4.210526%; top: -3.859649%; object-fit: fill; transform-origin: 48.432602% 48.730159%; }
+/* Keep the shadow on the stationary link so it does not orbit with the artwork. */
+.cassette-home .cassette-game-cover-link .cd-disc { filter: none; }
 .cassette-game-title a { color: inherit; text-decoration: none; }
 .cassette-game-title a:hover { text-decoration: underline; text-underline-offset: .2em; }
 /* Use the shared 3D CD hover, spin and sound behavior for the game cover. */
@@ -150,7 +155,7 @@
         <div class="cassette-game-stage">
           <div class="cassette-game-disc" data-game="0" role="img" aria-label="Placeholder CD cover for Game 01">
             <div class="cassette-game-print" aria-hidden="true"><span class="cassette-disc-label">David Liang / Games</span><span class="cassette-disc-word">GAME</span><span class="cassette-disc-number">01</span><span class="cassette-disc-note">Cover artwork placeholder</span></div>
-            <a class="cassette-game-cover-link cd-project-link" data-cd-link href="games/the-perfect-loop.html" aria-label="View The Perfect LOOP project" hidden><img class="cd-disc" src="images/PerfectLOOp/PerfectLOOPCover.png" alt="The Perfect LOOP CD cover" width="319" height="315" decoding="async"></a>
+            <a class="cassette-game-cover-link cd-project-link" data-cd-link href="games/the-perfect-loop.html" aria-label="View The Perfect LOOP project" hidden><img class="cd-disc" src="images/PerfectLOOp/PerfectLOOPCover.png" alt="The Perfect LOOP CD cover" width="638" height="630" decoding="async"></a>
           </div>
         </div>
         <div class="cassette-game-caption" aria-live="polite" aria-atomic="true"><h3 class="cassette-game-title">Game 01</h3><p class="eyebrow">Cover artwork placeholder</p><span class="sr-only cassette-game-announcement">1 of 3</span></div>
