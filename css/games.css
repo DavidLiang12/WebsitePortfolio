@@ -11,10 +11,8 @@
 .games-heading { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem; padding-block: clamp(2.5rem, 5vw, 4.5rem) 2.8rem; }
 .games-heading h1 { font-family: 'Archivo Black', 'Arial Black', sans-serif; font-size: clamp(4rem, 9vw, 8rem); letter-spacing: -.065em; line-height: .95; color: var(--rust); margin-top: 1rem; }
 .games-heading-copy { max-width: 23rem; padding-bottom: .4rem; }
-.games-heading-copy p { font-size: 1.05rem; line-height: 1.7; }
 .games-heading-copy span { display: block; margin-top: 1rem; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
-.games-shelf-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; padding-block: .85rem; border-block: 1px solid var(--line); font-size: .7rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
-.games-shelf { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 2.5vw, 2rem); padding-top: 2rem; }
+.games-shelf { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 2.5vw, 2rem); padding-top: 0; }
 .game-album { min-width: 0; border: 1px solid var(--line); background: #fff9e829; }
 .game-album .cd-project-link { align-items: stretch; height: 100%; padding: clamp(1.25rem, 3vw, 2rem); border-radius: 0; }
 .game-album-top { display: flex; justify-content: space-between; gap: .5rem; font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; }
@@ -50,3 +48,9 @@
 @media (prefers-reduced-motion: reduce) {
   .game-disc-art { transition: none; }
 }
+
+.game-tags { display: flex; flex-wrap: wrap; gap: .5rem; padding-top: 1.25rem; margin-top: auto; }
+.game-tag { display: inline-block; padding: .3rem .65rem; border-radius: 3px; font-size: .7rem; line-height: 1.5; font-weight: 700; letter-spacing: .02em; }
+.tag-solo { background: #d9e3c6; color: #304529; }
+.tag-team { background: #e2d5e3; color: #573752; }
+.tag-engine { background: #ecdbb4; color: #654719; }

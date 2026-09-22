@@ -1,0 +1,48 @@
+/* About uses the homepage's warm paper, dotted print, and typography. */
+.about-page {
+  --paper: #f3ead2;
+  --ink: #302720;
+  --rust: #b93825;
+  --body-background: var(--paper);
+  --body-color: var(--ink);
+  --active-color: var(--rust);
+  --line: #30272055;
+  background-image: radial-gradient(#906b4314 .55px, transparent .8px);
+  background-size: 4px 4px;
+}
+.about-page .nav-dropdown {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.about-page .portfolio-nav .nav-dropdown a:hover,
+.about-page .portfolio-nav .nav-dropdown a:focus-visible,
+.about-page .portfolio-nav .nav-dropdown a[aria-current] {
+  background: var(--rust);
+  color: var(--paper);
+}
+.about-page .about-layout {
+  padding-top: clamp(2.5rem, 5vw, 4.5rem);
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+}
+.about-page .eyebrow { font-size: .75rem; letter-spacing: .09em; }
+.about-page h1 {
+  font-family: 'Archivo Black', 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 5.5vw, 5rem);
+  letter-spacing: -.055em;
+  line-height: 1.05;
+  color: var(--rust);
+  margin: 1rem 0 1.75rem;
+}
+.about-page .about-portrait img {
+  display: block;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  border-radius: 0;
+}
+@media (max-width: 640px) {
+  .about-page .about-layout { grid-template-columns: 1fr; }
+  .about-page .nav-group:last-of-type .nav-dropdown { left: auto; right: 0; }
+}

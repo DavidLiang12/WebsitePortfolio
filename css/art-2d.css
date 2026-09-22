@@ -1,0 +1,11 @@
+.art-2d-page { --paper: #f4ead8; --ink: #493a2e; --body-background: var(--paper); --body-color: var(--ink); --active-color: #916234; --line: #493a2e44; color-scheme: light; }
+.art-2d-page .portfolio-logo-disc { filter: none; }
+.art-2d-page .nav-dropdown { background: var(--paper); }
+.art-2d-page .cd-collection { gap: 3.5rem; }
+.art-2d-page .placeholder-disc-stage { padding: 0; filter: drop-shadow(3px 8px 7px #493a2e35); }
+.art-2d-page .placeholder-cd { --disc-face: #c9b394; --disc-print: #493a2e; }
+.art-2d-page .placeholder-cd::before { background: linear-gradient(150deg, transparent 0 57%, #f7efdf 57% 65%, #976847 65% 73%, transparent 73%); }
+.art-2d-page .placeholder-cd.disc-02 { --disc-face: #eee0c6; }
+.art-2d-page .placeholder-cd.disc-02::before { background: linear-gradient(30deg, transparent 0 57%, #a48760 57% 65%, #d5b886 65% 73%, transparent 73%); }
+.art-2d-page .cd-meta::before { background: #b08a59; }
+.art-2d-page .stereo-stripes { background: linear-gradient(#735640 0 25%, #a48760 25% 50%, #c6a779 50% 75%, #dfcbaa 75%); }

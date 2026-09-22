@@ -1,0 +1,15 @@
+/* Decorative CD covers for projects awaiting artwork; no inactive links. */
+.placeholder-disc-stage { width: 100%; aspect-ratio: 1; display: grid; place-items: center; padding: 5%; filter: drop-shadow(3px 8px 7px #08171355); }
+.placeholder-cd { --disc-face: #9aaa89; --disc-print: #213b32; position: relative; display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; background: var(--disc-face); color: var(--disc-print); border: 1px solid #f6e7c777; outline: 1px solid #f6e7c755; outline-offset: 2px; overflow: hidden; container-type: inline-size; mask-image: radial-gradient(circle, transparent 0 6.5%, #000 6.9%); transition: transform .3s ease; }
+.placeholder-cd::before { content: ''; position: absolute; inset: 0; background: linear-gradient(150deg, transparent 0 57%, #f6e7c7 57% 65%, #e8ba46 65% 73%, transparent 73%); }
+.placeholder-cd::after { content: ''; position: absolute; inset: 39%; border: 7px solid #f6e7c780; box-shadow: 0 0 0 1px #233a3455, inset 0 0 0 1px #233a3455; border-radius: 50%; }
+.placeholder-cd .disc-label { position: absolute; top: 11%; left: 10%; width: 80%; text-align: center; font-size: 3cqw; letter-spacing: .1em; text-transform: uppercase; }
+.placeholder-cd .disc-title { position: absolute; top: 25%; left: 5%; width: 90%; font-family: 'Archivo Black', 'Arial Black', sans-serif; font-size: 11cqw; letter-spacing: -.06em; line-height: 1; text-align: center; }
+.placeholder-cd .disc-number { position: absolute; bottom: 20%; left: 20%; font-family: 'Archivo Black', 'Arial Black', sans-serif; font-size: 17cqw; letter-spacing: -.06em; line-height: 1; }
+.placeholder-cd .disc-note { position: absolute; bottom: 10%; left: 20%; width: 60%; text-align: center; font-size: 2.8cqw; letter-spacing: .03em; text-transform: uppercase; }
+.placeholder-cd.disc-02 { --disc-face: #e2c890; --disc-print: #302720; }
+.placeholder-cd.disc-02::before { background: linear-gradient(30deg, transparent 0 57%, #7f9a88 57% 65%, #f6e7c7 65% 73%, transparent 73%); }
+.placeholder-cd.disc-03 { --disc-face: #d4decc; --disc-print: #1e302e; }
+.placeholder-cd.disc-03::before { background: linear-gradient(150deg, transparent 0 57%, #7f9a88 57% 65%, #e8ba46 65% 73%, transparent 73%); }
+.other-project-card:hover .placeholder-cd, .art-2d-page .cd-project:hover .placeholder-cd { transform: rotate(7deg); }
+@media (prefers-reduced-motion: reduce) { .placeholder-cd { transition: none; } .other-project-card:hover .placeholder-cd, .art-2d-page .cd-project:hover .placeholder-cd { transform: none; } }

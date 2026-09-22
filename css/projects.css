@@ -1,0 +1,18 @@
+/* Sage preview layout, using Midnight Stereo's shared green and cream. */
+.other-projects-page { background-image: radial-gradient(#f6e7c710 .55px, transparent .8px); background-size: 4px 4px; }
+.other-projects-main { flex: 1; padding-bottom: 3rem; }
+.other-projects-heading { padding-block: clamp(2.5rem, 5vw, 4.5rem) 2.5rem; }
+.other-projects-heading h1 { font-family: 'Archivo Black', 'Arial Black', Arial, sans-serif; font-size: clamp(2.7rem, 6vw, 5.5rem); line-height: 1.05; letter-spacing: -.065em; margin-top: 1.1rem; }
+.other-projects-heading .eyebrow { color: var(--active-color); }
+.other-projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.other-project-card { min-width: 0; padding: 1.25rem; border: 1px solid var(--line); background: #f6e7c705; }
+.other-project-number { font-size: .75rem; font-variant-numeric: tabular-nums; letter-spacing: .08em; color: var(--active-color); }
+.other-project-copy { border-top: 1px solid var(--line); padding-top: 1.1rem; }
+.other-project-copy h2 { font-size: 1.45rem; letter-spacing: -.035em; line-height: 1.2; }
+.other-project-copy p { font-size: .9rem; line-height: 1.7; margin-top: .65rem; }
+.other-project-status { display: inline-block; margin-top: 1.1rem; padding: .3rem .65rem; font-size: .7rem; line-height: 1.5; background: #e8ba4624; color: var(--paper); }
+.other-projects-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-block: 1.4rem; border-top: 1px solid var(--line); font-size: .75rem; }
+.other-projects-footer a { text-underline-offset: .3em; }
+.other-projects-tape { flex-shrink: 0; height: 24px; background: linear-gradient(#7f9a88 0 33.333%, #e8ba46 33.333% 66.666%, #f6e7c7 66.666%); }
+@media (max-width: 950px) { .other-projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .other-projects-grid { grid-template-columns: 1fr; } .other-projects-heading { padding-block: 2.25rem 1.75rem; } .other-projects-main { padding-bottom: 2rem; } }
