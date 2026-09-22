@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,800;9..144,900&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/retro.css">
-  <link rel="stylesheet" href="css/portfolio.css">
+  <link rel="stylesheet" href="css/portfolio.css?v=cd-logo-2">
   <style id="home-styles">
 /* Cassette-inspired homepage styles, scoped to this page. */
 .cassette-home {
@@ -35,7 +35,7 @@
   font-weight: 900;
   letter-spacing: -.055em;
 }
-.cassette-home .portfolio-logo::after { content: '.'; color: var(--rust); }
+
 .cassette-home .nav-dropdown { background: var(--paper); color: var(--ink); border-color: var(--line); }
 .cassette-home .portfolio-nav .nav-dropdown a:hover,
 .cassette-home .portfolio-nav .nav-dropdown a:focus-visible,
@@ -121,9 +121,6 @@
 .cassette-game-cover-link { position: absolute; inset: 0; display: block; border-radius: 50%; filter: drop-shadow(3px 9px 9px #08171366); transition: filter .3s ease; }
 .cassette-game-cover-link:hover, .cassette-game-cover-link:focus-visible { filter: drop-shadow(4px 12px 12px #08171377); }
 .cassette-game-cover-link[hidden], .cassette-game-print[hidden] { display: none; }
-/* Normalize the 638 × 630 cover around its hub (309, 307) and 570px disc diameter.
-   This excludes the uneven transparent margins without changing the source PNG. */
-.cassette-game-cover-link img { position: absolute; display: block; width: 111.929825%; height: 110.526316%; max-width: none; left: -4.210526%; top: -3.859649%; object-fit: fill; transform-origin: 48.432602% 48.730159%; }
 /* Keep the shadow on the stationary link so it does not orbit with the artwork. */
 .cassette-home .cassette-game-cover-link .cd-disc { filter: none; }
 .cassette-game-title a { color: inherit; text-decoration: none; }
@@ -137,10 +134,11 @@
   .cassette-game-disc:hover .cassette-game-print { transform: none; }
 }
   </style>
+  <link rel="stylesheet" href="css/game-discs.css">
 </head>
 <body class="retro-page home-page cassette-home">
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <header class="portfolio-header"><div class="portfolio-header-inner"><a class="portfolio-logo" href="index.html" aria-label="David Liang home">d/l</a><nav class="portfolio-nav" aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><details class="nav-group"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="games.html">Games</a><a href="projects.html">Other Projects</a></div></details><details class="nav-group"><summary>Art<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="art-2d.html">2D Art</a><a href="art-3d.html">3D Art</a></div></details><a href="audio.html">Audio</a><a href="about.html">About Me</a></nav></div></header>
+  <header class="portfolio-header"><div class="portfolio-header-inner"><a class="portfolio-logo" href="index.html" aria-label="David Liang home"><img class="portfolio-logo-disc" src="images/branding/cd-logo.png" alt="" width="44" height="44"></a><nav class="portfolio-nav" aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><details class="nav-group"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="games.html">Games</a><a href="projects.html">Other Projects</a></div></details><details class="nav-group"><summary>Art<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="art-2d.html">2D Art</a><a href="art-3d.html">3D Art</a></div></details><a href="audio.html">Audio</a><a href="about.html">About Me</a></nav></div></header>
   <main id="main-content" class="cassette-main">
     <div class="cassette-intro">
     <section class="cassette-hero page-width" aria-labelledby="home-title">
@@ -155,7 +153,7 @@
         <div class="cassette-game-stage">
           <div class="cassette-game-disc" data-game="0" role="img" aria-label="Placeholder CD cover for Game 01">
             <div class="cassette-game-print" aria-hidden="true"><span class="cassette-disc-label">David Liang / Games</span><span class="cassette-disc-word">GAME</span><span class="cassette-disc-number">01</span><span class="cassette-disc-note">Cover artwork placeholder</span></div>
-            <a class="cassette-game-cover-link cd-project-link" data-cd-link href="games/the-perfect-loop.html" aria-label="View The Perfect LOOP project" hidden><img class="cd-disc" src="images/PerfectLOOp/PerfectLOOPCover.png" alt="The Perfect LOOP CD cover" width="638" height="630" decoding="async"></a>
+            <a class="cassette-game-cover-link cd-project-link game-cover" data-cover="loop" data-cd-link href="games/the-perfect-loop.html" aria-label="View The Perfect LOOP project" hidden><img class="cd-disc" src="images/PerfectLOOp/PerfectLOOPCover.png" alt="The Perfect LOOP CD cover" width="638" height="630" decoding="async"></a>
           </div>
         </div>
         <div class="cassette-game-caption" aria-live="polite" aria-atomic="true"><h3 class="cassette-game-title">Game 01</h3><p class="eyebrow">Cover artwork placeholder</p><span class="sr-only cassette-game-announcement">1 of 3</span></div>
@@ -199,9 +197,13 @@
     const description = carousel.querySelector('.cassette-game-caption .eyebrow');
     const games = [
       { title: 'Game 01', description: 'Cover artwork placeholder' },
-      { title: 'The Perfect LOOP', description: 'Puzzle / Unity / 2025', href: 'games/the-perfect-loop.html' },
-      { title: 'Game 03', description: 'Cover artwork placeholder' }
+      { title: 'The Perfect LOOP', description: 'Puzzle / Unity / 2025', href: 'games/the-perfect-loop.html', image: 'images/PerfectLOOp/PerfectLOOPCover.png', cover: 'loop', width: 638, height: 630 },
+      { title: 'HandSpell', description: 'Gesture-based combat / Unity / 2026', href: 'games/handspell.html', image: 'images/HandSpell/HandSpellCover.png', cover: 'handspell', width: 587, height: 587 }
     ];
+    games.filter(game => game.image).forEach(game => {
+      const image = new Image();
+      image.src = game.image;
+    });
     let selected = 0;
     let animation;
     const changeGame = step => {
@@ -212,6 +214,14 @@
       cover.hidden = !game.href;
       samplePrint.hidden = Boolean(game.href);
       if (game.href) {
+        cover.href = game.href;
+        cover.dataset.cover = game.cover;
+        cover.setAttribute('aria-label', `View ${game.title} project`);
+        const image = cover.querySelector('img');
+        image.src = game.image;
+        image.alt = `${game.title} CD cover`;
+        image.width = game.width;
+        image.height = game.height;
         disc.removeAttribute('role');
         disc.removeAttribute('aria-label');
         const link = document.createElement('a');

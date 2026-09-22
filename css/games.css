@@ -1,0 +1,52 @@
+.games-page {
+  --paper: #f3ead2; --ink: #302720; --rust: #b93825;
+  --body-background: var(--paper); --body-color: var(--ink);
+  --active-color: var(--rust); --line: #30272055;
+  background-image: radial-gradient(#906b4314 .55px, transparent .8px);
+  background-size: 4px 4px;
+  min-height: 100svh; display: flex; flex-direction: column;
+}
+.games-page .nav-dropdown { background: var(--paper); }
+.games-main { flex: 1; padding-bottom: 4rem; }
+.games-heading { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem; padding-block: clamp(2.5rem, 5vw, 4.5rem) 2.8rem; }
+.games-heading h1 { font-family: 'Archivo Black', 'Arial Black', sans-serif; font-size: clamp(4rem, 9vw, 8rem); letter-spacing: -.065em; line-height: .95; color: var(--rust); margin-top: 1rem; }
+.games-heading-copy { max-width: 23rem; padding-bottom: .4rem; }
+.games-heading-copy p { font-size: 1.05rem; line-height: 1.7; }
+.games-heading-copy span { display: block; margin-top: 1rem; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+.games-shelf-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; padding-block: .85rem; border-block: 1px solid var(--line); font-size: .7rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.games-shelf { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 2.5vw, 2rem); padding-top: 2rem; }
+.game-album { min-width: 0; border: 1px solid var(--line); background: #fff9e829; }
+.game-album .cd-project-link { align-items: stretch; height: 100%; padding: clamp(1.25rem, 3vw, 2rem); border-radius: 0; }
+.game-album-top { display: flex; justify-content: space-between; gap: .5rem; font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; }
+.game-album-top > :first-child { color: var(--rust); font-weight: 700; }
+.game-disc-art { position: relative; display: block; aspect-ratio: 1; width: 90%; max-width: 340px; margin: 2rem auto 2.4rem; border-radius: 50%; filter: drop-shadow(3px 8px 7px #30272035); transition: filter .3s ease; }
+.game-album .cd-disc { filter: none; }
+.game-album .cd-project-link:hover .game-disc-art { filter: drop-shadow(4px 11px 9px #30272045); }
+.game-album :is([data-cover='handspell'], [data-cover='brookings']) .game-disc-art { filter: drop-shadow(3px 9px 8px #30272055); }
+.game-album :is([data-cover='handspell'], [data-cover='brookings']):hover .game-disc-art { filter: drop-shadow(4px 12px 10px #30272066); }
+.game-album .cd-project-link:hover .cd-disc { filter: none; }
+.game-album-info { border-top: 1px solid var(--line); padding-top: 1.3rem; flex: 1; display: flex; flex-direction: column; }
+.game-album-info h2 { font-size: clamp(1.5rem, 2.2vw, 2rem); font-weight: 700; letter-spacing: -.045em; line-height: 1.2; }
+.game-album-info p { font-size: .9rem; line-height: 1.7; margin: .8rem 0 0; max-width: 28rem; }
+.game-placeholder-disc { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; flex-direction: column; padding: 15% 10%; border-radius: 50%; color: var(--paper); background: linear-gradient(155deg, #b93825 0 51%, #dc632d 51% 61%, #d9a12e 61% 71%, #b93825 71%); border: 1px solid #30272044; }
+.game-placeholder-disc::after { content: ''; position: absolute; inset: 41%; border: 8px solid #f3ead299; border-radius: 50%; background: var(--paper); }
+.game-placeholder-disc strong { position: absolute; top: 22%; font-family: 'Archivo Black', 'Arial Black', sans-serif; font-size: clamp(2rem, 4vw, 4rem); line-height: 1; letter-spacing: -.07em; }
+.game-placeholder-disc span { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; }
+.games-footer { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-block: 1.4rem; border-top: 1px solid var(--line); font-size: .75rem; }
+.games-footer a { text-underline-offset: .3em; }
+.games-tape { height: 27px; background: linear-gradient(#b93825 0 33.333%, #dc632d 33.333% 66.666%, #d9a12e 66.666%); }
+@media (max-width: 900px) {
+  .games-heading { grid-template-columns: 1fr; gap: 1.5rem; }
+  .games-heading-copy { max-width: 36rem; }
+  .game-placeholder-disc strong { font-size: clamp(1.5rem, 4vw, 3rem); }
+}
+@media (max-width: 600px) {
+  .games-shelf { grid-template-columns: 1fr; gap: 1.5rem; }
+  .game-disc-art { max-width: 340px; margin-block: 1.5rem 2rem; }
+  .game-placeholder-disc strong { font-size: clamp(1.5rem, 8vw, 3rem); }
+  .games-heading { padding-block: 2.3rem 2rem; }
+  .games-main { padding-bottom: 2.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-disc-art { transition: none; }
+}

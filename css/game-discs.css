@@ -1,0 +1,5 @@
+/* Position each source cover around its physical hub, excluding PNG padding. */
+.game-cover { --cover-width: 100%; --cover-height: 100%; --cover-left: 0%; --cover-top: 0%; --cover-origin: 50% 50%; }
+.game-cover[data-cover='loop'] { --cover-width: 111.929825%; --cover-height: 110.526316%; --cover-left: -4.210526%; --cover-top: -3.859649%; --cover-origin: 48.432602% 48.730159%; }
+.game-cover[data-cover='handspell'], .game-cover[data-cover='brookings'] { --cover-width: 103.163445%; --cover-height: 103.163445%; --cover-left: -1.581722%; --cover-top: -1.581722%; }
+.game-cover .cd-disc { position: absolute; display: block; width: var(--cover-width); height: var(--cover-height); max-width: none; left: var(--cover-left); top: var(--cover-top); object-fit: fill; transform-origin: var(--cover-origin); }
