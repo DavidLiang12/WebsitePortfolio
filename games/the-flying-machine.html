@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Flying Machine by David Liang: a solo Unity project combining pixel-art aerial combat, separate pilot and machine hitboxes, and a challenging final boss.">
+  <meta name="theme-color" content="#f5dcb7">
+  <title>The Flying Machine — David Liang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&amp;display=swap" rel="stylesheet">
+  <!-- Golden Hour styles are local to this project page. -->
+  <style>
+:root {
+  color-scheme: light;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+h1, h2, p, figure, dl, dd { margin: 0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+.golden-project {
+  --paper: #f5dcb7;
+  --ink: #4b3b34;
+  --muted: #615046;
+  --green: #397959;
+  --on-green: #fff4dd;
+  --rust: #ad391b;
+  --yellow: #ffca45;
+  --line: #b6a086;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+}
+.site-width { width: min(100% - 5rem, 1240px); margin-inline: auto; }
+.project-width { width: min(100% - 5rem, 1120px); margin-inline: auto; }
+.site-header { border-bottom: 1px solid var(--line); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-block: 1.65rem; }
+.site-logo { font-family: 'Fraunces', Georgia, serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -.075em; line-height: 1; text-decoration: none; }
+.site-nav { display: flex; align-items: center; flex-wrap: wrap; gap: .35rem 1.65rem; }
+.site-nav a { padding: .65rem 0; text-decoration: none; font-size: .9375rem; font-weight: 500; position: relative; }
+.site-nav a::after { content: ''; position: absolute; height: 3px; bottom: .25rem; left: 0; right: 0; background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+.site-nav a[aria-current='location']::after, .site-nav a:hover::after { transform: scaleX(1); }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 5px; }
+.skip-link { position: absolute; z-index: 10; top: .5rem; left: .5rem; padding: .8rem 1rem; background: var(--ink); color: var(--paper); transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+.project-breadcrumb { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; padding-block: 1.7rem 2.2rem; color: var(--muted); font-size: .8125rem; }
+.project-breadcrumb a { padding-block: .35rem; text-decoration: none; }
+.project-breadcrumb a:hover { text-decoration: underline; text-underline-offset: .3em; }
+.project-breadcrumb span { letter-spacing: .08em; }
+.project-heading { display: grid; grid-template-columns: minmax(0, 1fr) clamp(10rem, 20vw, 16rem); align-items: end; gap: 2.5rem; margin-bottom: 2.2rem; }
+.eyebrow { color: var(--rust); font-size: .8125rem; font-weight: 700; letter-spacing: .12em; line-height: 1.6; margin-bottom: 1rem; }
+.project-title { font-family: 'Fraunces', Georgia, serif; font-size: clamp(3rem, 6.1vw, 5.5rem); font-weight: 700; line-height: 1.03; letter-spacing: -.055em; overflow-wrap: anywhere; }
+.project-title span { color: var(--rust); }
+/* The stripes run edge to edge through the green block, with no interior ends. */
+.project-mark {
+  height: clamp(8rem, 14vw, 11rem);
+  border-top-right-radius: 5rem;
+  background: linear-gradient(to bottom,
+    var(--green) 0 43%,
+    var(--paper) 43% 50%,
+    var(--green) 50% 55%,
+    var(--yellow) 55% 62%,
+    var(--green) 62% 67%,
+    #ec7045 67% 74%,
+    var(--green) 74%);
+}
+.project-film { margin-bottom: 3.3rem; }
+.film-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .8rem 1rem; background: var(--green); color: var(--on-green); font-size: .8125rem; font-weight: 600; letter-spacing: .06em; }
+.project-video { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 0; background: #332c27; }
+.project-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.film-edge { height: .5rem; background: linear-gradient(to right, var(--green) 0 35%, var(--yellow) 35% 60%, #be421c 60%); }
+.project-body { display: grid; grid-template-columns: 225px minmax(0, 1fr); gap: clamp(2rem, 4vw, 3.5rem); }
+.project-meta { align-self: start; background: var(--green); color: var(--on-green); padding: 1.7rem 1.45rem 1.9rem; border-top-right-radius: 3.2rem; }
+.meta-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; font-size: .8125rem; font-weight: 700; letter-spacing: .08em; margin-bottom: 1.8rem; }
+.project-meta dl { display: grid; gap: 1.65rem; }
+.meta-label { font-size: .75rem; letter-spacing: .09em; margin-bottom: .3rem; }
+.meta-value { font-size: 1rem; font-weight: 500; line-height: 1.55; overflow-wrap: anywhere; }
+.project-content { min-width: 0; }
+.section-heading { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.25rem; }
+.section-number { color: var(--rust); font-size: .8125rem; border-bottom: 2px solid currentColor; }
+.project-section h2 { min-width: 0; font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.9rem, 3vw, 2.5rem); font-weight: 600; line-height: 1.2; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.project-section p { color: var(--muted); font-size: 1.0625rem; line-height: 1.85; }
+.project-section + .project-section { border-top: 1px solid var(--line); padding-top: 2.2rem; margin-top: 2.6rem; }
+.project-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; align-items: start; margin-top: 1.6rem; }
+.project-images.single { grid-template-columns: 1fr; }
+.project-images figure { min-width: 0; background: #edd1a9; padding: .65rem; }
+.project-images img { width: 100%; height: auto; }
+.project-images figcaption { color: var(--muted); padding: .65rem .15rem .1rem; font-size: .75rem; line-height: 1.5; }
+.project-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem 2rem; padding-block: 1.8rem 2rem; border-top: 1px solid var(--line); margin-top: 4.5rem; }
+.collection-link { display: inline-flex; align-items: baseline; gap: 1.5rem; font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; line-height: 1.3; text-decoration: none; }
+.collection-link:hover { text-decoration: underline; text-underline-offset: .2em; }
+.collection-link span { color: var(--rust); }
+.footer-credit { color: var(--muted); font-size: .75rem; letter-spacing: .08em; }
+@media (max-width: 850px) {
+  .site-width, .project-width { width: min(100% - 3rem, 1120px); }
+  .header-inner { gap: 1.5rem; }
+  .site-nav { gap: .25rem 1.1rem; }
+  .project-body { grid-template-columns: 185px minmax(0, 1fr); gap: 1.8rem; }
+  .project-meta { padding: 1.5rem 1.1rem; }
+  .meta-heading { font-size: .75rem; }
+  .project-title { font-size: clamp(3rem, 7vw, 4.5rem); }
+  .project-heading { gap: 1.6rem; grid-template-columns: minmax(0, 1fr) 9rem; }
+  .project-mark { height: 8rem; border-top-right-radius: 3.5rem; }
+  .project-images { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .site-width, .project-width { width: calc(100% - 2.5rem); }
+  .header-inner { align-items: flex-start; padding-block: 1.25rem; }
+  .site-nav { justify-content: flex-end; gap: 0 1rem; }
+  .site-nav a { font-size: .8125rem; padding-block: .55rem; }
+  .project-breadcrumb { padding-block: 1.25rem 1.5rem; font-size: .75rem; gap: .4rem 1rem; }
+  .project-heading { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; margin-bottom: 1.7rem; }
+  .project-title { font-size: clamp(2.5rem, 10.2vw, 3.7rem); }
+  .eyebrow { font-size: .75rem; letter-spacing: .08em; }
+  .project-mark { width: 100%; height: 3.5rem; border-top-right-radius: 2rem; }
+  .project-film { margin-bottom: 2rem; }
+  .film-label { padding: .75rem; font-size: .75rem; letter-spacing: .03em; }
+  .project-body { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .project-meta { padding: 1.5rem; border-top-right-radius: 3rem; }
+  .meta-heading { font-size: .8125rem; margin-bottom: 1.3rem; }
+  .project-meta dl { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.3rem; }
+  .meta-item:last-child { grid-column: 1 / -1; }
+  .project-section p { font-size: 1rem; }
+  .project-section h2 { font-size: 2rem; }
+  .section-heading { gap: .8rem; }
+  .project-footer { margin-top: 3rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-nav a::after { transition: none; }
+}
+
+.project-intro { max-width: 48rem; color: var(--muted); font-size: 1.125rem; margin-bottom: 1.25rem; }
+.project-actions { display: flex; flex-wrap: wrap; gap: .8rem 1.5rem; align-items: center; margin-bottom: 2.2rem; }
+.play-link { display: inline-flex; align-items: center; gap: 2rem; padding: .8rem 1.2rem; background: var(--green); color: var(--on-green); text-decoration: none; font-weight: 700; }
+.play-link:hover { background: var(--ink); }
+.project-actions > span { color: var(--muted); font-size: .8125rem; }
+.project-section p + p { margin-top: 1rem; }
+.project-reflection { display: inline-block; margin-top: 1.3rem; text-underline-offset: .25em; }
+.project-credits { padding-left: 1.25rem; color: var(--muted); line-height: 1.8; }
+.project-credits li + li { margin-top: .55rem; }
+.project-credits a { text-underline-offset: .2em; }
+  </style>
+  <link rel="stylesheet" href="../css/portfolio.css?v=cd-logo-2">
+</head>
+<body class="golden-project">
+  <a class="skip-link" href="#project">Skip to project</a>
+  <header class="portfolio-header"><div class="portfolio-header-inner"><a class="portfolio-logo" href="../index.html" aria-label="David Liang home"><img class="portfolio-logo-disc" src="../images/branding/cd-logo.png" alt="" width="44" height="44"></a><nav class="portfolio-nav" aria-label="Main navigation"><a href="../index.html">Home</a><details class="nav-group is-current"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="../games.html" aria-current="location">Games</a><a href="../projects.html">Other Projects</a></div></details><details class="nav-group"><summary>Art<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="../art-2d.html">2D Art</a><a href="../art-3d.html">3D Art</a></div></details><a href="../about.html">About Me</a></nav></div></header>
+  <main class="project-width" id="project">
+    <div class="project-breadcrumb"><a href="../games.html">← Back to Games</a><span>SIDE-SCROLLING SHOOTER / 2024</span></div>
+    <div class="project-heading">
+      <div><p class="eyebrow">DAVID LIANG · SOLO GAME DEVELOPMENT</p><h1 class="project-title">The Flying<br><span>Machine</span></h1></div>
+      <div class="project-mark" aria-hidden="true"></div>
+    </div>
+    <p class="project-intro">A 2D pixel-art shooter about piloting a flying machine through waves of airborne enemies. Protect both the pilot and the machine as you dodge, fire back, and face the final boss.</p>
+    <div class="project-actions"><a class="play-link" href="https://www.youtube.com/watch?v=bE4dPY3I044" target="_blank" rel="noopener noreferrer">Watch gameplay <span aria-hidden="true">↗</span></a><span>Single-player · Solo project · Unity</span></div>
+    <div class="project-film">
+      <div class="film-label"><span>THE GAME</span><span>SHOOTER · PIXEL ART · UNITY</span></div>
+      <div class="project-video"><iframe src="https://www.youtube.com/embed/bE4dPY3I044" title="The Flying Machine — gameplay video" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+      <div class="film-edge" aria-hidden="true"></div>
+    </div>
+    <div class="project-body">
+      <aside class="project-meta" aria-labelledby="notes-heading">
+        <h2 class="meta-heading" id="notes-heading">PROJECT NOTES <span aria-hidden="true">↘</span></h2>
+        <dl>
+          <div class="meta-item"><dt class="meta-label">ROLE</dt><dd class="meta-value">Individual Project</dd></div>
+          <div class="meta-item"><dt class="meta-label">SOFTWARE USED</dt><dd class="meta-value">Unity, Aseprite</dd></div>
+          <div class="meta-item"><dt class="meta-label">TIME</dt><dd class="meta-value">May – December 2024</dd></div>
+        </dl>
+      </aside>
+      <div class="project-content">
+        <section class="project-section">
+          <div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2>About the Game</h2></div>
+          <p>The Flying Machine is a single-player side-scrolling shooter where players navigate the skies, avoiding and shooting down waves of enemies. The pilot and the machine have separate hitboxes and life counters, adding another layer of strategy to every encounter.</p>
+          <div class="project-images single"><figure><img src="../images/FlyingMachine/eJDpd5dgPT2PnPJCvzJTCWJp2cU.jpg" alt="The flying machine and its dangling pilot fire at birds against a blue sky, with separate wrench and heart counters" width="3024" height="1678" loading="lazy" decoding="async"><figcaption>01 / Protecting the pilot and the machine</figcaption></figure></div>
+        </section>
+        <section class="project-section">
+          <div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
+          <p>Inspired by Cuphead, I wanted to create satisfying chaos. I combined sound effects, power-ups that increase bullet speed, and a smooth progression in level difficulty to keep the action engaging.</p>
+          <p>This was also my first project using parallax scrolling. Moving background layers at different speeds added depth to the skies behind the action.</p>
+          <div class="project-images single"><figure><img src="../images/FlyingMachine/7LAxBduG7e9oVfrqtfSH25OMMs.jpg" alt="The flying machine dodges birds and fireballs near a coffee power-up among layers of pink sunset clouds" width="3024" height="1674" loading="lazy" decoding="async"><figcaption>02 / Power-ups and layered skies</figcaption></figure></div>
+        </section>
+        <section class="project-section">
+          <div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2>Challenges</h2></div>
+          <p>The final boss was the most challenging encounter to design. I experimented with bullet-pattern calculations and spawn frequency to make the battle demanding while keeping it balanced.</p>
+          <p>Implementing separate hitboxes and life counters for the pilot and the machine was another technical challenge. Both needed to work together throughout combat while tracking damage independently.</p>
+          <div class="project-images single"><figure><img src="../images/FlyingMachine/D09KvYf26Tcgq8WMqjSrbTQ4.jpg" alt="A large red flying boss sends curved streams of fireballs toward the machine in a dark blue night sky" width="3024" height="1668" loading="lazy" decoding="async"><figcaption>03 / Balancing the final boss’s bullet patterns</figcaption></figure></div>
+        </section>
+        <section class="project-section">
+          <div class="section-heading"><span class="section-number" aria-hidden="true">04</span><h2>Story Moments</h2></div>
+          <div class="project-images single"><figure><img src="../images/FlyingMachine/0WcesT5wtDzQR6rwG2BEqQcDg.jpg" alt="The player character waits for a college admission decision in a bedroom dialogue scene" width="2656" height="1482" loading="lazy" decoding="async"><figcaption>04 / Waiting for news</figcaption></figure></div>
+          <div class="project-images"><figure><img src="../images/FlyingMachine/Xz1zDnjjPWdzgT6I4vAMEQDy3DA.jpg" alt="An in-game college admission letter addressed to the player on a pixel-art desktop" width="2656" height="1482" loading="lazy" decoding="async"><figcaption>05 / The admission letter</figcaption></figure><figure><img src="../images/FlyingMachine/f0X6OIzqc8Ppjo8yaRO9q09aTqM.jpg" alt="A professor introduces the flying machine and its blueprint in a workshop dialogue scene" width="1432" height="798" loading="lazy" decoding="async"><figcaption>06 / Meeting the professor</figcaption></figure></div>
+        </section>
+        <section class="project-section">
+          <div class="section-heading"><span class="section-number" aria-hidden="true">05</span><h2>Credits</h2></div>
+          <ul class="project-credits">
+            <li><a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer">Bird enemies, character, flying machine, and backgrounds</a> — CraftPix</li>
+            <li><a href="https://elthen.itch.io/2d-pixel-art-cacodaemon-sprites" target="_blank" rel="noopener noreferrer">Boss sprite</a> — Elthen</li>
+            <li><a href="https://bdragon1727.itch.io/fire-pixel-bullet-16x16" target="_blank" rel="noopener noreferrer">Bullet sprites</a> — BDragon</li>
+            <li><a href="https://www.shutterstock.com/image-vector/mechanical-tools-pixel-art-set-wrench-2185581329" target="_blank" rel="noopener noreferrer">Wrench icon</a> — Cadmium_Red</li>
+            <li><a href="https://jazzybee.itch.io/sdvcharactercreator" target="_blank" rel="noopener noreferrer">Character portraits</a> — Poltergeister &amp; Jaz</li>
+            <li><a href="https://www.peakpx.com/en/hd-wallpaper-desktop-vdlew" target="_blank" rel="noopener noreferrer">Windows background</a> — Peakpx</li>
+            <li><a href="https://spiralatlas.itch.io/house-visual-novel-backgrounds" target="_blank" rel="noopener noreferrer">Story backgrounds</a> — Spiral Atlas</li>
+            <li><a href="https://es.pixilart.com/art/resume-button-950b0f8e9cf050e" target="_blank" rel="noopener noreferrer">Resume button</a> — Shrejkr</li>
+            <li><a href="https://yaninyunus.itch.io/16x16-specialtycoffee" target="_blank" rel="noopener noreferrer">Coffee icon</a> — Yanin</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+    <footer class="project-footer"><a class="collection-link" href="../games.html">Back to Games <span aria-hidden="true">↗</span></a><span class="footer-credit">DAVID LIANG / GAMES</span></footer>
+  </main>
+  <script src="../js/navigation.js"></script>
+</body>
+</html>
