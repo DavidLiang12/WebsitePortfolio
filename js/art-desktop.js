@@ -5,10 +5,11 @@
   const tasks = document.getElementById('desktop-tasks');
   const announcement = document.getElementById('desktop-announcement');
   const mobile = matchMedia('(max-width: 760px)');
-  const openWindows = new Set(['readme']);
+  const openWindows = new Set();
   const launchers = new Map();
   let order = 2;
-  let active = 'readme';
+  let active = null;
+  const clickSound = () => window.portfolioSound?.play('click');
   let drag;
   const nameOf = panel => panel.querySelector('.os-window-title').textContent;
 
@@ -23,7 +24,7 @@
         task.textContent = nameOf(panel);
         task.addEventListener('click', () => {
           if (active === panel.id && !panel.hidden) minimize(panel);
-          else open(panel.id, task);
+          else { open(panel.id, task); clickSound(); }
         });
         tasks.append(task);
       }
@@ -44,6 +45,9 @@
     if (!panel) return;
     if (launcher && !launcher.closest('.os-window') && !launcher.dataset.task) launchers.set(id, launcher);
     openWindows.add(id); panel.hidden = false;
+    panel.querySelectorAll('iframe[data-src]').forEach(frame => {
+      if (!frame.hasAttribute('src')) frame.src = frame.dataset.src;
+    });
     focus(panel); panel.focus({ preventScroll: true });
     announcement.textContent = `${nameOf(panel)} opened.`;
   }
@@ -61,6 +65,7 @@
   }
 
   function minimize(panel) {
+    clickSound();
     panel.hidden = true; focusNext(panel);
     announcement.textContent = `${nameOf(panel)} minimized. Restore it from the taskbar.`;
   }
@@ -73,12 +78,15 @@
     panel.addEventListener('pointerdown', () => focus(panel));
     panel.addEventListener('focusin', () => { if (active !== panel.id) focus(panel); });
     const close = () => {
+      clickSound();
+      panel.querySelectorAll('iframe[data-src]').forEach(frame => frame.removeAttribute('src'));
       panel.hidden = true; openWindows.delete(panel.id); focusNext(panel);
       announcement.textContent = `${nameOf(panel)} closed.`;
     };
     panel.querySelector('[data-close]').addEventListener('click', close);
     panel.querySelector('[data-minimize]').addEventListener('click', () => minimize(panel));
     panel.querySelector('[data-maximize]').addEventListener('click', event => {
+      clickSound();
       const maximized = panel.classList.toggle('is-maximized');
       event.currentTarget.setAttribute('aria-pressed', String(maximized));
       event.currentTarget.setAttribute('aria-label', `${maximized ? 'Restore' : 'Maximize'} ${nameOf(panel)}`);
@@ -104,9 +112,32 @@
   function arrange() {
     windows.forEach(panel => { panel.style.removeProperty('left'); panel.style.removeProperty('top'); });
   }
-  document.getElementById('reset-desktop').addEventListener('click', () => { arrange(); announcement.textContent = 'Windows arranged.'; });
   window.addEventListener('resize', arrange);
-  focus(windows[0]);
+
+  document.querySelectorAll('[data-gallery]').forEach(gallery => {
+    const thumbnails = [...gallery.querySelectorAll('[data-gallery-index]')];
+    const image = gallery.querySelector('[data-gallery-image]');
+    let index = 0;
+    function show(next) {
+      index = (next + thumbnails.length) % thumbnails.length;
+      const item = thumbnails[index];
+      image.src = item.dataset.src;
+      image.alt = item.dataset.name;
+      gallery.querySelector('[data-gallery-name]').textContent = item.dataset.name;
+      gallery.querySelector('[data-gallery-count]').textContent = `${index + 1} / ${thumbnails.length}`;
+      thumbnails.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+      item.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      clickSound();
+    }
+    thumbnails.forEach((button, i) => button.addEventListener('click', () => show(i)));
+    gallery.querySelector('[data-previous]')?.addEventListener('click', () => show(index - 1));
+    gallery.querySelector('[data-next]')?.addEventListener('click', () => show(index + 1));
+    gallery.closest('.os-window').addEventListener('keydown', event => {
+      if (thumbnails.length < 2 || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+      event.preventDefault();
+      show(index + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+  });
 
   function setupTray() {
     const sound = document.querySelector('.art-desktop > .sound-controls');
