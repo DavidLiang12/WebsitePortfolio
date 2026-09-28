@@ -3,3 +3,6 @@
 .game-cover[data-cover='loop'] { --cover-width: 111.929825%; --cover-height: 110.526316%; --cover-left: -4.210526%; --cover-top: -3.859649%; --cover-origin: 48.432602% 48.730159%; }
 .game-cover[data-cover='handspell'], .game-cover[data-cover='brookings'], .game-cover[data-cover='flyinghome'], .game-cover[data-cover='flyingmachine'] { --cover-width: 103.163445%; --cover-height: 103.163445%; --cover-left: -1.581722%; --cover-top: -1.581722%; }
 .game-cover .cd-disc { position: absolute; display: block; width: var(--cover-width); height: var(--cover-height); max-width: none; left: var(--cover-left); top: var(--cover-top); object-fit: fill; transform-origin: var(--cover-origin); }
+.game-cover[data-cover='pending'] { --cover-width: 103.163445%; --cover-height: 103.163445%; --cover-left: -1.581722%; --cover-top: -1.581722%; }
+/* River Raid's source has extra transparent canvas around the disc. */
+.game-cover[data-cover='riverraid'] { --cover-width: 127.411765%; --cover-height: 137.647059%; --cover-left: -16.588235%; --cover-top: -1.647059%; --cover-origin: 52.309326% 37.521368%; }

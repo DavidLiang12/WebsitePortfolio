@@ -1,4 +1,7 @@
 /* Sage preview layout, using Midnight Stereo's shared green and cream. */
+.other-projects-page { --rust: #e8ba46; }
+.other-projects-page .game-album { background: #f6e7c705; }
+.other-projects-page .placeholder-disc-stage { padding: 0; filter: none; }
 .other-projects-page { background-image: radial-gradient(#f6e7c710 .55px, transparent .8px); background-size: 4px 4px; }
 .other-projects-main { flex: 1; padding-bottom: 3rem; }
 .other-projects-heading { padding-block: clamp(2.5rem, 5vw, 4.5rem) 2.5rem; }

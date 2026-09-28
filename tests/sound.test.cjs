@@ -18,7 +18,9 @@ function setup(storage = new Map(), blocked = false) {
     URL, window,
     document: {
       currentScript: { src: 'https://example.com/portfolio/js/sound.js' },
-      createElement() { return button; }, body: { append() {} },
+      createElement(tag) { return tag === 'button' ? button : { append() {} }; },
+      body: { append() {}, querySelector() { return null; } },
+      querySelector() { return null; },
       addEventListener(name, handler) { events[name] = handler; }
     },
     sessionStorage: {
@@ -51,13 +53,13 @@ test('unmute enables effects, mute stops them immediately and blocks new playbac
   assert.equal(app.audio.length, 2);
   assert.equal(app.audio[0].url, 'https://example.com/portfolio/Sound/CD.MP3');
   assert.equal(app.audio[0].plays, 1);
-  assert.equal(app.label.textContent, 'Mute');
+  assert.equal(app.label.textContent, 'Mute sound effects');
   app.button.click();
   app.sound.play('cd');
   assert.equal(app.audio[0].plays, 1);
   assert.equal(app.audio[0].pauses, 1);
   assert.equal(app.audio[1].pauses, 1);
-  assert.equal(app.label.textContent, 'Unmute');
+  assert.equal(app.label.textContent, 'Unmute sound effects');
 });
 
 test('choice survives page changes and cached pages resync on Back', () => {
@@ -69,7 +71,7 @@ test('choice survives page changes and cached pages resync on Back', () => {
   next.button.click();
   first.windowEvents.pageshow({ persisted: true });
   assert.equal(first.sound.muted, true);
-  assert.equal(first.label.textContent, 'Unmute');
+  assert.equal(first.label.textContent, 'Unmute sound effects');
 });
 
 test('blocked storage remains muted by default but the control still works', () => {

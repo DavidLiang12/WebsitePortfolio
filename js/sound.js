@@ -20,7 +20,7 @@
     button.setAttribute('aria-label', enabled ? 'Mute sound effects' : 'Unmute sound effects');
     button.title = enabled ? 'Mute sound effects' : 'Unmute sound effects';
     button.dataset.muted = String(!enabled);
-    button.querySelector('.sound-toggle-label').textContent = enabled ? 'Mute' : 'Unmute';
+    button.querySelector('.sound-toggle-label').textContent = enabled ? 'Mute sound effects' : 'Unmute sound effects';
   }
 
   window.portfolioSound = {
@@ -48,7 +48,18 @@
       render();
     });
     render();
-    document.body.append(button);
+    const homeBottom = document.querySelector('.cassette-intro-bottom');
+    if (homeBottom) {
+      homeBottom.append(button);
+    } else {
+      const main = document.querySelector('main, .content') || document.body;
+      const controls = document.createElement('div');
+      controls.className = 'sound-controls';
+      controls.append(button);
+      const stripes = main.querySelector('.stereo-stripes');
+      if (stripes) stripes.before(controls);
+      else main.append(controls);
+    }
   }, { once: true });
 
   window.addEventListener('pagehide', stop);

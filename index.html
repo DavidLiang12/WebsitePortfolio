@@ -133,7 +133,7 @@
   .cassette-game-disc:hover .cassette-game-print { transform: none; }
 }
   </style>
-  <link rel="stylesheet" href="css/game-discs.css">
+  <link rel="stylesheet" href="css/game-discs.css?v=new-covers-1">
   <link rel="stylesheet" href="css/interactions.css?v=disc-interactions-3">
   <link rel="stylesheet" href="css/page-transitions.css">
   <script src="js/page-transitions.js"></script>
@@ -155,12 +155,12 @@
       <section class="cassette-games" aria-labelledby="featured-games-title" aria-roledescription="carousel">
         <div class="cassette-games-heading"><h2 id="featured-games-title">Featured Games</h2><span class="eyebrow">In rotation</span></div>
         <div class="cassette-game-stage">
-          <div class="cassette-game-disc" data-game="0" role="img" aria-label="Placeholder CD cover for Game 01">
-            <div class="cassette-game-print" aria-hidden="true"><span class="cassette-disc-label">David Liang / Games</span><span class="cassette-disc-word">GAME</span><span class="cassette-disc-number">01</span><span class="cassette-disc-note">Cover artwork placeholder</span></div>
-            <a class="cassette-game-cover-link cd-project-link game-cover" data-cover="loop" data-cd-link href="games/the-perfect-loop.html" aria-label="View The Perfect LOOP project" hidden><img class="cd-disc" src="images/PerfectLOOp/PerfectLOOPCover.png" alt="The Perfect LOOP CD cover" width="638" height="630" decoding="async"></a>
+          <div class="cassette-game-disc" data-game="0">
+            <div class="cassette-game-print" aria-hidden="true" hidden><span class="cassette-disc-label">David Liang / Games</span><span class="cassette-disc-word">GAME</span><span class="cassette-disc-number">01</span><span class="cassette-disc-note">Cover artwork placeholder</span></div>
+            <a class="cassette-game-cover-link cd-project-link game-cover" data-cover="pending" data-cd-link href="games/pending-departures.html" aria-label="View Pending Departures project"><img class="cd-disc" src="images/PendingDepatures/PendingDepCover.png" alt="Pending Departures CD cover" width="587" height="587" decoding="async"></a>
           </div>
         </div>
-        <div class="cassette-game-caption" aria-live="polite" aria-atomic="true"><h3 class="cassette-game-title">Game 01</h3><p class="eyebrow">Cover artwork placeholder</p><span class="sr-only cassette-game-announcement">1 of 3</span></div>
+        <div class="cassette-game-caption" aria-live="polite" aria-atomic="true"><h3 class="cassette-game-title"><a href="games/pending-departures.html">Pending Departures</a></h3><p class="eyebrow">GAME JAM 2026 / UNITY / PERSONAL PROJECT</p><span class="sr-only cassette-game-announcement">1 of 3</span></div>
         <div class="cassette-game-controls" hidden>
           <button class="cassette-game-arrow" type="button" data-game-step="-1" aria-label="Previous featured game"><span aria-hidden="true">←</span></button>
           <span class="cassette-game-position" aria-hidden="true">01 / 03</span>
@@ -200,7 +200,7 @@
     const samplePrint = carousel.querySelector('.cassette-game-print');
     const description = carousel.querySelector('.cassette-game-caption .eyebrow');
     const games = [
-      { title: 'Game 01', description: 'Cover artwork placeholder' },
+      { title: 'Pending Departures', description: 'GAME JAM 2026 / UNITY / PERSONAL PROJECT', href: 'games/pending-departures.html', image: 'images/PendingDepatures/PendingDepCover.png', cover: 'pending', width: 587, height: 587 },
       { title: 'The Perfect LOOP', description: 'Puzzle / Unity / 2025', href: 'games/the-perfect-loop.html', image: 'images/PerfectLOOp/PerfectLOOPCover.png', cover: 'loop', width: 638, height: 630 },
       { title: 'HandSpell', description: 'Gesture-based combat / Unity / 2026', href: 'games/handspell.html', image: 'images/HandSpell/HandSpellCover.png', cover: 'handspell', width: 587, height: 587 }
     ];
