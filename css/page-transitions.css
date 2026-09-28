@@ -18,12 +18,12 @@
 .pt-from-games { --pt-surface: #f3ead2; --pt-gold: #b93825; }
 .pt-from-projects { --pt-surface: #1e302e; --pt-gold: #e8ba46; --pt-orange: #7f9a88; }
 .pt-from-art-2d {
-  --pt-surface: #f4ead8; --pt-rule: #493a2e22;
-  --pt-rust: #735640; --pt-orange: #a48760; --pt-gold: #c6a779;
+  --pt-surface: #073d36; --pt-rule: #cbdec922;
+  --pt-rust: #135b4d; --pt-orange: #538671; --pt-gold: #a4bda1;
 }
 .pt-from-art-3d {
-  --pt-surface: #1e302e; --pt-rule: #f6e7c722;
-  --pt-rust: #994534; --pt-orange: #ec7045; --pt-gold: #e8ba46;
+  --pt-surface: #c7b798; --pt-rule: #493a2e22;
+  --pt-rust: #735640; --pt-orange: #a48760; --pt-gold: #c6a779;
 }
 .pt-layer { position: absolute; display: block; will-change: transform; }
 .pt-tape .pt-layer {

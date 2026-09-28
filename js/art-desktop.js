@@ -85,16 +85,10 @@
     };
     panel.querySelector('[data-close]').addEventListener('click', close);
     panel.querySelector('[data-minimize]').addEventListener('click', () => minimize(panel));
-    panel.querySelector('[data-maximize]').addEventListener('click', event => {
-      clickSound();
-      const maximized = panel.classList.toggle('is-maximized');
-      event.currentTarget.setAttribute('aria-pressed', String(maximized));
-      event.currentTarget.setAttribute('aria-label', `${maximized ? 'Restore' : 'Maximize'} ${nameOf(panel)}`);
-    });
     panel.addEventListener('keydown', event => { if (event.key === 'Escape') { event.stopPropagation(); close(); } });
     const bar = panel.querySelector('[data-drag]');
     bar.addEventListener('pointerdown', event => {
-      if (event.button !== 0 || mobile.matches || panel.classList.contains('is-maximized') || event.target.closest('button')) return;
+      if (event.button !== 0 || mobile.matches || event.target.closest('button')) return;
       drag = { panel, x: event.clientX, y: event.clientY, left: panel.offsetLeft, top: panel.offsetTop };
       bar.setPointerCapture(event.pointerId); panel.classList.add('is-dragging'); event.preventDefault();
     });

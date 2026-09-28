@@ -40,9 +40,11 @@
   height: auto;
   aspect-ratio: auto;
   object-fit: contain;
-  border-radius: 0;
+  border-radius: 0 clamp(4rem, 9vw, 8rem) 0 0;
 }
 @media (max-width: 640px) {
   .about-page .about-layout { grid-template-columns: 1fr; }
   .about-page .nav-group:last-of-type .nav-dropdown { left: auto; right: 0; }
 }
+
+.about-contact { display: flex; align-items: center; flex-wrap: wrap; gap: 1.75rem; }

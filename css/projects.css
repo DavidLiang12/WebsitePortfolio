@@ -19,3 +19,6 @@
 .other-projects-tape { flex-shrink: 0; height: 24px; background: linear-gradient(#7f9a88 0 33.333%, #e8ba46 33.333% 66.666%, #f6e7c7 66.666%); }
 @media (max-width: 950px) { .other-projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .other-projects-grid { grid-template-columns: 1fr; } .other-projects-heading { padding-block: 2.25rem 1.75rem; } .other-projects-main { padding-bottom: 2rem; } }
+
+.other-projects-page .tag-weather { background: #c1e3ed; color: #164c60; }
+.other-projects-page .tag-assembly { background: #efb9a4; color: #682b22; }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Explore David Liang’s 2D art desktop. Open a project folder to browse the collection.">
-  <meta name="theme-color" content="#f4ead8">
+  <meta name="theme-color" content="#008080">
   <title>2D Art — David Liang</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
   <!-- Page-local styling keeps the other portfolio sections unchanged. -->
   <link rel="stylesheet" href="css/retro.css?v=pointer-tilt-1">
   <link rel="stylesheet" href="css/portfolio.css?v=cd-logo-2">
-  <link rel="stylesheet" href="css/art-2d.css?v=desktop-2">
+  <link rel="stylesheet" href="css/art-2d.css?v=win95-1">
   <link rel="stylesheet" href="css/page-transitions.css">
   <script src="js/page-transitions.js"></script>
   <link rel="stylesheet" href="css/sound.css">
@@ -29,6 +29,7 @@
 </div></header>
   <main id="main-content" class="art-desktop" aria-label="2D Art desktop">
 <h1 class="sr-only">2D Art</h1>
+<div class="desktop-boot" id="desktop-boot" hidden><div class="boot-panel"><div class="boot-heading"><span class="boot-mark" aria-hidden="true">✳</span><span>DAVID OS <b>95</b><br><small>YOUR PERSONAL ART DESKTOP</small></span></div><p class="boot-status" id="boot-status" role="status">Starting art desk…</p><div class="boot-progress" aria-hidden="true"><span></span></div><p class="boot-footnote">Drawings, experiments, and a little imagination.</p><button type="button" id="skip-boot">Skip startup →</button></div></div>
 <div class="desktop-menubar">
 <div><strong><span class="system-dot" aria-hidden="true"></span> DAVID OS</strong><span class="desktop-section">2D Art / Desktop</span>
 </div><span class="system-version">VOL. 02</span>
@@ -41,17 +42,23 @@
 </button><button class="desktop-icon" type="button" data-open="pixel-art" aria-label="Open Pixel Art"><span class="folder-icon" aria-hidden="true"><span>02</span></span><span class="icon-name">Pixel Art</span><span class="icon-detail">6 images</span>
 </button><button class="desktop-icon" type="button" data-open="rat-character" aria-label="Open Rat Character"><span class="folder-icon" aria-hidden="true"><span>03</span></span><span class="icon-name">Rat Character</span><span class="icon-detail">2 images</span>
 </button><button class="desktop-icon" type="button" data-open="endless-spring" aria-label="Open Endless Spring"><span class="app-icon"><img src="images/2D%20Art/EndlessSpring/EndlessSpringCover.png" alt="" width="142" height="126"></span><span class="icon-name">Endless Spring</span><span class="icon-detail">Playable demo</span>
-</button><button class="desktop-icon" type="button" data-open="magic-redesign" aria-label="Open Magic_Redesign.jpg"><span class="image-file-icon"><img src="images/2D%20Art/Magic_Redesign/Fetid%20Imp.jpg" alt="" width="64" height="48"></span><span class="icon-name">Magic_Redesign.jpg</span><span class="icon-detail">Image</span>
-</button></div>
+</button><button class="desktop-icon" type="button" data-open="magic-redesign" aria-label="Open Magic_Redesign.png"><span class="image-file-icon" aria-hidden="true"><svg viewBox="0 0 56 64" fill="none"><path d="M7 2h29l13 13v47H7z" fill="#e5e7d8" stroke="#162b25" stroke-width="2"/><path d="M36 2v14h13" fill="#99afa0" stroke="#162b25" stroke-width="2"/><path d="M14 39l9-10 7 7 5-5 8 8v7H14z" fill="#397d61"/><path d="M16 23h5v5h-5z" fill="#b49b41"/><text x="28" y="57" text-anchor="middle" fill="#162b25" font-family="monospace" font-size="10" font-weight="bold">PNG</text></svg></span><span class="icon-name">Magic_Redesign.png</span><span class="icon-detail">Image</span>
+</button>
+<button class="desktop-icon" type="button" data-open="paint" aria-label="Open Paint"><span class="paint-app-icon"><img src="images/desktop/paint.webp" alt="" width="250" height="250"></span><span class="icon-name">Paint</span><span class="icon-detail">Make something</span></button></div>
 <div class="desktop-utilities" aria-label="Desktop utilities">
 <button class="desktop-icon" type="button" data-open="my-cat" aria-label="Open My_Cat"><span class="folder-icon" aria-hidden="true"><span>♥</span></span><span class="icon-name">My_Cat</span><span class="icon-detail">6 images</span>
-</button><button class="desktop-icon" type="button" data-open="trash-bin" aria-label="Open Trash Bin"><span class="trash-icon" aria-hidden="true">▥</span><span class="icon-name">Trash Bin</span><span class="icon-detail">Empty</span>
+</button><button class="desktop-icon" type="button" data-open="trash-bin" aria-label="Open Trash Bin"><span class="recycle-icon" aria-hidden="true"><img src="images/desktop/recycle-bin.png" alt="" width="540" height="500"></span><span class="icon-name">Trash Bin</span><span class="icon-detail">Empty</span>
 </button></div>
+<section class="os-window paint-window" id="paint" role="dialog" aria-labelledby="paint-title" tabindex="-1" hidden>
+<div class="os-titlebar" data-drag><span class="os-window-title" id="paint-title">Untitled — Paint</span><div class="os-window-controls"><button type="button" data-minimize aria-label="Minimize Paint">_</button><button type="button" data-close aria-label="Close Paint">×</button></div></div>
+<div class="paint-menu"><button type="button" id="paint-undo" disabled>Undo</button><button type="button" id="paint-redo" disabled>Redo</button><button type="button" id="paint-clear">Clear</button><button type="button" class="paint-save" id="paint-save">Save PNG ↓</button></div>
+<div class="paint-workarea"><div class="paint-tools" aria-label="Drawing tools"><button type="button" data-paint-tool="brush" aria-pressed="true" title="Brush"><span aria-hidden="true">✎</span>Brush</button><button type="button" data-paint-tool="eraser" aria-pressed="false" title="Eraser"><span aria-hidden="true">▱</span>Eraser</button><label for="paint-size">Size</label><select id="paint-size" aria-label="Brush size"><option value="2">2 px</option><option value="6" selected>6 px</option><option value="12">12 px</option><option value="24">24 px</option><option value="40">40 px</option></select></div><div class="paint-paper"><canvas id="paint-canvas" width="960" height="600" tabindex="0" aria-label="Drawing canvas. Use a mouse, pen, or touch to draw.">Your browser needs canvas support to draw.</canvas></div></div>
+<div class="paint-colors"><label class="paint-custom-color" for="paint-color"><input id="paint-color" type="color" value="#000000" aria-label="Custom drawing color"><span>Color</span></label><div class="paint-palette" aria-label="Color palette"><button type="button" data-paint-color="#000000" style="--swatch:#000000" aria-label="Black" aria-pressed="true"></button><button type="button" data-paint-color="#808080" style="--swatch:#808080" aria-label="Gray" aria-pressed="false"></button><button type="button" data-paint-color="#c0c0c0" style="--swatch:#c0c0c0" aria-label="Silver" aria-pressed="false"></button><button type="button" data-paint-color="#ffffff" style="--swatch:#ffffff" aria-label="White" aria-pressed="false"></button><button type="button" data-paint-color="#800000" style="--swatch:#800000" aria-label="Maroon" aria-pressed="false"></button><button type="button" data-paint-color="#ff0000" style="--swatch:#ff0000" aria-label="Red" aria-pressed="false"></button><button type="button" data-paint-color="#808000" style="--swatch:#808000" aria-label="Olive" aria-pressed="false"></button><button type="button" data-paint-color="#ffff00" style="--swatch:#ffff00" aria-label="Yellow" aria-pressed="false"></button><button type="button" data-paint-color="#008000" style="--swatch:#008000" aria-label="Green" aria-pressed="false"></button><button type="button" data-paint-color="#00ff00" style="--swatch:#00ff00" aria-label="Lime" aria-pressed="false"></button><button type="button" data-paint-color="#008080" style="--swatch:#008080" aria-label="Teal" aria-pressed="false"></button><button type="button" data-paint-color="#00ffff" style="--swatch:#00ffff" aria-label="Cyan" aria-pressed="false"></button><button type="button" data-paint-color="#000080" style="--swatch:#000080" aria-label="Navy" aria-pressed="false"></button><button type="button" data-paint-color="#0000ff" style="--swatch:#0000ff" aria-label="Blue" aria-pressed="false"></button><button type="button" data-paint-color="#800080" style="--swatch:#800080" aria-label="Purple" aria-pressed="false"></button><button type="button" data-paint-color="#ff00ff" style="--swatch:#ff00ff" aria-label="Magenta" aria-pressed="false"></button></div></div>
+<div class="os-statusbar"><span id="paint-status" role="status">Choose a color and start drawing.</span><span>960 × 600 px</span></div></section>
 <section class="os-window gallery-window" id="quick-sketches" role="dialog" aria-labelledby="quick-sketches-title" tabindex="-1" hidden>
 <div class="os-titlebar" data-drag><span class="os-window-title" id="quick-sketches-title">Quick Sketches</span>
 <div class="os-window-controls">
 <button type="button" data-minimize aria-label="Minimize Quick Sketches">_</button>
-<button type="button" data-maximize aria-label="Maximize Quick Sketches" aria-pressed="false">□</button>
 <button type="button" data-close aria-label="Close Quick Sketches">×</button>
 </div></div>
 <div class="os-toolbar"><span class="os-path">Art desk / Quick Sketches</span><span>4 images</span>
@@ -73,7 +80,6 @@
 <div class="os-titlebar" data-drag><span class="os-window-title" id="pixel-art-title">Pixel Art</span>
 <div class="os-window-controls">
 <button type="button" data-minimize aria-label="Minimize Pixel Art">_</button>
-<button type="button" data-maximize aria-label="Maximize Pixel Art" aria-pressed="false">□</button>
 <button type="button" data-close aria-label="Close Pixel Art">×</button>
 </div></div>
 <div class="os-toolbar"><span class="os-path">Art desk / Pixel Art</span><span>6 images</span>
@@ -97,7 +103,6 @@
 <div class="os-titlebar" data-drag><span class="os-window-title" id="rat-character-title">Rat Character</span>
 <div class="os-window-controls">
 <button type="button" data-minimize aria-label="Minimize Rat Character">_</button>
-<button type="button" data-maximize aria-label="Maximize Rat Character" aria-pressed="false">□</button>
 <button type="button" data-close aria-label="Close Rat Character">×</button>
 </div></div>
 <div class="os-toolbar"><span class="os-path">Art desk / Rat Character</span><span>2 images</span>
@@ -117,7 +122,6 @@
 <div class="os-titlebar" data-drag><span class="os-window-title" id="my-cat-title">My_Cat</span>
 <div class="os-window-controls">
 <button type="button" data-minimize aria-label="Minimize My_Cat">_</button>
-<button type="button" data-maximize aria-label="Maximize My_Cat" aria-pressed="false">□</button>
 <button type="button" data-close aria-label="Close My_Cat">×</button>
 </div></div>
 <div class="os-toolbar"><span class="os-path">Art desk / My_Cat</span><span>6 images</span>
@@ -138,28 +142,26 @@
 </div><div class="os-statusbar"><span>My_Cat</span><span>← → Browse images</span>
 </div></section>
 <section class="os-window gallery-window" id="magic-redesign" role="dialog" aria-labelledby="magic-redesign-title" tabindex="-1" hidden>
-<div class="os-titlebar" data-drag><span class="os-window-title" id="magic-redesign-title">Magic_Redesign.jpg</span>
+<div class="os-titlebar" data-drag><span class="os-window-title" id="magic-redesign-title">Magic_Redesign.png</span>
 <div class="os-window-controls">
-<button type="button" data-minimize aria-label="Minimize Magic_Redesign.jpg">_</button>
-<button type="button" data-maximize aria-label="Maximize Magic_Redesign.jpg" aria-pressed="false">□</button>
-<button type="button" data-close aria-label="Close Magic_Redesign.jpg">×</button>
+<button type="button" data-minimize aria-label="Minimize Magic_Redesign.png">_</button>
+<button type="button" data-close aria-label="Close Magic_Redesign.png">×</button>
 </div></div>
-<div class="os-toolbar"><span class="os-path">Art desk / Magic_Redesign.jpg</span><span>1 image</span>
+<div class="os-toolbar"><span class="os-path">Art desk / Magic_Redesign.png</span><span>1 image</span>
 </div><div class="gallery " data-gallery>
-<figure class="gallery-stage"><img data-gallery-image src="images/2D%20Art/Magic_Redesign/Fetid%20Imp.jpg" alt="Magic_Redesign.jpg" decoding="async">
+<figure class="gallery-stage"><img data-gallery-image src="images/2D%20Art/Magic_Redesign/Fetid%20Imp.jpg" alt="Magic_Redesign.png" decoding="async">
 </figure><div class="gallery-navigation">
-<div class="gallery-caption" aria-live="polite"><span data-gallery-name>Magic_Redesign.jpg</span><span data-gallery-count>1 / 1</span>
+<div class="gallery-caption" aria-live="polite"><span data-gallery-name>Magic_Redesign.png</span><span data-gallery-count>1 / 1</span>
 </div></div>
-<div class="gallery-thumbnails" aria-label="Images in Magic_Redesign.jpg">
-<button type="button" data-gallery-index="0" data-src="images/2D%20Art/Magic_Redesign/Fetid%20Imp.jpg" data-name="Magic_Redesign.jpg" aria-label="View Magic_Redesign.jpg" aria-pressed="true"><img src="images/2D%20Art/Magic_Redesign/Fetid%20Imp.jpg" alt="" loading="lazy" decoding="async">
+<div class="gallery-thumbnails" aria-label="Images in Magic_Redesign.png">
+<button type="button" data-gallery-index="0" data-src="images/2D%20Art/Magic_Redesign/Fetid%20Imp.jpg" data-name="Magic_Redesign.png" aria-label="View Magic_Redesign.png" aria-pressed="true"><img src="images/2D%20Art/Magic_Redesign/Fetid%20Imp.jpg" alt="" loading="lazy" decoding="async">
 </button></div>
-</div><div class="os-statusbar"><span>Magic_Redesign.jpg</span><span>Image viewer</span>
+</div><div class="os-statusbar"><span>Magic_Redesign.png</span><span>Image viewer</span>
 </div></section>
 <section class="os-window spring-window" id="endless-spring" role="dialog" aria-labelledby="endless-spring-title" tabindex="-1" hidden>
 <div class="os-titlebar" data-drag><span class="os-window-title" id="endless-spring-title">Endless Spring</span>
 <div class="os-window-controls">
 <button type="button" data-minimize aria-label="Minimize Endless Spring">_</button>
-<button type="button" data-maximize aria-label="Maximize Endless Spring" aria-pressed="false">□</button>
 <button type="button" data-close aria-label="Close Endless Spring">×</button>
 </div></div>
 <div class="os-toolbar"><span class="os-path">Art desk / Endless Spring</span><span>Playable demo</span>
@@ -182,11 +184,10 @@
 <div class="os-titlebar" data-drag><span class="os-window-title" id="trash-bin-title">Trash Bin</span>
 <div class="os-window-controls">
 <button type="button" data-minimize aria-label="Minimize Trash Bin">_</button>
-<button type="button" data-maximize aria-label="Maximize Trash Bin" aria-pressed="false">□</button>
 <button type="button" data-close aria-label="Close Trash Bin">×</button>
 </div></div>
 <div class="os-toolbar"><span class="os-path">Art desk / Trash Bin</span><span>0 items</span>
-</div><div class="trash-content"><span class="trash-icon" aria-hidden="true">▥</span>
+</div><div class="trash-content"><span class="recycle-icon" aria-hidden="true"><img src="images/desktop/recycle-bin.png" alt="" width="540" height="500"></span>
 <h2>The bin is empty.</h2>
 <p>No discarded files here.</p>
 </div><div class="os-statusbar"><span>Trash Bin</span><span>0 items</span>
@@ -203,6 +204,8 @@
 <p class="desktop-noscript">Enable JavaScript to open the artwork folders and apps.</p>
 </noscript></main>
   <script src="js/navigation.js"></script>
-  <script src="js/art-desktop.js?v=desktop-2"></script>
+  <script src="js/desktop-boot.js?v=every-entry-1"></script>
+  <script src="js/art-desktop.js?v=desktop-3"></script>
+  <script src="js/paint.js"></script>
 </body>
 </html>

@@ -1,0 +1,17 @@
+.art-3d-page {
+  --paper: #f4ead8;
+  --ink: #493a2e;
+  --body-background: #c7b798;
+  --body-color: var(--ink);
+  --active-color: #705033;
+  --line: #493a2e44;
+  color-scheme: light;
+  background-image: radial-gradient(#65513e24 .6px, transparent .8px);
+  background-size: 3px 3px;
+}
+.art-3d-page .portfolio-header { background: transparent; color: var(--ink); }
+.art-3d-page .nav-dropdown { background: #f4ead8; color: var(--ink); }
+.art-3d-page .portfolio-logo-disc { filter: none; }
+.art-3d-page .nav-dropdown a:hover, .art-3d-page .nav-dropdown a[aria-current] { background: #705033; color: #f4ead8; }
+.art-3d-page .cd-meta::before { background: #916234; }
+.art-3d-page .stereo-stripes { background: linear-gradient(#735640 0 25%, #a48760 25% 50%, #c6a779 50% 75%, #dfcbaa 75%); }
