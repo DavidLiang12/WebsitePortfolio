@@ -1,0 +1,36 @@
+/* A mostly neutral sheen, with only a trace of CD iridescence. */
+.disc-reflection-stage { position: relative; isolation: isolate; }
+.disc-reflection {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(circle, transparent 0 9.5%, #000 10%);
+  background:
+    linear-gradient(var(--reflection-angle, 25deg), transparent 34%, #fff9 49%, transparent 63%),
+    conic-gradient(from var(--reflection-angle, 25deg), transparent 0 13%, #aecbdf50 17%, #dfb9ce40 20%, #eee2bc50 23%, transparent 29% 63%, #c3deda40 68%, #d4c8e240 71%, transparent 77%);
+  transition: opacity .25s ease;
+}
+.cd-artwork > .disc-reflection { inset: 1.6%; }
+.disc-reflection-stage:is(:hover, :focus-within) > .disc-reflection,
+.cd-project-link:focus-visible .disc-reflection { opacity: .16; }
+.cd-project-link.is-spinning .disc-reflection { opacity: 0; }
+/* Positive Y rotation pushes the right edge away; negative X pushes the bottom away. */
+.disc-press-stage {
+  transform: perspective(800px) rotateX(var(--press-x, 0deg)) rotateY(var(--press-y, 0deg));
+  transition: transform .22s ease-out, filter .3s ease;
+  will-change: transform;
+}
+
+/* Keep the existing stripe dimensions and colors; bend only their artwork. */
+.interactive-tape { position: relative; }
+.interactive-tape.is-flexible { background-image: none; }
+.tape-art { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.interactive-tape:not(.is-flexible) .tape-art { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .disc-reflection { display: none; }
+  .disc-press-stage { transform: none; transition: none; will-change: auto; }
+}

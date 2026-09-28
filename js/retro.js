@@ -17,14 +17,15 @@
 
   projectLinks.forEach(link => {
     link.addEventListener('click', event => {
-      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank' || reducedMotion.matches) return;
-      event.preventDefault();
-      if (navigating) return;
-      navigating = true;
-      link.classList.add('is-spinning');
-
-      // Navigation is independent of playback so muted or failed audio cannot trap visitors.
-      navigationTimer = window.setTimeout(() => window.location.assign(link.href), 850);
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank') return;
+      if (!reducedMotion.matches) {
+        event.preventDefault();
+        if (navigating) return;
+        navigating = true;
+        link.classList.add('is-spinning');
+        // Navigate after the spin even if audio is muted or fails to play.
+        navigationTimer = window.setTimeout(() => window.location.assign(link.href), 850);
+      }
       try {
         projectSound ||= new Audio('Sound/CD.MP3');
         projectSound.currentTime = 0;
@@ -68,4 +69,4 @@
   }
 })();
 
-  
+

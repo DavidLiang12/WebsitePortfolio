@@ -11,5 +11,4 @@
 .placeholder-cd.disc-02::before { background: linear-gradient(30deg, transparent 0 57%, #7f9a88 57% 65%, #f6e7c7 65% 73%, transparent 73%); }
 .placeholder-cd.disc-03 { --disc-face: #d4decc; --disc-print: #1e302e; }
 .placeholder-cd.disc-03::before { background: linear-gradient(150deg, transparent 0 57%, #7f9a88 57% 65%, #e8ba46 65% 73%, transparent 73%); }
-.other-project-card:hover .placeholder-cd, .art-2d-page .cd-project:hover .placeholder-cd { transform: rotate(7deg); }
 @media (prefers-reduced-motion: reduce) { .placeholder-cd { transition: none; } .other-project-card:hover .placeholder-cd, .art-2d-page .cd-project:hover .placeholder-cd { transform: none; } }
