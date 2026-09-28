@@ -17,11 +17,11 @@
 .game-album .cd-project-link { align-items: stretch; height: 100%; padding: clamp(1.25rem, 3vw, 2rem); border-radius: 0; }
 .game-album-top { display: flex; justify-content: space-between; gap: .5rem; font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; }
 .game-album-top > :first-child { color: var(--rust); font-weight: 700; }
-.game-disc-art { position: relative; display: block; aspect-ratio: 1; width: 90%; max-width: 340px; margin: 2rem auto 2.4rem; border-radius: 50%; filter: drop-shadow(3px 8px 7px #30272035); transition: filter .3s ease; }
+.game-disc-art { position: relative; display: block; aspect-ratio: 1; width: 90%; max-width: 340px; margin: 2rem auto 2.4rem; border-radius: 50%; filter: drop-shadow(3px 9px 8px #30272040); transition: filter .3s ease; }
 .game-album .cd-disc { filter: none; }
-.game-album .cd-project-link:hover .game-disc-art { filter: drop-shadow(4px 11px 9px #30272045); }
-.game-album :is([data-cover='handspell'], [data-cover='brookings']) .game-disc-art { filter: drop-shadow(3px 9px 8px #30272055); }
-.game-album :is([data-cover='handspell'], [data-cover='brookings']):hover .game-disc-art { filter: drop-shadow(4px 12px 10px #30272066); }
+.game-album .cd-project-link:hover .game-disc-art { filter: drop-shadow(4px 12px 10px #30272050); }
+.game-album :is([data-cover='handspell'], [data-cover='brookings']) .game-disc-art { filter: drop-shadow(3px 10px 9px #30272060); }
+.game-album :is([data-cover='handspell'], [data-cover='brookings']):hover .game-disc-art { filter: drop-shadow(4px 13px 11px #30272070); }
 .game-album .cd-project-link:hover .cd-disc { filter: none; }
 .game-album-info { border-top: 1px solid var(--line); padding-top: 1.3rem; flex: 1; display: flex; flex-direction: column; }
 .game-album-info h2 { font-size: clamp(1.5rem, 2.2vw, 2rem); font-weight: 700; letter-spacing: -.045em; line-height: 1.2; }

@@ -1,0 +1,62 @@
+/* All five transitions share the portfolio's cassette palette. */
+.page-transition {
+  --pt-paper: #f3ead2;
+  --pt-ink: #1e302e;
+  --pt-rust: #b93825;
+  --pt-orange: #dc632d;
+  --pt-gold: #d9a12e;
+  --pt-surface: var(--pt-ink);
+  --pt-rule: #f3ead21a;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  overflow: hidden;
+  pointer-events: all;
+  contain: strict;
+}
+/* Keep the departing page's palette through both halves of navigation. */
+.pt-from-games { --pt-surface: #f3ead2; --pt-gold: #b93825; }
+.pt-from-projects { --pt-surface: #1e302e; --pt-gold: #e8ba46; --pt-orange: #7f9a88; }
+.pt-from-art-2d {
+  --pt-surface: #f4ead8; --pt-rule: #493a2e22;
+  --pt-rust: #735640; --pt-orange: #a48760; --pt-gold: #c6a779;
+}
+.pt-from-art-3d {
+  --pt-surface: #1e302e; --pt-rule: #f6e7c722;
+  --pt-rust: #994534; --pt-orange: #ec7045; --pt-gold: #e8ba46;
+}
+.pt-layer { position: absolute; display: block; will-change: transform; }
+.pt-tape .pt-layer {
+  left: 0; right: 0; top: calc(var(--i) * 100% / 3);
+  height: calc(100% / 3 + 1px);
+  background: var(--pt-rust);
+}
+.pt-tape .pt-layer:nth-child(2) { background: var(--pt-orange); }
+.pt-tape .pt-layer:nth-child(3) { background: var(--pt-gold); }
+.pt-cd .pt-layer, .pt-circles .pt-layer {
+  width: 150vmax; height: 150vmax; left: calc(50% - 75vmax); top: calc(50% - 75vmax);
+  border-radius: 50%;
+}
+.pt-cd .pt-layer {
+  background:
+    radial-gradient(circle, var(--pt-paper) 0 1.2%, #302720 1.3% 1.5%, #e8dec4 1.6% 3%, transparent 3.1%),
+    repeating-radial-gradient(circle, transparent 0 8px, #3027200c 9px 10px, transparent 11px 15px),
+    conic-gradient(from 15deg, #e1d7bf, #f3ead2 14%, #7f9a88 24%, #e3d8bd 32%, #f3ead2 48%, #d9a12e 61%, #dc632d 64%, #e3d8bd 70%, #f3ead2 88%, #e1d7bf);
+  box-shadow: inset 0 0 0 2px #30272055;
+}
+.pt-circles .pt-layer { background: var(--pt-rust); }
+.pt-circles .pt-layer:nth-child(2) { background: var(--pt-gold); }
+.pt-circles .pt-layer:nth-child(3) { background: var(--pt-ink); }
+.pt-equalizer .pt-layer {
+  top: 0; bottom: 0; left: calc(var(--i) * 10%); width: calc(10% + 1px);
+  background: var(--pt-surface);
+  border-right: 1px solid var(--pt-rule);
+}
+.pt-equalizer .pt-layer::after {
+  content: ''; position: absolute; inset: auto 0 0; height: 26%;
+  background: linear-gradient(var(--pt-rust) 0 33.333%, var(--pt-orange) 33.333% 66.666%, var(--pt-gold) 66.666%);
+}
+.pt-shutter .pt-layer { left: 0; right: 0; height: calc(50% + 1px); background: var(--pt-surface); }
+.pt-shutter .pt-layer:first-child { top: 0; border-bottom: 3px solid var(--pt-gold); }
+.pt-shutter .pt-layer:last-child { bottom: 0; border-top: 3px solid var(--pt-orange); }
+@media (prefers-reduced-motion: reduce) { .page-transition { display: none; } }

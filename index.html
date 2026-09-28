@@ -87,7 +87,7 @@
 .cassette-games-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem; }
 .cassette-games-heading h2 { font-size: clamp(1.4rem, 2.3vw, 1.9rem); }
 .cassette-game-stage { width: clamp(280px, calc(100dvh - 470px), 420px); max-width: 90%; aspect-ratio: 1; margin: 1.4rem auto; }
-.cassette-game-disc { --disc-ground: var(--rust); --disc-ink: var(--paper); position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%; filter: drop-shadow(4px 10px 8px #30272035); container-type: inline-size; }
+.cassette-game-disc { --disc-ground: var(--rust); --disc-ink: var(--paper); position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%; filter: drop-shadow(4px 11px 9px #30272040); container-type: inline-size; }
 .cassette-game-print { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; color: var(--disc-ink); background: var(--disc-ground); border: 1px solid #f3ead280; outline: 1px solid #30272040; outline-offset: 1px; mask-image: radial-gradient(circle, transparent 0 7%, #000 7.2%); }
 .cassette-game-print::before { content: ''; position: absolute; width: 120%; height: 36%; left: -10%; bottom: 11%; transform: rotate(-28deg); background: linear-gradient(var(--cassette-orange) 0 50%, var(--cassette-gold) 50%); opacity: .9; }
 .cassette-game-print::after { content: ''; position: absolute; inset: 40%; border: 8px solid #ded3b49c; border-radius: 50%; box-shadow: 0 0 0 1px #30272055, inset 0 0 0 1px #30272055; }
@@ -118,8 +118,8 @@
   .cassette-game-stage { width: min(90%, 380px); max-width: none; }
   .cassette-identity .cassette-contact { margin-top: 1rem; }
 }
-.cassette-game-cover-link { position: absolute; inset: 0; display: block; border-radius: 50%; filter: drop-shadow(3px 9px 9px #08171366); transition: filter .3s ease; }
-.cassette-game-cover-link:hover, .cassette-game-cover-link:focus-visible { filter: drop-shadow(4px 12px 12px #08171377); }
+.cassette-game-cover-link { position: absolute; inset: 0; display: block; border-radius: 50%; filter: drop-shadow(3px 10px 10px #08171373); transition: filter .3s ease; }
+.cassette-game-cover-link:hover, .cassette-game-cover-link:focus-visible { filter: drop-shadow(4px 13px 13px #08171384); }
 .cassette-game-cover-link[hidden], .cassette-game-print[hidden] { display: none; }
 /* Keep the shadow on the stationary link so it does not orbit with the artwork. */
 .cassette-home .cassette-game-cover-link .cd-disc { filter: none; }
@@ -135,10 +135,14 @@
   </style>
   <link rel="stylesheet" href="css/game-discs.css">
   <link rel="stylesheet" href="css/interactions.css?v=disc-interactions-3">
+  <link rel="stylesheet" href="css/page-transitions.css">
+  <script src="js/page-transitions.js"></script>
+  <link rel="stylesheet" href="css/sound.css">
+  <script src="js/sound.js"></script>
 </head>
 <body class="retro-page home-page cassette-home">
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <header class="portfolio-header"><div class="portfolio-header-inner"><a class="portfolio-logo" href="index.html" aria-label="David Liang home"><img class="portfolio-logo-disc" src="images/branding/cd-logo.png" alt="" width="44" height="44"></a><nav class="portfolio-nav" aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><details class="nav-group"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="games.html">Games</a><a href="projects.html">Other Projects</a></div></details><details class="nav-group"><summary>Art<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="art-2d.html">2D Art</a><a href="art-3d.html">3D Art</a></div></details><a href="about.html">About Me</a></nav></div></header>
+  <header class="portfolio-header"><div class="portfolio-header-inner"><a class="portfolio-logo" href="index.html" aria-label="David Liang home"><img class="portfolio-logo-disc" src="images/branding/cd-logo.png" alt="" width="44" height="44"></a><nav class="portfolio-nav" aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><details class="nav-group"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="games.html">Games</a><a href="projects.html">Other Projects</a></div></details><details class="nav-group"><summary>Art<span class="nav-chevron" aria-hidden="true"></span></summary><div class="nav-dropdown"><a href="art-3d.html">3D Art</a><a href="art-2d.html">2D Art</a></div></details><a href="about.html">About Me</a></nav></div></header>
   <main id="main-content" class="cassette-main">
     <div class="cassette-intro">
     <section class="cassette-hero page-width" aria-labelledby="home-title">

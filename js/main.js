@@ -16,11 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Click sound for nav buttons
-  const clickSound = new Audio('../Sound/Click.MP3');
   document.querySelectorAll('.nav-button').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      clickSound.play();
+      window.portfolioSound?.play('click');
       btn.querySelector('img').classList.add('clicked');
       setTimeout(() => {
         window.location.href = btn.href;
@@ -29,16 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Click sound for project links
-  const projectSound = new Audio('../Sound/CD.MP3');
   document.querySelectorAll('a[href*="games/"], a[href*="art/"]').forEach(link => {
     if (link.href.includes('cyberpunk-character.html')) return;
     if (link.href.includes('pixar-studio.html')) return;
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      projectSound.play();
-      projectSound.addEventListener('ended', () => {
+      window.portfolioSound?.play('cd');
+      setTimeout(() => {
         window.location.href = link.href;
-      }, { once: true });
+      }, 850);
     });
   });
 
@@ -47,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (pixarLink) {
     pixarLink.addEventListener('click', (e) => {
       e.preventDefault();
-      projectSound.play();
+      window.portfolioSound?.play('cd');
       const img = pixarLink.querySelector('.cyber-cover');
       img.classList.add('spin');
       setTimeout(() => {
@@ -61,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cyberLink) {
     cyberLink.addEventListener('click', (e) => {
       e.preventDefault();
-      projectSound.play();
+      window.portfolioSound?.play('cd');
       const img = cyberLink.querySelector('.cyber-cover');
       img.classList.add('spin');
       setTimeout(() => {

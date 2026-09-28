@@ -1,0 +1,26 @@
+.sound-toggle {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  min-height: 44px;
+  padding: .6rem .9rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: var(--body-background, #f3ead2);
+  color: var(--body-color, #302720);
+  box-shadow: 2px 3px 0 #30272018;
+  font: 600 .75rem/1.4 'DM Sans', Arial, sans-serif;
+  cursor: pointer;
+}
+.sound-toggle:hover { border-color: var(--active-color, #b93825); }
+.sound-toggle:focus-visible { outline: 3px solid var(--active-color, #b93825); outline-offset: 4px; }
+.sound-toggle svg { flex-shrink: 0; }
+.sound-toggle[data-muted='true'] .sound-on,
+.sound-toggle[data-muted='false'] .sound-off { display: none; }
+/* Reserve a little space so the fixed control cannot cover the last page link. */
+body:has(.sound-toggle) { padding-bottom: 4.5rem; }

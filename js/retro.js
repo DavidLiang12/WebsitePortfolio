@@ -7,7 +7,6 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let navigationTimer;
   let navigating = false;
-  let projectSound;
 
   const resetNavigation = () => {
     window.clearTimeout(navigationTimer);
@@ -26,14 +25,7 @@
         // Navigate after the spin even if audio is muted or fails to play.
         navigationTimer = window.setTimeout(() => window.location.assign(link.href), 850);
       }
-      try {
-        projectSound ||= new Audio('Sound/CD.MP3');
-        projectSound.currentTime = 0;
-        const playing = projectSound.play();
-        if (playing && typeof playing.catch === 'function') playing.catch(() => {});
-      } catch (_) {
-        // The original CD sound is optional; the project link is not.
-      }
+      window.portfolioSound?.play('cd');
     });
   });
   window.addEventListener('pagehide', resetNavigation);

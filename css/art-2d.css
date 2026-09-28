@@ -2,7 +2,7 @@
 .art-2d-page .portfolio-logo-disc { filter: none; }
 .art-2d-page .nav-dropdown { background: var(--paper); }
 .art-2d-page .cd-collection { gap: 3.5rem; }
-.art-2d-page .placeholder-disc-stage { padding: 0; filter: drop-shadow(3px 8px 7px #493a2e35); }
+.art-2d-page .placeholder-disc-stage { padding: 0; filter: drop-shadow(3px 9px 8px #493a2e40); }
 .art-2d-page .placeholder-cd { --disc-face: #c9b394; --disc-print: #493a2e; }
 .art-2d-page .placeholder-cd::before { background: linear-gradient(150deg, transparent 0 57%, #f7efdf 57% 65%, #976847 65% 73%, transparent 73%); }
 .art-2d-page .placeholder-cd.disc-02 { --disc-face: #eee0c6; }
