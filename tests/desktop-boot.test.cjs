@@ -28,16 +28,23 @@ test('startup releases the desktop automatically within 2.1 seconds', () => {
   [...app.timers.values()].sort((a, b) => a.delay - b.delay).forEach(t => t.fn());
   assert.equal(app.boot.hidden, true);
   assert.equal(app.content.inert, false);
-  assert.equal(app.saved(), true);
+  assert.equal(app.saved(), false);
   assert.equal(app.timers.size, 0);
 });
-test('return visits and reduced motion skip startup entirely', () => {
-  for (const options of [{ visited: true }, { reduced: true }]) {
-    const app = setup(options);
-    assert.equal(app.boot.hidden, true);
-    assert.equal(app.content.inert, false);
-    assert.equal(app.timers.size, 0);
-  }
+test('every visit starts loading, including cached returns, and reduced motion stays brief', () => {
+  const app = setup({ visited: true });
+  assert.equal(app.boot.hidden, false);
+  app.events.pagehide();
+  assert.equal(app.boot.hidden, true);
+  app.events.pageshow({ persisted: true });
+  assert.equal(app.boot.hidden, false);
+  assert.equal(app.content.inert, true);
+  const reduced = setup({ reduced: true });
+  assert.equal(reduced.boot.hidden, false);
+  const timer = [...reduced.timers.values()][0];
+  assert.equal(timer.delay, 450);
+  timer.fn();
+  assert.equal(reduced.content.inert, false);
 });
 test('skip, Escape, navigation and motion changes release all controls even without storage', () => {
   for (const finish of [app => app.events.click(), app => app.bootEvents.keydown({ key: 'Escape' }), app => app.events.pagehide(), app => app.motionEvents.change({ matches: true })]) {

@@ -56,12 +56,14 @@
     launcher.hidden = false;
     status.textContent = message;
     button.textContent = 'Try again';
+    button.hidden = false;
     button.disabled = false;
   }
 
-  button.addEventListener('click', async () => {
+  async function start() {
     const id = ++attempt;
     button.disabled = true;
+    button.hidden = true;
     container.dataset.state = 'loading';
     if (location.protocol === 'file:') {
       fail(id, 'Open the portfolio through its web preview or website address to play DOOM. Browsers block the emulator when an HTML file is opened directly.');
@@ -116,7 +118,9 @@
     } catch (error) {
       fail(id, error.message || 'DOOM could not start. Please try again.');
     }
-  });
+  }
+  button.addEventListener('click', start);
+  start();
 
   window.addEventListener('message', event => {
     if (event.origin !== location.origin || event.source !== parent || event.data?.type !== 'desktop-game-state') return;

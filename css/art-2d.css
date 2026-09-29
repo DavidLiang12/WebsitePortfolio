@@ -269,8 +269,8 @@
 }
 
 /* A DOS game sits inside the same draggable chrome as the artwork. */
-.doom-app-icon { display: grid; place-items: center; width: 56px; height: 48px; margin: 2px 0; background: #171717; border: 2px solid; border-color: #dfdfdf #000 #000 #dfdfdf; box-shadow: 1px 1px #005454; }
-.doom-app-icon span { font: 900 17px/1 Impact, 'Arial Black', sans-serif; letter-spacing: -1px; color: #d9a12e; text-shadow: 1px 2px #79311e; transform: scaleY(1.4); }
+.doom-app-icon { display: grid; place-items: center; width: 64px; height: 48px; margin: 2px 0; }
+.doom-app-icon img { display: block; width: 64px; height: 48px; object-fit: contain; }
 .doom-window { left: max(250px, calc(50% - 330px)); width: min(900px, calc(100% - 280px)); }
 .doom-content { flex: 1; min-height: 0; background: #000; border: 2px solid; border-color: #808080 #fff #fff #808080; }
 .doom-content iframe { display: block; border: 0; width: 100%; height: 100%; }
