@@ -18,8 +18,8 @@
 .pt-from-games { --pt-surface: #f3ead2; --pt-gold: #b93825; }
 .pt-from-projects { --pt-surface: #1e302e; --pt-gold: #e8ba46; --pt-orange: #7f9a88; }
 .pt-from-art-2d {
-  --pt-surface: #073d36; --pt-rule: #cbdec922;
-  --pt-rust: #135b4d; --pt-orange: #538671; --pt-gold: #a4bda1;
+  --pt-surface: #008080; --pt-rule: #ffffff22;
+  --pt-rust: #000080; --pt-orange: #808080; --pt-gold: #c0c0c0;
 }
 .pt-from-art-3d {
   --pt-surface: #c7b798; --pt-rule: #493a2e22;

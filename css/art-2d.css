@@ -15,7 +15,6 @@
 .desktop-icon:focus-visible { outline: 2px dashed var(--ink); outline-offset: 2px; }
 .desktop-icon:focus-visible .icon-name { background: #254638; color: #e0e5d5; }
 .icon-name { font: bold .82rem 'Courier New', monospace; padding: .15rem .3rem; }
-.icon-detail { font: .63rem 'Courier New', monospace; color: #254638; }
 .folder-icon { position: relative; display: block; width: 64px; height: 46px; margin: 9px 0 7px; background: #a5a86b; border: 2px solid #254638; box-shadow: 3px 3px 0 #172b2529; }
 .folder-icon::before { content: ''; position: absolute; width: 28px; height: 10px; top: -10px; left: -2px; background: #c6c888; border: 2px solid #254638; border-bottom: 0; border-radius: 3px 7px 0 0; }
 .folder-icon::after { content: ''; position: absolute; inset: 5px -5px -2px -2px; transform: skewX(-6deg); background: #d7d894; border: 2px solid #254638; box-shadow: inset 2px 2px 0 #f1efbd, inset -2px -2px 0 #898f54; border-radius: 2px; }
@@ -59,7 +58,6 @@
   .desktop-icons { flex-direction: row; justify-content: center; width: 100%; gap: .25rem; padding: 1rem .5rem; }
   .desktop-icon { width: 31%; padding: .4rem .1rem; }
   .icon-name { font-size: .7rem; }
-  .icon-detail { font-size: .57rem; }
   .folder-icon { width: 53px; height: 39px; }
   .os-window { width: calc(100% - 24px); left: 12px !important; top: 155px !important; max-height: calc(100% - 170px); display: flex; flex-direction: column; }
   .os-titlebar, .os-toolbar, .os-statusbar { flex-shrink: 0; }
@@ -118,7 +116,6 @@
 @media (min-width: 761px) and (max-height: 690px) {
   .desktop-icons { grid-template-columns: repeat(3, 120px); gap: .3rem; padding: .8rem; }
   .desktop-icon { width: 120px; min-height: 105px; }
-  .icon-detail { display: none; }
   .os-window { left: 180px; width: calc(100% - 210px); }
 }
 @media (max-width: 760px) {
@@ -147,7 +144,6 @@
 .desktop-wallpaper { background: radial-gradient(ellipse at 45% 35%, #3e79552b, transparent 75%); }
 .desktop-icon { color: #e0e5d5; }
 .desktop-icon .icon-name { text-shadow: 1px 1px #001f1c; }
-.desktop-icon .icon-detail { color: #b8cbba; }
 .desktop-icon:focus-visible { outline-color: #d4e6c6; }
 .desktop-icon:focus-visible .icon-name { background: #e0e5d5; color: #073d36; text-shadow: none; }
 .folder-icon { color: #243a24; }
@@ -189,7 +185,6 @@
 .desktop-icon:focus-visible { outline: 1px dotted #fff; outline-offset: -2px; }
 .desktop-icon .icon-name { font: 12px/1.2 Tahoma, Arial, sans-serif; text-shadow: 1px 1px #005454; padding: 2px 3px; }
 .desktop-icon:focus-visible .icon-name { background: #000080; color: #fff; text-shadow: none; }
-.desktop-icon .icon-detail { font: 10px Tahoma, Arial, sans-serif; color: #d9ecec; }
 .folder-icon { width: 52px; height: 44px; margin: 4px 0; border: 0; box-shadow: none; background: url('../images/desktop/folder.svg') center / contain no-repeat; image-rendering: pixelated; }
 .folder-icon::before, .folder-icon::after { display: none; }
 .folder-icon > span { right: 7px; bottom: 7px; padding: 1px 2px; font: bold 10px/1 Tahoma, Arial, sans-serif; color: #000080; background: #ffffb5; }
@@ -272,3 +267,12 @@
  .paint-palette button { width: 22px; height: 24px; }
  .paint-colors { gap: 8px; padding: 8px 4px; }
 }
+
+/* A DOS game sits inside the same draggable chrome as the artwork. */
+.doom-app-icon { display: grid; place-items: center; width: 56px; height: 48px; margin: 2px 0; background: #171717; border: 2px solid; border-color: #dfdfdf #000 #000 #dfdfdf; box-shadow: 1px 1px #005454; }
+.doom-app-icon span { font: 900 17px/1 Impact, 'Arial Black', sans-serif; letter-spacing: -1px; color: #d9a12e; text-shadow: 1px 2px #79311e; transform: scaleY(1.4); }
+.doom-window { left: max(250px, calc(50% - 330px)); width: min(900px, calc(100% - 280px)); }
+.doom-content { flex: 1; min-height: 0; background: #000; border: 2px solid; border-color: #808080 #fff #fff #808080; }
+.doom-content iframe { display: block; border: 0; width: 100%; height: 100%; }
+.doom-controls { flex-wrap: wrap; line-height: 1.5; }
+@media (max-width: 760px) { .doom-window { width: calc(100% - 24px); height: min(540px, calc(100% - 180px)); max-height: calc(100% - 180px); } }

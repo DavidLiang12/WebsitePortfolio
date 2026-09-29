@@ -13,6 +13,20 @@
   let drag;
   const nameOf = panel => panel.querySelector('.os-window-title').textContent;
 
+  // Only the local game frame receives these messages; other embeds stay independent.
+  const gameFrames = [...workspace.querySelectorAll('iframe[data-desktop-game]')];
+  function syncGame(panel) {
+    panel.querySelectorAll('iframe[data-desktop-game]').forEach(frame => {
+      frame.contentWindow?.postMessage({ type: 'desktop-game-state', paused: panel.hidden || document.hidden }, location.origin);
+    });
+  }
+  gameFrames.forEach(frame => frame.addEventListener('load', () => syncGame(frame.closest('.os-window'))));
+  document.addEventListener('visibilitychange', () => windows.forEach(syncGame));
+  window.addEventListener('pagehide', () => gameFrames.forEach(frame => {
+    frame.contentWindow?.postMessage({ type: 'desktop-game-state', paused: true }, location.origin);
+  }));
+  window.addEventListener('pageshow', () => windows.forEach(syncGame));
+
   function renderTasks() {
     // Keep buttons stable so keyboard focus survives window state changes.
     windows.forEach(panel => {
@@ -48,6 +62,7 @@
     panel.querySelectorAll('iframe[data-src]').forEach(frame => {
       if (!frame.hasAttribute('src')) frame.src = frame.dataset.src;
     });
+    syncGame(panel);
     focus(panel); panel.focus({ preventScroll: true });
     announcement.textContent = `${nameOf(panel)} opened.`;
   }
@@ -66,7 +81,7 @@
 
   function minimize(panel) {
     clickSound();
-    panel.hidden = true; focusNext(panel);
+    panel.hidden = true; syncGame(panel); focusNext(panel);
     announcement.textContent = `${nameOf(panel)} minimized. Restore it from the taskbar.`;
   }
 
