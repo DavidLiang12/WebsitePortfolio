@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The Curse of Brookings Hall by David Liang: a 3D horror puzzle game set beneath WashU’s Brookings Hall. Explore the level design, enemy AI, and development process.">
+  <meta name="description" content="A 3D horror puzzle game set in WashU’s Brookings Hall, where players uncover secrets through exploration and solving physical puzzles.">
   <meta name="theme-color" content="#f5dcb7">
   <title>The Curse of Brookings Hall — David Liang</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -151,10 +151,10 @@ a { color: inherit; }
   <main class="project-width" id="project">
     <div class="project-breadcrumb"><a href="../games.html">← Back to Games</a><span>HORROR PUZZLE / 2025</span></div>
     <div class="project-heading">
-      <div><p class="eyebrow">DAVID LIANG · GAME DEVELOPMENT &amp; LEVEL DESIGN</p><h1 class="project-title">The Curse of<br><span>Brookings Hall</span></h1></div>
+      <div><p class="eyebrow">DAVID LIANG · GAME DEVELOPMENT &amp; LEVEL DESIGN</p><h1 class="project-title">The Curse Of<br><span>Brookings Hall</span></h1></div>
       <div class="project-mark" aria-hidden="true"></div>
     </div>
-    <p class="project-intro">A 3D horror puzzle game set beneath WashU’s Brookings Hall. Explore a decaying laboratory, piece together its past, and solve physical puzzles to uncover its secrets.</p>
+    <p class="project-intro">A 3D horror puzzle game set in WashU’s Brookings Hall, where players uncover secrets through exploration and solving physical puzzles.</p>
     <div class="project-actions"><a class="play-link" href="https://www.youtube.com/watch?v=1EJgxUHS3So" target="_blank" rel="noopener noreferrer">Watch gameplay <span aria-hidden="true">↗</span></a><span>Horror puzzle gameplay</span></div>
     <div class="project-film">
       <div class="film-label"><span>THE GAME</span><span>HORROR · PUZZLE · UNITY</span></div>
@@ -165,37 +165,37 @@ a { color: inherit; }
       <aside class="project-meta" aria-labelledby="notes-heading">
         <h2 class="meta-heading" id="notes-heading">PROJECT NOTES <span aria-hidden="true">↘</span></h2>
         <dl>
-          <div class="meta-item"><dt class="meta-label">ROLE</dt><dd class="meta-value">Lead Game Developer<br>Level Designer</dd></div>
-          <div class="meta-item"><dt class="meta-label">SOFTWARE USED</dt><dd class="meta-value">Unity, Blender, Maya, Adobe Premiere Pro</dd></div>
-          <div class="meta-item"><dt class="meta-label">TIME</dt><dd class="meta-value">January – May 2025</dd></div>
-        </dl>
+<div class="meta-item"><dt class="meta-label">ROLE</dt><dd class="meta-value">Lead Game Developer, Level Designer</dd></div>
+<div class="meta-item"><dt class="meta-label">Software Used</dt><dd class="meta-value">Unity, Blender, Maya, Adobe Premiere Pro</dd></div>
+<div class="meta-item"><dt class="meta-label">Time</dt><dd class="meta-value">Jan 2025 - May 2025</dd></div>
+</dl>
       </aside>
       <div class="project-content">
         <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2>About the Game</h2></div>
-          <p>Under Washington University’s iconic Brookings Hall, a laboratory holds clues to a forgotten past. Players explore its rooms, interpret written hints, and solve interactive physical puzzles to unravel what happened.</p>
-          <p>Eerie color filters and a decayed environment keep the exploration tense. The atmosphere and puzzles work together to make each discovery feel uncertain.</p>
-<div class="project-images single"><figure><img src="../images/TheCurseofBrookings/fcrZZXF8yBeP2I5Rml4unpXN8xo.jpg" alt="A dimly lit laboratory room with cold storage drawers and a tiled floor" width="2048" height="1145" loading="lazy" decoding="async"><figcaption>01 / Inside the laboratory</figcaption></figure></div><div class="project-images"><figure><img src="../images/TheCurseofBrookings/VpVtQ2IDWcq0gp7lWk4cCQydgHQ.jpg" alt="Abandoned desks and chairs in a dark classroom" width="2048" height="1123" loading="lazy" decoding="async"><figcaption>02 / A decaying classroom</figcaption></figure><figure><img src="../images/TheCurseofBrookings/wdw9b2XjwXK5JrLMJ3pp8B5rH2g.jpg" alt="A damaged laboratory room with overturned furniture" width="2048" height="1143" loading="lazy" decoding="async"><figcaption>03 / Environmental storytelling</figcaption></figure></div>
-        </section>
-        <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
-          <p>I wanted atmosphere and information to reinforce each other: a clue draws the player forward, a puzzle rewards their attention, and the next room raises new questions.</p>
-          <p>Before building in Unity, I sketched room layouts, clue placements, and interaction flows on paper. Mapping the route in advance helped me guide players toward the ending through the environment.</p>
-<div class="project-images single"><figure><img src="../images/TheCurseofBrookings/GW8rtnY9kg04ZILz7mGhV2mo.jpg" alt="Hand-drawn first-level map with rooms, clues, and arrows showing player progression" width="1501" height="925" loading="lazy" decoding="async"><figcaption>04 / Planning the first level</figcaption></figure><figure><img src="../images/TheCurseofBrookings/SmSEH5ylJisI8AymagtZiCsxU.jpg" alt="Hand-drawn second-level map showing connected rooms and puzzle routes" width="1335" height="837" loading="lazy" decoding="async"><figcaption>05 / Planning the second level</figcaption></figure></div><div class="project-images single"><figure><img src="../images/TheCurseofBrookings/ZXCaKhrEXkoLQ0LwocobPlTAqk.jpg" alt="Overview of the connected laboratory rooms built in 3D" width="2048" height="1247" loading="lazy" decoding="async"><figcaption>06 / Translating the layout into Unity</figcaption></figure></div>
-        </section>
-        <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2>Technical Goals</h2></div>
-          <p>The enemy uses a Mixamo-rigged character and a NavMeshAgent to move between random patrol points. It pauses for randomized intervals before continuing. A forward raycast from its chest detects the player within a set distance, interrupting patrol and switching the animation to a sprint as the chase begins.</p>
-<div class="project-images single"><figure><img src="../images/TheCurseofBrookings/swpXUjQAnl0nY4JoejlVrXb09k.jpg" alt="Handwritten enemy state diagram connecting idle, patrol, chase, jumpscare, and death" width="1613" height="946" loading="lazy" decoding="async"><figcaption>07 / The enemy behavior loop</figcaption></figure></div>
-          <p>When the enemy reaches the player, the game switches to a high-priority Cinemachine camera and triggers the jumpscare animation, flashing light, and audio. After a short delay, the scene transitions to a death screen.</p>
-          <p>Coroutines control the idle and chase timing. Speed, detection distance, and timing settings are exposed in the Inspector so the patrol and chase behavior can be tuned.</p>
-<div class="project-images single"><figure><img src="../images/TheCurseofBrookings/f54fTHWLjgwdytfvW54nMUUus.jpg" alt="Unity Inspector showing enemy AI speeds, distances, timers, and jumpscare references" width="1522" height="838" loading="lazy" decoding="async"><figcaption>08 / Tuning enemy behavior</figcaption></figure><figure><img src="../images/TheCurseofBrookings/mOVdEvCYsbNy6glndMCuWitG80.jpg" alt="Enemy model with Mixamo rigging markers on its joints" width="1366" height="720" loading="lazy" decoding="async"><figcaption>09 / Preparing the enemy rig</figcaption></figure></div>
-        </section>
-        <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">04</span><h2>Challenges</h2></div>
-          <p>The biggest challenge was communication across the team. Working on a larger project over several months taught me the importance of regular progress checks and clear communication.</p>
-          <p>Lighting was another learning process. I experimented with baked and real-time lighting, balancing the time needed to iterate on baked results against the performance cost of real-time lights.</p>
-        </section>
+<div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2>About the Game</h2></div>
+<p>Set in a lab under Washington University's iconic Brookings Hall. Here, players use text based clues and solve puzzles to demystify the lab's past. As players explore the lab, however, they are kept on edge by the eerily colored camera filters, interactive puzzles and decayed environment.</p>
+<div class="project-images single"><figure><img src="../images/TheCurseofBrookings/fcrZZXF8yBeP2I5Rml4unpXN8xo.jpg" alt="A dimly lit laboratory room with cold storage drawers and a tiled floor" width="2048" height="1145" loading="lazy" decoding="async"></figure></div>
+<div class="project-images"><figure><img src="../images/TheCurseofBrookings/VpVtQ2IDWcq0gp7lWk4cCQydgHQ.jpg" alt="Abandoned desks and chairs in a dark classroom" width="2048" height="1123" loading="lazy" decoding="async"></figure><figure><img src="../images/TheCurseofBrookings/wdw9b2XjwXK5JrLMJ3pp8B5rH2g.jpg" alt="A damaged laboratory room with overturned furniture" width="2048" height="1143" loading="lazy" decoding="async"></figure></div>
+</section>
+<section class="project-section">
+<div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
+<p>The goal was to create atmospheric and information feedback loops to keep players engaged. Before building in Unity, The map and interaction flow was first sketched on paper as shown below, planning out each room and clue placements. This visualized how players would move through the space and allowed me to create a invisible guide that leads player towards the ending.</p>
+<div class="project-images single"><figure><img src="../images/TheCurseofBrookings/GW8rtnY9kg04ZILz7mGhV2mo.jpg" alt="Hand-drawn first-level map with rooms, clues, and arrows showing player progression" width="1501" height="925" loading="lazy" decoding="async"></figure><figure><img src="../images/TheCurseofBrookings/SmSEH5ylJisI8AymagtZiCsxU.jpg" alt="Hand-drawn second-level map showing connected rooms and puzzle routes" width="1335" height="837" loading="lazy" decoding="async"></figure></div>
+<div class="project-images single"><figure><img src="../images/TheCurseofBrookings/ZXCaKhrEXkoLQ0LwocobPlTAqk.jpg" alt="Overview of the connected laboratory rooms built in 3D" width="2048" height="1247" loading="lazy" decoding="async"></figure></div>
+</section>
+<section class="project-section">
+<div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2>Technical Goals</h2></div>
+<p>The enemy was created in Mixamo, which automatically generated a full skeletal to the 3D model. The NavMeshAgent handles navigation between random patrol points set on the map, switching to idle for randomized intervals before walking again. A raycast projects forward from the enemy’s chest; if it hits the player within a set distance, the AI cancels patrol and begins chasing, switching animation states dynamically to sprint.</p>
+<p>When the enemy reaches the player, it triggers the jumpscare sequence: swapping to a high priority Cinemachine camera at a preset point, enabling a flashing light, playing audio, and switching the Animator to a jumpscare trigger. After a short delay, the scene transitions to a death screen. Coroutines control idle and chase durations, making behavior timing simple. This system created a believable patrol/chase loop that's easily tunable through inspector fields for speed, distances, and timing.</p>
+<div class="project-images single"><figure><img src="../images/TheCurseofBrookings/swpXUjQAnl0nY4JoejlVrXb09k.jpg" alt="Handwritten enemy state diagram connecting idle, patrol, chase, jumpscare, and death" width="1613" height="946" loading="lazy" decoding="async"></figure></div>
+<div class="project-images single"><figure><img src="../images/TheCurseofBrookings/f54fTHWLjgwdytfvW54nMUUus.jpg" alt="Unity Inspector showing enemy AI speeds, distances, timers, and jumpscare references" width="1522" height="838" loading="lazy" decoding="async"></figure><figure><img src="../images/TheCurseofBrookings/mOVdEvCYsbNy6glndMCuWitG80.jpg" alt="Enemy model with Mixamo rigging markers on its joints" width="1366" height="720" loading="lazy" decoding="async"></figure></div>
+</section>
+<section class="project-section">
+<div class="section-heading"><span class="section-number" aria-hidden="true">04</span><h2>Challenges</h2></div>
+<p>The biggest challenge for this project was communication between team members. I learned the importance of communication and progress checks when working on larger projects for a long duration.</p>
+<p>On the technical side, one of my main challenges was learning how to handle lighting in Unity. I experimented with both baked and real time lighting. One can be time consuming to iterate on, while the other is very performance heavy.</p>
+
+</section>
       </div>
     </div>
     <footer class="project-footer"><a class="collection-link" href="../games.html">Back to Games <span aria-hidden="true">↗</span></a><span class="footer-credit">DAVID LIANG / GAMES</span></footer>

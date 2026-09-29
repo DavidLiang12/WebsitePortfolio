@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="HandSpell by David Liang: a turn-based magic battle demo using real-time hand gestures, Python MediaPipe, and Unity. Explore the gameplay and design process.">
+  <meta name="description" content="A turn based battle game where players use real time hand gestures to cast spells and fight enemies, serving as a demo of integrating Python MediaPipe with Unity via OSC.">
   <meta name="theme-color" content="#f5dcb7">
   <title>HandSpell — David Liang</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,7 +154,7 @@ a { color: inherit; }
       <div><p class="eyebrow">DAVID LIANG · GAMEPLAY &amp; DEVELOPMENT</p><h1 class="project-title">Hand<span>Spell</span></h1></div>
       <div class="project-mark" aria-hidden="true"></div>
     </div>
-    <p class="project-intro">A turn-based battle game where your hands cast the spells. A real-time hand-tracking demo connecting Python MediaPipe to Unity through OSC.</p>
+    <p class="project-intro">A turn based battle game where players use real time hand gestures to cast spells and fight enemies, serving as a demo of integrating Python MediaPipe with Unity via OSC.</p>
     <div class="project-actions"><a class="play-link" href="https://www.youtube.com/watch?v=gIFQJJcuPwo" target="_blank" rel="noopener noreferrer">Watch gameplay <span aria-hidden="true">↗</span></a><span>Hand-tracking gameplay demo</span></div>
     <div class="project-film">
       <div class="film-label"><span>THE GAME</span><span>HAND TRACKING · UNITY</span></div>
@@ -165,35 +165,31 @@ a { color: inherit; }
       <aside class="project-meta" aria-labelledby="notes-heading">
         <h2 class="meta-heading" id="notes-heading">PROJECT NOTES <span aria-hidden="true">↘</span></h2>
         <dl>
-          <div class="meta-item"><dt class="meta-label">ROLE</dt><dd class="meta-value">Game Developer<br>Programmer</dd></div>
-          <div class="meta-item"><dt class="meta-label">SOFTWARE USED</dt><dd class="meta-value">Unity, Python (VS Code), OBS Studio</dd></div>
-          <div class="meta-item"><dt class="meta-label">TIME</dt><dd class="meta-value">October 2025 – January 2026</dd></div>
-          <div class="meta-item"><dt class="meta-label">UI / UX</dt><dd class="meta-value">LeiYi Hong<br>Procreate, Photoshop</dd></div>
-        </dl>
+<div class="meta-item"><dt class="meta-label">ROLE</dt><dd class="meta-value">Game Developer, Programmer</dd></div>
+<div class="meta-item"><dt class="meta-label">Software Used</dt><dd class="meta-value">Me: Unity, Python(VSCode), OBS Studio<br><a href="https://www.linkedin.com/in/leiyi-hong-04639b32b/" target="_blank" rel="noopener noreferrer">LeiYi Hong (UI/UX)</a>: Procreate, Photoshop</dd></div>
+<div class="meta-item"><dt class="meta-label">Time</dt><dd class="meta-value">Oct 2025 - Jan 2026</dd></div>
+</dl>
       </aside>
       <div class="project-content">
         <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2>About the Game</h2></div>
-          <p>HandSpell turns your own hands into the core input system. Each gesture casts a different spell in turn-based battles against enemies. To learn a spell, players interpret clues in a spell book and work out the corresponding gesture.</p>
-          <p>The prototype connects real-time hand tracking in Python MediaPipe to Unity through OSC, exploring how physical gestures can become a practical gameplay mechanic.</p>
-          <div class="project-images single"><figure><img src="../images/HandSpell/RS3SfvVqikqEgpF4XEruwmke9RA.jpg" alt="A lightning spell during combat with a webcam view of the player forming a gesture" width="2048" height="1148" loading="lazy" decoding="async"><figcaption>01 / Casting through hand gestures</figcaption></figure></div>
-          <div class="project-images single"><figure><img src="../images/HandSpell/0ubzTPr1VBdDdlbgq4WaN7FLSpg.jpg" alt="A towering fire spell in the Sun God battle" width="2048" height="1150" loading="lazy" decoding="async"><figcaption>02 / A spell in action</figcaption></figure></div>
-        </section>
-        <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
-          <p>The project began as a collaborative experiment with MediaPipe: could hand tracking become the main way to play? Mage Arena, where spoken spell names trigger magic, inspired me to explore another physical form of input.</p>
-          <p>With both hands occupied, traditional mouse and keyboard controls were no longer practical. A Pokémon-inspired turn-based structure gives players time to form gestures and focus on their next spell.</p>
-          <div class="project-images single"><figure><img src="../images/HandSpell/Ic4Qknf9hsijdCbDdxZ5GIXii4.jpg" alt="Reference board combining Pokémon battles, Mage Arena, and fantasy spell effects" width="2048" height="1150" loading="lazy" decoding="async"><figcaption>03 / References for combat and spellcasting</figcaption></figure></div>
-          <p>I designed the spell book as a puzzle. Visual clues encourage players to discover each gesture instead of following an explicit instruction, making learning the controls part of the experience.</p>
-          <div class="project-images single"><figure><img src="../images/HandSpell/4gVKkc2f9juXLikwB913L5nvk.jpg" alt="Interface designs with metallic health bars, a spell book, and a defeat screen" width="2048" height="1139" loading="lazy" decoding="async"><figcaption>04 / Interface and spell book design</figcaption></figure></div>
-          <div class="project-images single"><figure><img src="../images/HandSpell/4oJ7apRoeaJo1tkZTfsVpNC7k.jpg" alt="Overhead view of the town environment used for combat" width="2048" height="995" loading="lazy" decoding="async"><figcaption>05 / The game environment</figcaption></figure></div>
-        </section>
-        <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2>Challenges &amp; Next Steps</h2></div>
-          <p>The current game is a small technical and design demo, and its battles can become repetitive. It establishes the hand-tracking interaction, while leaving room to develop the combat further.</p>
-          <p>Future directions include mana management, deeper interactions between spells, and multiplayer features to add depth and replayability.</p>
-          <div class="project-images single"><figure><img src="../images/HandSpell/YWpkY4j5sZE2k1OglUBzunPFj4.jpg" alt="First-person fire spell cast in the town square with hand-tracking webcam overlay" width="2048" height="1144" loading="lazy" decoding="async"><figcaption>06 / Testing gesture-driven combat</figcaption></figure></div>
-        </section>
+<div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2>About the Game</h2></div>
+<p>HandSpell is a turn based battle game where players use hand gestures to shape magic and fight enemies. Each gesture corresponds to a different spell, turning your own hand into the core input system. You must figure out the correct hand gestures for each spell by interpreting clues presented through a spell book. The game is a demo of real time hand tracking by connecting Python MediaPipe with Unity through OSC.</p>
+<div class="project-images single"><figure><img src="../images/HandSpell/RS3SfvVqikqEgpF4XEruwmke9RA.jpg" alt="A lightning spell during combat with a webcam view of the player forming a gesture" width="2048" height="1148" loading="lazy" decoding="async"></figure></div>
+<div class="project-images single"><figure><img src="../images/HandSpell/0ubzTPr1VBdDdlbgq4WaN7FLSpg.jpg" alt="A towering fire spell in the Sun God battle" width="2048" height="1150" loading="lazy" decoding="async"></figure></div>
+</section>
+<section class="project-section">
+<div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
+<p>The core design goal behind HandSpell was to explore how hand tracking could become a primary game mechanic. The idea originated from a collaborative experiment with a friend using MediaPipe, where we wanted to test how hand gestures might translate into player actions inside a game. I was inspired by Mage Arena, where speaking spell names to cast turns the entire lobby into a chaotic yet playful experience.</p>
+<p>Because traditional mouse and keyboard controls were not viable while using hands as input, the game naturally evolved into a turn based combat system inspired by Pokémon battles. This structure allows players to focus on forming gestures without thinking about controls. I designed a puzzle like spell book that shows visual clues, encouraging players to figure out the correct hand gesture for each spell rather than being explicitly told.</p>
+<div class="project-images single"><figure><img src="../images/HandSpell/Ic4Qknf9hsijdCbDdxZ5GIXii4.jpg" alt="Reference board combining Pokémon battles, Mage Arena, and fantasy spell effects" width="2048" height="1150" loading="lazy" decoding="async"></figure></div>
+<div class="project-images single"><figure><img src="../images/HandSpell/4gVKkc2f9juXLikwB913L5nvk.jpg" alt="Interface designs with metallic health bars, a spell book, and a defeat screen" width="2048" height="1139" loading="lazy" decoding="async"></figure></div>
+<div class="project-images single"><figure><img src="../images/HandSpell/4oJ7apRoeaJo1tkZTfsVpNC7k.jpg" alt="Overhead view of the town environment used for combat" width="2048" height="995" loading="lazy" decoding="async"></figure></div>
+</section>
+<section class="project-section">
+<div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2>Challenges</h2></div>
+<p>While the current version of the game is intentionally small in scope and somewhat repetitive, it primarily serves as a technical and design demo for hand tracking gameplay. Future additions such as mana management, deeper spell interactions, and multiplayer features would significantly expand its depth and replayability.</p>
+<div class="project-images single"><figure><img src="../images/HandSpell/YWpkY4j5sZE2k1OglUBzunPFj4.jpg" alt="First-person fire spell cast in the town square with hand-tracking webcam overlay" width="2048" height="1144" loading="lazy" decoding="async"></figure></div>
+</section>
       </div>
     </div>
     <footer class="project-footer"><a class="collection-link" href="../games.html">Back to Games <span aria-hidden="true">↗</span></a><span class="footer-credit">DAVID LIANG / GAMES</span></footer>

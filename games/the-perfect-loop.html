@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The Perfect LOOP by David Liang: a cozy Unity puzzle game made for GMTK Game Jam 2025. Explore the design process, playtesting, and development.">
+  <meta name="description" content="A cozy puzzle game developed for GMTK Game Jam 2025 using Unity, playable in browser. Featured on the official GMTK Jam livestream.">
   <meta name="theme-color" content="#f5dcb7">
   <title>The Perfect LOOP — David Liang</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,8 +154,8 @@ a { color: inherit; }
       <div><p class="eyebrow">DAVID LIANG · GMTK GAME JAM 2025</p><h1 class="project-title">The Perfect<br><span>LOOP</span></h1></div>
       <div class="project-mark" aria-hidden="true"></div>
     </div>
-    <p class="project-intro">A cozy puzzle game about building one continuous path. Made in Unity for GMTK Game Jam 2025 and featured on the official jam livestream.</p>
-    <div class="project-actions"><a class="play-link" href="https://cdsio.itch.io/the-perfect-loop" target="_blank" rel="noopener noreferrer">Play on itch.io <span aria-hidden="true">↗</span></a><span>Playable in your browser</span></div>
+    <p class="project-intro">A cozy puzzle game developed for GMTK Game Jam 2025 using Unity, playable in browser. Featured on the official GMTK Jam livestream.</p>
+    <div class="project-actions"><a class="play-link" href="https://cdsio.itch.io/the-perfect-loop" target="_blank" rel="noopener noreferrer">Play Here <span aria-hidden="true">↗</span></a><span>Playable in your browser</span></div>
     <div class="project-film">
       <div class="film-label"><span>THE GAME</span><span>PUZZLE · UNITY</span></div>
       <div class="project-video"><iframe src="https://www.youtube.com/embed/gwjFUBb6aSU" title="The Perfect LOOP — gameplay video" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
@@ -165,33 +165,34 @@ a { color: inherit; }
       <aside class="project-meta" aria-labelledby="notes-heading">
         <h2 class="meta-heading" id="notes-heading">PROJECT NOTES <span aria-hidden="true">↘</span></h2>
         <dl>
-          <div class="meta-item"><dt class="meta-label">ROLE</dt><dd class="meta-value">Individual Project</dd></div>
-          <div class="meta-item"><dt class="meta-label">SOFTWARE USED</dt><dd class="meta-value">Unity, Maya</dd></div>
-          <div class="meta-item"><dt class="meta-label">TIME</dt><dd class="meta-value">July 30 – August 3, 2025<br>Ongoing updates</dd></div>
-        </dl>
+<div class="meta-item"><dt class="meta-label">ROLE</dt><dd class="meta-value">Individual Project</dd></div>
+<div class="meta-item"><dt class="meta-label">Software Used</dt><dd class="meta-value">Unity, Maya</dd></div>
+<div class="meta-item"><dt class="meta-label">Time</dt><dd class="meta-value">July 30 2025 - Aug 3 2025 (Ongoing Updates)</dd></div>
+</dl>
       </aside>
       <div class="project-content">
         <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2>About the Game</h2></div>
-          <p>The Perfect LOOP is a minimalist puzzle game about building a single continuous path, based on the theme “Loop.” Each tile gives a clue about how many of its edges belong to the loop. Players place and adjust pieces until everything connects, guided by environmental clues, ambient sound, and visual feedback.</p>
-          <div class="project-images single"><figure><img src="../images/PerfectLOOp/lss6LGYWhjUY72PnPUuPiohe6cE%20%281%29.jpg" alt="The Perfect LOOP title screen with a river winding through a forest puzzle" width="2048" height="1145" loading="lazy" decoding="async"><figcaption>01 / A loop through the landscape</figcaption></figure></div>
-          <div class="project-images"><figure><img src="../images/PerfectLOOp/T0T1MCnvIjByu2ZSyRNeov9NWU.jpg" alt="Completed road loop around a low-poly city" width="2048" height="1140" loading="lazy" decoding="async"><figcaption>02 / City theme</figcaption></figure><figure><img src="../images/PerfectLOOp/3be6G3XMuEy0vt3At5Q5gaGBAQ.jpg" alt="A looping route connecting a Mars colony" width="2048" height="1147" loading="lazy" decoding="async"><figcaption>03 / Mars colony theme</figcaption></figure></div>
-        </section>
-        <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
-          <p>I wanted to explore the theme of “loop” through puzzles. My starting inspiration was a river flowing through land and bringing life to its surroundings: more trees needed more water. This became a mechanic in which different tiles require a specific number of surrounding loop edges.</p>
-          <p>The idea expanded into cities and Mars colonies, giving players a sense of progression through different environments. I sketched a 3 × 3 grid to introduce the mechanic, then added complexity by combining clue types and increasing the grid size. Each level needed testing to ensure it had one unique solution.</p>
-          <div class="project-images single"><figure><img src="../images/PerfectLOOp/5VeRzEX2tvoHAGzHrEbStMWL7Ak.jpg" alt="Hand-drawn 3 by 3 and 4 by 3 puzzle grids with vertical and horizontal edge coordinates" width="2048" height="1236" loading="lazy" decoding="async"><figcaption>04 / Early level sketches and solution maps</figcaption></figure></div>
-          <p>Within the jam deadline, I couldn't implement a fully dynamic grid checker. Instead, I separated vertical and horizontal lines into two grid maps and manually defined each level's solution through coordinates. This was less scalable, but let me validate solutions reliably and finish the prototype on time.</p>
-          <div class="project-images single"><figure><img src="../images/PerfectLOOp/RJyuC5EfgLSOww077fxA5vnLC58.jpg" alt="Unity Inspector showing the manually defined solution edges alongside a forest level" width="1999" height="1296" loading="lazy" decoding="async"><figcaption>05 / Defining level solutions in Unity</figcaption></figure></div>
-        </section>
-        <section class="project-section">
-          <div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2>Challenges</h2></div>
-          <p>The biggest challenge was the tutorial. I initially hoped the game could teach itself entirely through visuals and discovery, but playtesting showed that the opening was too difficult and the mechanics needed a more gradual introduction.</p>
-          <p>During the official GMTK livestream, a bug also revealed that the first level allowed multiple solutions. I addressed these problems in a later update. The experience showed me how valuable player feedback is: seeing the game from someone else's perspective helped me improve both its clarity and its level design.</p>
-          <div class="project-images single"><figure><img src="../images/PerfectLOOp/RNlZe2ZsgtjATlIEzZSDDmIGI.jpg" alt="Tutorial diagram showing tile clues and how river edges form one continuous loop" width="2048" height="1146" loading="lazy" decoding="async"><figcaption>06 / Explaining the loop and its clues</figcaption></figure></div>
-          <a class="project-reflection" href="https://drive.google.com/file/d/1DirKJxiC1BTpUCyPtpLMxl5hhFEazVrU/view?usp=sharing" target="_blank" rel="noopener noreferrer">Read the reflection <span aria-hidden="true">↗</span></a>
-        </section>
+<div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2>About the Game</h2></div>
+<p>The Perfect LOOP is a minimalist puzzle game about building a single continuous path, based on the theme "Loop". Each tile gives you a clue about how many of its edges belong to the loop, and it’s up to the player to place and adjust pieces until everything connects perfectly. Without relying on text, the game communicates through its environment clues, ambient sound, and satisfying visuals.</p>
+<div class="project-images single"><figure><img src="../images/PerfectLOOp/lss6LGYWhjUY72PnPUuPiohe6cE%20%281%29.jpg" alt="The Perfect LOOP title screen with a river winding through a forest puzzle" width="2048" height="1145" loading="lazy" decoding="async"></figure></div>
+<div class="project-images"><figure><img src="../images/PerfectLOOp/T0T1MCnvIjByu2ZSyRNeov9NWU.jpg" alt="Completed road loop around a low-poly city" width="2048" height="1140" loading="lazy" decoding="async"></figure><figure><img src="../images/PerfectLOOp/3be6G3XMuEy0vt3At5Q5gaGBAQ.jpg" alt="A looping route connecting a Mars colony" width="2048" height="1147" loading="lazy" decoding="async"></figure></div>
+</section>
+<section class="project-section">
+<div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
+<p>The core goal behind The Perfect LOOP was to explore the theme of “loop” through puzzles. My starting inspiration came from the image of river flowing through land, bringing life to its surroundings. The more trees there were, the more water was needed, which naturally translated into a puzzle mechanic where certain areas required more sides of the loop to be covered.</p>
+<p>From there, the concept turned into creating new themes such as cities and Mars colonies, allowing players to feel a sense of progression as they advanced through the levels.</p>
+<p>I sketched out the early level to introduce players to the mechanic on a 3x3 grid, then layered in complexity by combining clue types and expanding grid size. Each level had to be tested to make sure there's only one unique solution.</p>
+<p>Due to time constraints, I wasn’t able to implement a fully dynamic grid checker. Instead, I created a hardcoded solution system where vertical and horizontal lines were separated into two grid maps, and I manually defined the correct solution by editing coordinates for each level. While less scalable than a dynamic system, this approach allowed me to validate solutions reliably and complete the prototype within the project deadline.</p>
+<div class="project-images single"><figure><img src="../images/PerfectLOOp/5VeRzEX2tvoHAGzHrEbStMWL7Ak.jpg" alt="Hand-drawn 3 by 3 and 4 by 3 puzzle grids with vertical and horizontal edge coordinates" width="2048" height="1236" loading="lazy" decoding="async"></figure></div>
+<div class="project-images single"><figure><img src="../images/PerfectLOOp/RJyuC5EfgLSOww077fxA5vnLC58.jpg" alt="Unity Inspector showing the manually defined solution edges alongside a forest level" width="1999" height="1296" loading="lazy" decoding="async"></figure></div>
+</section>
+<section class="project-section">
+<div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2>Challenges</h2></div>
+<p>The biggest challenge during development was creating a tutorial. I initially wanted the game to teach itself without any text, relying only on visuals and discovery. However, I soon realized that with the game’s complexity, this wasn’t practical.</p>
+<p>During the playtesting period, most players reported that the game felt too difficult at the start and lacked a proper tutorial. Some also felt the level design could be improved to introduce mechanics more gradually, with an easier first level that serves as a guided introduction level rather than dropping them right into a challenge. During the official GMTK livestream, a bug in the first level was also found that allowed multiple solutions. I soon fixed these problems in another update, it made me realize the importance of player feedback in game development, looking at the game from a different point of view and helping me create a better game.</p>
+<div class="project-images single"><figure><img src="../images/PerfectLOOp/RNlZe2ZsgtjATlIEzZSDDmIGI.jpg" alt="Tutorial diagram showing tile clues and how river edges form one continuous loop" width="2048" height="1146" loading="lazy" decoding="async"></figure></div>
+<a class="project-reflection" href="https://drive.google.com/file/d/1DirKJxiC1BTpUCyPtpLMxl5hhFEazVrU/view?usp=sharing" target="_blank" rel="noopener noreferrer">Reflection</a>
+</section>
       </div>
     </div>
     <footer class="project-footer"><a class="collection-link" href="../games.html">Back to Games <span aria-hidden="true">↗</span></a><span class="footer-credit">DAVID LIANG / GAMES</span></footer>
