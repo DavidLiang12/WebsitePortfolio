@@ -1,6 +1,8 @@
 /* Shared navigation across both the retro and legacy pages. */
+/* The header is centered on the full window, not the space left beside a scrollbar,
+   so the nav stays in the same spot on short and long pages. */
 .portfolio-header { position: relative; z-index: 10; color: var(--body-color, var(--ink, #4b3b34)); font-family: 'DM Sans', Arial, sans-serif; border-bottom: 1px solid var(--line, #4b3b3433); }
-.portfolio-header-inner { width: min(100% - 5rem, 1240px); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.5rem 0; }
+.portfolio-header-inner { width: min(100vw - 5rem, 1240px); margin: 0 auto; position: relative; left: calc((100vw - 100%) / 2); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.5rem 0; }
 .portfolio-logo { font-family: 'Fraunces', Georgia, serif; font-size: 2.2rem; font-weight: 900; letter-spacing: -.075em; line-height: 1; color: inherit; text-decoration: none; }
 .portfolio-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.8rem; font-size: .9375rem; line-height: 1.5; }
 .portfolio-nav a, .portfolio-nav summary { display: flex; align-items: center; gap: .6rem; padding: .65rem 0; color: inherit; font-weight: 500; text-decoration: none; cursor: pointer; }
@@ -56,9 +58,9 @@
 .record-label { border-radius: 50%; width: 36%; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; text-align: center; background: #ffca45; color: #4b3b34; font-family: 'Fraunces',Georgia,serif; font-size: 2.5rem; font-weight: 900; line-height: 1; }
 .record-label span { font-family: 'DM Sans',Arial,sans-serif; font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; margin-top: .65rem; }
 .audio-message .text-link { margin-top: 1.5rem; }
-@media (max-width: 900px) { .portfolio-header-inner { width: calc(100% - 3rem); } .portfolio-nav { gap: .25rem 1.25rem; } .explore-card { padding: 1.5rem; } }
+@media (max-width: 900px) { .portfolio-header-inner { width: calc(100vw - 3rem); } .portfolio-nav { gap: .25rem 1.25rem; } .explore-card { padding: 1.5rem; } }
 @media (max-width: 640px) {
-  .portfolio-header-inner { width: calc(100% - 2.5rem); align-items: flex-start; flex-direction: column; padding: 1.2rem 0 .7rem; gap: .8rem; }
+  .portfolio-header-inner { width: calc(100vw - 2.5rem); align-items: flex-start; flex-direction: column; padding: 1.2rem 0 .7rem; gap: .8rem; }
   .portfolio-nav { width: 100%; gap: .2rem 1rem; font-size: .875rem; }
   .portfolio-logo { font-size: 1.9rem; }
   .landing-intro { padding: 2rem 0; }

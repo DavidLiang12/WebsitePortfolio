@@ -6,11 +6,8 @@
   const variants = ['tape', 'cd', 'circles', 'equalizer', 'shutter'];
   const names = ['Tape stripes', 'CD spin', 'Concentric circles', 'Equalizer bars', 'Stereo shutter'];
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const pageEffects = {
-    'index.html': 'tape', 'about.html': 'cd',
-    'games.html': 'shutter', 'projects.html': 'shutter',
-    'art-2d.html': 'shutter', 'art-3d.html': 'shutter'
-  };
+  // Only Home and About play an exit transition; other pages navigate natively.
+  const pageEffects = { 'index.html': 'tape', 'about.html': 'cd' };
   const pendingKey = 'portfolio-transition-pending';
   const read = key => { try { return sessionStorage.getItem(key); } catch (_) { return null; } };
   const write = (key, value) => { try { sessionStorage.setItem(key, value); return true; } catch (_) { return false; } };
@@ -102,6 +99,7 @@
     if (busy) { event.preventDefault(); return; }
     const from = canonical(current).split('/').pop();
     const type = pageEffects[from];
+    if (!type) return;
     // If storage is unavailable, use normal navigation instead of a half transition.
     if (!write(pendingKey, JSON.stringify({ type, from, href: target.href, time: Date.now() }))) return;
     event.preventDefault();

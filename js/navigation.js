@@ -1,7 +1,4 @@
 (() => {
-  document.querySelectorAll('.portfolio-nav a, .portfolio-nav summary, .portfolio-logo').forEach(button => {
-    button.addEventListener('click', () => window.portfolioSound?.softClick());
-  });
   const groups = [...document.querySelectorAll('.portfolio-nav .nav-group')];
   const hover = window.matchMedia('(hover: hover) and (pointer: fine)');
   const closeOthers = current => groups.forEach(group => {
