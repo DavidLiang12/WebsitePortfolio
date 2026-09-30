@@ -1,2 +1,5 @@
 .consume-project .project-playable { max-width: 640px; }
 .consume-project .project-playable .project-video { aspect-ratio: 640 / 660; background: #c9c087; }
+/* Controls sit bottom-left, opposite the itch.io link. */
+.consume-project .game-embed-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0 1.5rem; margin-top: .8rem; }
+.consume-project .game-embed-footer > p { margin: 0; font-size: .8125rem; }
