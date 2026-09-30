@@ -96,17 +96,21 @@
 .gallery-thumbnails img { width: 100%; height: 100%; object-fit: contain; }
 .spring-window { width: min(1060px, calc(100% - 100px)); left: 50px; }
 .spring-content { overflow: auto; min-height: 0; flex: 1; background: #e5e9dc; }
-.spring-game { width: 100%; aspect-ratio: 980 / 640; background: #59714e; }
+.spring-game { width: 100%; aspect-ratio: 980 / 640; background: var(--os-chrome); border: 2px solid; border-color: #808080 #dfdfdf #dfdfdf #808080; }
 .spring-game iframe { display: block; width: 100%; height: 100%; border: 0; }
 .spring-notes { padding: 2rem; }
 .spring-heading { display: flex; align-items: center; gap: 1.5rem; }
 .spring-heading img { object-fit: contain; flex: none; image-rendering: pixelated; }
 .spring-notes h2 { font: bold 1.8rem 'DM Sans', sans-serif; margin: .5rem 0; }
 .spring-notes p { font-size: .85rem; line-height: 1.7; margin: .7rem 0; }
-.spring-notes .spring-kicker { font: .65rem 'Courier New', monospace; letter-spacing: .05em; }
 .spring-notes a { color: #225c42; font: bold .75rem 'Courier New', monospace; text-underline-offset: 4px; }
-.spring-process { border-top: 1px solid #25463844; margin-top: 2rem; padding-top: 1.5rem; }
-.spring-process h3 { font-size: 1.2rem; }
+.spring-section { border-top: 1px solid #808080; margin-top: 2rem; padding-top: 1.5rem; }
+.spring-section h3 { font-size: 1.2rem; margin: 0 0 1rem; }
+.spring-learning-image { margin: 0; }
+.spring-learning-image a { display: block; cursor: zoom-in; }
+.spring-learning-image a:focus-visible { outline: 2px solid #000080; outline-offset: 4px; }
+.spring-learning-image img { display: block; width: 100%; height: auto; border: 1px solid #808080; }
+.spring-learning-image figcaption { margin-top: .65rem; font-size: .75rem; color: #333; }
 .trash-window { height: 320px; width: min(430px, calc(100% - 380px)); }
 .trash-content { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: .8rem; padding: 1.5rem; background: #e5e9dc; }
 .trash-content h2 { font-size: 1.1rem; }
@@ -171,7 +175,7 @@
 
 /* Windows 95 desktop: teal wallpaper, silver bevels, and navy title bars. */
 .art-2d-page { --paper: #c0c0c0; --ink: #000; --body-background: #008080; --body-color: #000; --active-color: #000080; --line: #808080; --os-chrome: #c0c0c0; font-family: Tahoma, 'MS Sans Serif', Arial, sans-serif; }
-.art-2d-page .portfolio-header, .art-2d-page .nav-dropdown { background: #c0c0c0; color: #000; }
+.art-2d-page .portfolio-header, .art-2d-page .nav-dropdown { background: #aebcc3; color: #000; }
 .art-2d-page .portfolio-nav { font-family: Tahoma, Arial, sans-serif; }
 .art-2d-page .nav-dropdown a:hover, .art-2d-page .nav-dropdown a[aria-current] { background: #000080; color: #fff; }
 .desktop-workspace {
@@ -211,7 +215,8 @@
 .os-window-controls button:hover, .gallery-navigation button:hover, .desktop-start:hover, .desktop-task:hover { background: #d6d6d6; }
 .os-toolbar { padding: 7px 8px; border-bottom: 1px solid #808080; font-size: 11px; }
 .os-statusbar { border: 1px solid; border-color: #808080 #fff #fff #808080; padding: 5px 6px; font-size: 10px; }
-.gallery, .spring-content, .trash-content { background: #fff; }
+.gallery, .trash-content { background: #fff; }
+.spring-content { background: var(--os-chrome); }
 .gallery-stage { background: #e4e4e4; }
 .gallery-navigation { background: #c0c0c0; border-color: #808080; }
 .gallery-caption, [data-gallery-count] { font-family: Tahoma, Arial, sans-serif; color: #000; }
