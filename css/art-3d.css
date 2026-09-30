@@ -1,17 +1,17 @@
 .art-3d-page {
-  --paper: #f4ead8;
-  --ink: #493a2e;
-  --body-background: #c7b798;
+  --paper: #f2e4b7;
+  --ink: #f2e4b7;
+  --body-background: #43494c;
   --body-color: var(--ink);
-  --active-color: #705033;
-  --line: #493a2e44;
-  color-scheme: light;
-  background-image: radial-gradient(#65513e24 .6px, transparent .8px);
+  --active-color: #e3c96f;
+  --line: #f2e4b744;
+  color-scheme: dark;
+  background-image: radial-gradient(#242e3333 .6px, transparent .8px);
   background-size: 3px 3px;
 }
 .art-3d-page .portfolio-header { background: transparent; color: var(--ink); }
-.art-3d-page .nav-dropdown { background: #f4ead8; color: var(--ink); }
-.art-3d-page .portfolio-logo-disc { filter: none; }
-.art-3d-page .nav-dropdown a:hover, .art-3d-page .nav-dropdown a[aria-current] { background: #705033; color: #f4ead8; }
-.art-3d-page .cd-meta::before { background: #916234; }
-.art-3d-page .stereo-stripes { background: linear-gradient(#735640 0 25%, #a48760 25% 50%, #c6a779 50% 75%, #dfcbaa 75%); }
+.art-3d-page .nav-dropdown { background: #43494c; color: var(--ink); border-color: var(--line); }
+.art-3d-page .portfolio-logo-disc { filter: brightness(0) saturate(100%) invert(91%) sepia(23%) saturate(422%) hue-rotate(355deg) brightness(102%) contrast(90%); }
+.art-3d-page .nav-dropdown a:hover, .art-3d-page .nav-dropdown a:focus-visible, .art-3d-page .nav-dropdown a[aria-current] { background: #e3c96f; color: #242e33; }
+.art-3d-page .cd-meta::before { background: #e3c96f; }
+.art-3d-page .stereo-stripes { background: linear-gradient(#242e33 0 25%, #697477 25% 50%, #b4ad86 50% 75%, #e3c96f 75%); }

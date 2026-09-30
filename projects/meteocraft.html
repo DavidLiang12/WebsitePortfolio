@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore MétéoCraft, an interactive visualization of live weather in Paris, built with Unity."><meta name="theme-color" content="#f5dcb7">
+  <meta name="description" content="Explore MétéoCraft, an interactive visualization of live weather in Paris, built with Unity."><meta name="theme-color" content="#dbeaf0">
   <title>MétéoCraft — David Liang</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/project-detail.css?v=playable-game-1"><link rel="stylesheet" href="../css/portfolio.css?v=cd-logo-2">
-  <link rel="stylesheet" href="../css/sound.css"><script src="../js/sound.js"></script>
-</head><body class="golden-project">
+  <link rel="stylesheet" href="../css/project-detail.css?v=process-images-2"><link rel="stylesheet" href="../css/portfolio.css?v=cd-logo-2">
+  <link rel="stylesheet" href="../css/sound.css"><script src="../js/sound.js?v=nav-notes-2"></script>
+  <link rel="stylesheet" href="../css/project-themes.css?v=1">
+</head><body class="themed-project theme-meteocraft golden-project">
   <a class="skip-link" href="#project">Skip to project</a>
   <header class="portfolio-header">
 <div class="portfolio-header-inner"><a class="portfolio-logo" href="../index.html" aria-label="David Liang home"><img class="portfolio-logo-disc" src="../images/branding/cd-logo.png" alt="" width="44" height="44"></a><nav class="portfolio-nav" aria-label="Main navigation"><a href="../index.html">Home</a><details class="nav-group is-current"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary>
@@ -34,21 +35,21 @@
       </div>
       <div class="film-edge" aria-hidden="true">
 </div>
+      <p class="game-controls">WASD to move · Hold the right mouse button to rotate · Scroll to zoom.</p>
       <p class="game-embed-link"><a href="https://cdsio.itch.io/meteocraft" target="_blank" rel="noopener noreferrer">Open on itch.io <span aria-hidden="true">↗</span></a>
 </p>
     </section>
     <div class="project-body"><aside class="project-meta" aria-labelledby="notes-heading">
 <h2 class="meta-heading" id="notes-heading">PROJECT NOTES <span aria-hidden="true">↘</span>
-</h2><dl>
-<div class="meta-item"><dt class="meta-label">ENGINE</dt><dd class="meta-value">Unity</dd>
-</div><div class="meta-item"><dt class="meta-label">BUILD</dt><dd class="meta-value">Weather 1.10</dd>
-</div><div class="meta-item"><dt class="meta-label">DATA</dt><dd class="meta-value">OpenWeather API · Paris</dd>
-</div></dl></aside>
+</h2><dl><div class="meta-item"><dt class="meta-label">ROLE</dt><dd class="meta-value">Team Project</dd></div>
+<div class="meta-item"><dt class="meta-label">Software Used</dt><dd class="meta-value">Unity, Blender</dd></div>
+<div class="meta-item"><dt class="meta-label">Time</dt><dd class="meta-value">March 2025 - May 2025</dd></div></dl></aside>
 <div class="project-content">
 <section class="project-section">
 <div class="section-heading"><span class="section-number" aria-hidden="true">01</span><h2>About the Game</h2></div>
 <p>MétéoCraft is an abstract weather visualization game that transforms live weather data from Paris into dynamic artistic scenes. Using the OpenWeather API, players can view current conditions, explore a ±12-hour weather timeline, or use Playground Mode to experience every weather type.</p>
 </section>
+<div class="project-images single project-process-image"><figure><img src="../images/MeteoCraft/daytime-weather.png" alt="MétéoCraft daytime Paris scene with abstract clouds and the weather timeline" width="1402" height="838" loading="lazy" decoding="async"></figure></div>
 <section class="project-section">
 <div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
 <p>The main design question was: How can weather be visualized without simply recreating its physical appearance?</p>
@@ -60,18 +61,19 @@
 </section>
 <section class="project-section">
 <div class="section-heading"><span class="section-number" aria-hidden="true">04</span><h2>Learnings</h2></div>
+<div class="project-images single project-process-image"><figure><img src="../images/MeteoCraft/weather-settings-redacted.png" alt="Unity weather settings connecting the OpenWeather API, Paris, the timeline, and day/night controller; API key hidden" width="1942" height="809" loading="lazy" decoding="async"></figure></div>
 <p>This project gave me experience with using APIs in Unity, working with post processing, and creating dynamic lighting and environmental systems from external data.</p>
 </section>
 <section class="project-section">
 <div class="section-heading"><span class="section-number" aria-hidden="true">05</span><h2>Challenges</h2></div>
+<div class="project-images single project-process-image"><figure><img src="../images/MeteoCraft/night-fog.png" alt="MétéoCraft at night showing rain, fog, warm building lights, and the daytime slider" width="1423" height="789" loading="lazy" decoding="async"></figure></div>
 <p>One of the biggest challenges was creating a convincing day/night cycle, especially making lighting transitions feel natural across different times and weather conditions.</p>
 <p>Another challenge was actually the fog around the island, we spent hours modifying the fog material so it works well in all weather conditions.</p>
 </section>
-<section class="project-section"><div class="section-heading"><span class="section-number" aria-hidden="true">06</span><h2>Controls</h2></div><p>WASD to move · Hold the right mouse button to rotate · Scroll to zoom.</p></section>
-<figure class="pending-cover" style="margin-top: 2rem"><img src="../images/MeteoCraft/MeteoCraftCover.png" alt="MétéoCraft CD cover featuring Paris" width="880" height="880"><figcaption>MÉTÉOCRAFT / UNITY</figcaption>
-</figure></div>
+
+</div>
 </div>
     <footer class="project-footer"><a class="collection-link" href="../projects.html">Back to Other Projects <span aria-hidden="true">↗</span></a><span class="footer-credit">DAVID LIANG / OTHER PROJECTS</span>
 </footer>
-  </main><script src="../js/navigation.js"></script>
+  </main><script src="../js/navigation.js?v=nav-silent-3"></script>
 </body></html>

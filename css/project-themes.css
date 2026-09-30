@@ -1,0 +1,85 @@
+/* Project-specific color treatments only; shared typography and layout stay intact. */
+.theme-brookings {
+  --paper: #1e2321; --ink: #e6e3d8; --muted: #c1c6be;
+  --green: #343f38; --on-green: #eeeadb; --rust: #dba18b;
+  --yellow: #a1af96; --line: #566258; --surface: #29322d;
+  --stripe: #955f54; --glow: #83917b0d;
+}
+.theme-handspell {
+  --paper: #2a111b; --ink: #f5e9cd; --muted: #dac5be;
+  --green: #5a263a; --on-green: #faecd0; --rust: #e0bd77;
+  --yellow: #d9ba78; --line: #78505b; --surface: #401d2c;
+  --stripe: #ab747c; --glow: #d3b5740d;
+}
+.theme-meteocraft {
+  --paper: #dbeaf0; --ink: #233e56; --muted: #405d6e;
+  --green: #365c78; --on-green: #f9f3e4; --rust: #865d28;
+  --yellow: #efca75; --line: #9ab4c2; --surface: #c6dce5;
+  --stripe: #8cb5c6; --glow: #ffffff45;
+}
+.theme-starwars {
+  --paper: #171c25; --ink: #e4e8ee; --muted: #bcc6d2;
+  --green: #303d50; --on-green: #eef1f5; --rust: #f28b7f;
+  --yellow: #d9bd74; --line: #4a5b70; --surface: #242e3c;
+  --stripe: #b84c46; --glow: #91a8c00a;
+}
+.theme-consume {
+  --paper: #c9c087; --ink: #344b38; --muted: #41543b;
+  --green: #344b38; --on-green: #e6dda5; --rust: #794d4a;
+  --yellow: #ded59d; --line: #939666; --surface: #bdb77e;
+  --stripe: #87535d; --glow: #f5edc00a;
+}
+.theme-flying-home {
+  --paper: #122d55; --ink: #e2f1fb; --muted: #b7d2e9;
+  --green: #194777; --on-green: #eaf6ff; --rust: #8ed6ed;
+  --yellow: #e2b475; --line: #466a8f; --surface: #1b3b62;
+  --stripe: #648bbd; --glow: #38a4d411;
+}
+.theme-flying-machine {
+  --paper: #efbcc8; --ink: #503451; --muted: #65465f;
+  --green: #765174; --on-green: #fff0d3; --rust: #74405d;
+  --yellow: #f6d897; --line: #b785a1; --surface: #dfacc1;
+  --stripe: #c880a0; --glow: #ffe8ac24;
+}
+.themed-project {
+  --body-background: var(--paper);
+  --body-color: var(--ink);
+  --active-color: var(--rust);
+  background-color: var(--paper);
+  background-image: radial-gradient(ellipse at 85% 0%, var(--glow), transparent 65%);
+}
+.themed-project .nav-dropdown {
+  background: var(--paper); color: var(--ink); border-color: var(--line);
+  box-shadow: 4px 6px 0 #00000020;
+}
+.themed-project .portfolio-nav .nav-dropdown a:hover,
+.themed-project .portfolio-nav .nav-dropdown a:focus-visible,
+.themed-project .portfolio-nav .nav-dropdown a[aria-current] {
+  background: var(--green); color: var(--on-green);
+}
+.themed-project .project-mark {
+  background: linear-gradient(to bottom,
+    var(--green) 0 43%, var(--paper) 43% 50%,
+    var(--green) 50% 55%, var(--yellow) 55% 62%,
+    var(--green) 62% 67%, var(--stripe) 67% 74%, var(--green) 74%);
+}
+.themed-project .film-edge {
+  background: linear-gradient(to right, var(--green) 0 35%, var(--yellow) 35% 60%, var(--stripe) 60%);
+}
+.themed-project .project-images figure { background: var(--surface); }
+.themed-project .project-video { background-color: var(--surface); }
+.themed-project .play-link:hover { background: var(--rust); color: var(--paper); }
+.theme-brookings .portfolio-logo-disc,
+.theme-handspell .portfolio-logo-disc,
+.theme-starwars .portfolio-logo-disc,
+.theme-flying-home .portfolio-logo-disc { filter: brightness(0) invert(.92); }
+.theme-brookings { background-image: repeating-linear-gradient(0deg, #00000005 0 1px, transparent 1px 4px); }
+.theme-starwars {
+  background-image: radial-gradient(circle, #b8c8df22 .7px, transparent 1px),
+    radial-gradient(circle, #b8c8df12 .7px, transparent 1px);
+  background-size: 93px 107px, 137px 173px;
+  background-position: 0 0, 31px 49px;
+}
+.theme-consume {
+  background-image: repeating-linear-gradient(90deg, #344b3803 0 2px, transparent 2px 4px);
+}

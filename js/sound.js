@@ -7,8 +7,22 @@
   const readEnabled = () => { try { return sessionStorage.getItem(key) === 'true'; } catch (_) { return false; } };
   let enabled = readEnabled();
   let button;
+  let audioContext;
+  const voices = new Set();
+
+  function unlockNotes() {
+    if (!enabled) return;
+    try {
+      const Context = window.AudioContext || window.webkitAudioContext;
+      if (!Context) return;
+      if (!audioContext) audioContext = new Context();
+      if (audioContext.state === 'suspended') audioContext.resume()?.catch(() => {});
+    } catch (_) { /* Synthesized notes are optional. */ }
+  }
 
   function stop() {
+    voices.forEach(voice => { try { voice.stop(); } catch (_) {} });
+    voices.clear();
     sounds.forEach(sound => {
       sound.pause();
       sound.currentTime = 0;
@@ -25,6 +39,32 @@
 
   window.portfolioSound = {
     get muted() { return !enabled; },
+    note(midi) {
+      if (!enabled || !Number.isFinite(midi) || midi < 36 || midi > 96) return;
+      unlockNotes();
+      if (!audioContext || audioContext.state !== 'running') return;
+      try {
+        if (voices.size >= 8) {
+          const oldest = voices.values().next().value;
+          oldest.stop();
+          voices.delete(oldest);
+        }
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        const now = audioContext.currentTime;
+        oscillator.type = 'triangle';
+        oscillator.frequency.setValueAtTime(440 * 2 ** ((midi - 69) / 12), now);
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(.065, now + .008);
+        gain.gain.exponentialRampToValueAtTime(.001, now + .22);
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+        voices.add(oscillator);
+        oscillator.onended = () => { voices.delete(oscillator); oscillator.disconnect(); gain.disconnect(); };
+        oscillator.start(now);
+        oscillator.stop(now + .24);
+      } catch (_) { /* Audio must never interrupt interaction. */ }
+    },
     play(name) {
       if (!enabled || !Object.hasOwn(files, name)) return;
       try {
@@ -45,6 +85,7 @@
       enabled = !enabled;
       try { sessionStorage.setItem(key, String(enabled)); } catch (_) {}
       if (!enabled) stop();
+      else unlockNotes();
       render();
     });
     render();
@@ -63,6 +104,8 @@
   }, { once: true });
 
   window.addEventListener('pagehide', stop);
+  document.addEventListener('pointerdown', unlockNotes, { passive: true });
+  document.addEventListener('keydown', unlockNotes);
   window.addEventListener('pageshow', event => {
     if (!event.persisted) return;
     enabled = readEnabled();

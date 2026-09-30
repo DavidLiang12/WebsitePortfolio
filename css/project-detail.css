@@ -136,3 +136,6 @@ a { color: inherit; }
 .pending-cover img { filter: drop-shadow(3px 10px 10px #30272040); }
 .pending-cover figcaption { text-align: center; font-size: .75rem; letter-spacing: .06em; padding-top: 1rem; }
   
+
+.project-process-image { margin-block: 1.6rem; }
+.game-controls { margin-top: 1rem; color: var(--muted); font-size: .875rem; line-height: 1.7; }

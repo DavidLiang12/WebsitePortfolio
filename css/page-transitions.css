@@ -22,8 +22,8 @@
   --pt-rust: #000080; --pt-orange: #808080; --pt-gold: #c0c0c0;
 }
 .pt-from-art-3d {
-  --pt-surface: #c7b798; --pt-rule: #493a2e22;
-  --pt-rust: #735640; --pt-orange: #a48760; --pt-gold: #c6a779;
+  --pt-surface: #43494c; --pt-rule: #f2e4b722;
+  --pt-rust: #242e33; --pt-orange: #697477; --pt-gold: #e3c96f;
 }
 .pt-layer { position: absolute; display: block; will-change: transform; }
 .pt-tape .pt-layer {

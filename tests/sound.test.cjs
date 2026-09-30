@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const source = fs.readFileSync(`${__dirname}/../js/sound.js`, 'utf8');
 
 function setup(storage = new Map(), blocked = false) {
-  const events = {}, windowEvents = {}, audio = [];
+  const events = {}, windowEvents = {}, audio = [], notes = [];
   const label = {};
   const button = {
     dataset: {}, attributes: {},
@@ -14,6 +14,14 @@ function setup(storage = new Map(), blocked = false) {
     addEventListener(name, handler) { this[name] = handler; }
   };
   const window = { addEventListener(name, handler) { windowEvents[name] = handler; } };
+  window.AudioContext = function() {
+    this.state = 'running'; this.currentTime = 0; this.destination = {};
+    this.createOscillator = () => {
+      const note = { frequency: { setValueAtTime(value) { note.hz = value; } }, connect() {}, disconnect() {}, start() {}, stop(time) { if (time === undefined) note.muted = true; } };
+      notes.push(note); return note;
+    };
+    this.createGain = () => ({ gain: { setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }, connect() {}, disconnect() {} });
+  };
   vm.runInNewContext(source, {
     URL, window,
     document: {
@@ -35,7 +43,7 @@ function setup(storage = new Map(), blocked = false) {
     }
   });
   events.DOMContentLoaded();
-  return { sound: window.portfolioSound, button, label, audio, windowEvents };
+  return { sound: window.portfolioSound, button, label, audio, notes, windowEvents };
 }
 
 test('new visits start muted without loading or playing any sound', () => {
@@ -79,4 +87,26 @@ test('blocked storage remains muted by default but the control still works', () 
   assert.equal(app.sound.muted, true);
   app.button.click(); app.sound.play('cd');
   assert.equal(app.audio[0].plays, 1);
+});
+
+test('hover notes have stable pitches and respect mute immediately', () => {
+  const app = setup();
+  app.sound.note(60);
+  assert.equal(app.notes.length, 0);
+  app.button.click();
+  app.sound.note(60); app.sound.note(67); app.sound.note(60);
+  assert.equal(app.notes[0].hz, app.notes[2].hz);
+  assert.notEqual(app.notes[0].hz, app.notes[1].hz);
+  app.button.click();
+  assert.ok(app.notes.every(note => note.muted));
+  app.sound.note(72);
+  assert.equal(app.notes.length, 3);
+});
+
+test('rapid hovering limits overlapping voices and page exit stops them', () => {
+  const app = setup(); app.button.click();
+  for (let i = 0; i < 30; i++) app.sound.note(60 + i % 8);
+  assert.equal(app.notes.filter(note => !note.muted).length, 8);
+  app.windowEvents.pagehide();
+  assert.ok(app.notes.every(note => note.muted));
 });

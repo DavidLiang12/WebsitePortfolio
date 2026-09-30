@@ -9,7 +9,7 @@
   const pageEffects = {
     'index.html': 'tape', 'about.html': 'cd',
     'games.html': 'shutter', 'projects.html': 'shutter',
-    'art-2d.html': 'equalizer', 'art-3d.html': 'equalizer'
+    'art-2d.html': 'shutter', 'art-3d.html': 'shutter'
   };
   const pendingKey = 'portfolio-transition-pending';
   const read = key => { try { return sessionStorage.getItem(key); } catch (_) { return null; } };

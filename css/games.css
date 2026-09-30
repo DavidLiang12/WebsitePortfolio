@@ -48,9 +48,3 @@
 @media (prefers-reduced-motion: reduce) {
   .game-disc-art { transition: none; }
 }
-
-.game-tags { display: flex; flex-wrap: wrap; gap: .5rem; padding-top: 1.25rem; margin-top: auto; }
-.game-tag { display: inline-block; padding: .3rem .65rem; border-radius: 3px; font-size: .7rem; line-height: 1.5; font-weight: 700; letter-spacing: .02em; }
-.tag-solo { background: #d9e3c6; color: #304529; }
-.tag-team { background: #e2d5e3; color: #573752; }
-.tag-engine { background: #ecdbb4; color: #654719; }
