@@ -9,6 +9,10 @@
   let button;
   let audioContext;
   const voices = new Set();
+  const clickNotes = [60, 64, 67, 69, 62, 67, 64, 72];
+  const noteKey = 'portfolio-click-note';
+  let nextNote = 0;
+  try { nextNote = (Number(sessionStorage.getItem(noteKey)) || 0) % clickNotes.length; } catch (_) {}
 
   function unlockNotes() {
     if (!enabled) return;
@@ -39,6 +43,12 @@
 
   window.portfolioSound = {
     get muted() { return !enabled; },
+    softClick() {
+      if (!enabled) return;
+      window.portfolioSound.note(clickNotes[nextNote]);
+      nextNote = (nextNote + 1) % clickNotes.length;
+      try { sessionStorage.setItem(noteKey, String(nextNote)); } catch (_) {}
+    },
     note(midi) {
       if (!enabled || !Number.isFinite(midi) || midi < 36 || midi > 96) return;
       unlockNotes();
@@ -52,17 +62,17 @@
         const oscillator = audioContext.createOscillator();
         const gain = audioContext.createGain();
         const now = audioContext.currentTime;
-        oscillator.type = 'triangle';
+        oscillator.type = 'sine';
         oscillator.frequency.setValueAtTime(440 * 2 ** ((midi - 69) / 12), now);
         gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(.065, now + .008);
-        gain.gain.exponentialRampToValueAtTime(.001, now + .22);
+        gain.gain.linearRampToValueAtTime(.05, now + .018);
+        gain.gain.exponentialRampToValueAtTime(.001, now + .27);
         oscillator.connect(gain);
         gain.connect(audioContext.destination);
         voices.add(oscillator);
         oscillator.onended = () => { voices.delete(oscillator); oscillator.disconnect(); gain.disconnect(); };
         oscillator.start(now);
-        oscillator.stop(now + .24);
+        oscillator.stop(now + .29);
       } catch (_) { /* Audio must never interrupt interaction. */ }
     },
     play(name) {

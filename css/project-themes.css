@@ -1,4 +1,22 @@
-/* Project-specific color treatments only; shared typography and layout stay intact. */
+/* Project palettes; heading typography and decorative shapes live in project-identity.css. */
+.theme-perfect-loop {
+  --paper: #e6dfc2; --ink: #344632; --muted: #53604b;
+  --green: #405a45; --on-green: #fff7db; --rust: #965347;
+  --yellow: #c1b575; --line: #a6ae88; --surface: #d7d1af;
+  --stripe: #bb8674; --glow: #fff6d733;
+}
+.theme-pixar {
+  --paper: #e2e5ee; --ink: #303a51; --muted: #515d74;
+  --green: #526581; --on-green: #f4f5fa; --rust: #475d85;
+  --yellow: #c4cddd; --line: #a5b0c4; --surface: #cfd6e4;
+  --stripe: #849bbd; --glow: #ffffff55;
+}
+.theme-cyberpunk {
+  --paper: #172730; --ink: #edf2d9; --muted: #beced0;
+  --green: #304450; --on-green: #f3e897; --rust: #e1c531;
+  --yellow: #e1c531; --line: #577582; --surface: #223943;
+  --stripe: #69c9e7; --glow: #69c9e70c;
+}
 .theme-brookings {
   --paper: #1e2321; --ink: #e6e3d8; --muted: #c1c6be;
   --green: #343f38; --on-green: #eeeadb; --rust: #dba18b;

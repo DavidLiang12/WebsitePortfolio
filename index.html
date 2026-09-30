@@ -138,7 +138,7 @@
   <link rel="stylesheet" href="css/page-transitions.css?v=graphite-butter-3">
   <script src="js/page-transitions.js?v=nav-notes-2"></script>
   <link rel="stylesheet" href="css/sound.css">
-  <script src="js/sound.js?v=nav-notes-2"></script>
+  <script src="js/sound.js?v=soft-click-3"></script>
 </head>
 <body class="retro-page home-page cassette-home">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -211,6 +211,7 @@
     let selected = 0;
     let animation;
     const changeGame = step => {
+      window.portfolioSound?.softClick();
       selected = (selected + step + games.length) % games.length;
       const label = String(selected + 1).padStart(2, '0');
       disc.dataset.game = String(selected);
@@ -267,7 +268,7 @@
   })();
   </script>
   <script src="js/retro.js?v=click-spin-2"></script>
-  <script src="js/navigation.js?v=nav-silent-3"></script>
+  <script src="js/navigation.js?v=soft-click-4"></script>
   <script src="js/interactions.js?v=disc-interactions-3"></script>
 </body>
 </html>

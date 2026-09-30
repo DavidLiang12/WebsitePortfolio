@@ -89,7 +89,7 @@ test('blocked storage remains muted by default but the control still works', () 
   assert.equal(app.audio[0].plays, 1);
 });
 
-test('hover notes have stable pitches and respect mute immediately', () => {
+test('soft notes have stable pitches and respect mute immediately', () => {
   const app = setup();
   app.sound.note(60);
   assert.equal(app.notes.length, 0);
@@ -103,10 +103,43 @@ test('hover notes have stable pitches and respect mute immediately', () => {
   assert.equal(app.notes.length, 3);
 });
 
-test('rapid hovering limits overlapping voices and page exit stops them', () => {
+test('rapid notes limit overlapping voices and page exit stops them', () => {
   const app = setup(); app.button.click();
   for (let i = 0; i < 30; i++) app.sound.note(60 + i % 8);
   assert.equal(app.notes.filter(note => !note.muted).length, 8);
   app.windowEvents.pagehide();
   assert.ok(app.notes.every(note => note.muted));
+});
+
+test('click notes vary, continue across pages, and stay silent when muted', () => {
+  const storage = new Map();
+  const first = setup(storage);
+  first.sound.softClick();
+  assert.equal(first.notes.length, 0);
+  first.button.click();
+  first.sound.softClick(); first.sound.softClick();
+  assert.notEqual(first.notes[0].hz, first.notes[1].hz);
+  assert.equal(first.notes[0].type, 'sine');
+  const second = setup(storage);
+  second.sound.softClick();
+  assert.notEqual(second.notes[0].hz, first.notes[1].hz);
+  second.button.click(); second.sound.softClick();
+  assert.equal(second.notes.length, 1);
+  assert.ok(second.notes[0].muted);
+});
+
+test('navigation notes are bound to clicks only and do not prevent navigation', () => {
+  const handlers = {};
+  const button = { addEventListener(name, handler) { handlers[name] = handler; } };
+  let plays = 0;
+  vm.runInNewContext(fs.readFileSync(`${__dirname}/../js/navigation.js`, 'utf8'), {
+    window: { portfolioSound: { softClick() { plays++; } }, matchMedia: () => ({ matches: true }) },
+    document: {
+      querySelectorAll: selector => selector.includes('.portfolio-logo') ? [button] : [],
+      addEventListener() {}
+    }
+  });
+  assert.deepEqual(Object.keys(handlers), ['click']);
+  handlers.click(); handlers.click();
+  assert.equal(plays, 2);
 });

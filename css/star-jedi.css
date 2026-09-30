@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Star Jedi';
+  src: url('../fonts/star-jedi/Starjedi.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.theme-starwars {
+  --project-display: 'Star Jedi';
+  --project-weight: 400;
+  --project-tracking: 0;
+}
+
+/* Star Jedi maps its standard capital-looking forms to lowercase characters. */
+.theme-starwars .project-title,
+.theme-starwars .project-section h2 {
+  text-transform: lowercase;
+  font-synthesis: none;
+}
