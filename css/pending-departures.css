@@ -1,58 +1,81 @@
+/* Warm paper and burgundy frame the game's cool Windows desktop. */
 .pending-project {
-  --paper: #c0c0c0;
-  --ink: #111;
-  --muted: #292929;
-  --green: #000080;
-  --rust: #000080;
-  --on-green: #fff;
-  --line: #808080;
-  --active-color: #000080;
-  background: #008080;
-  font-family: Tahoma, 'MS Sans Serif', Arial, sans-serif;
+  --paper: #f2e7d1;
+  --ink: #392b2b;
+  --muted: #64534b;
+  --green: #763f3d;
+  --rust: #8b443a;
+  --yellow: #c29b56;
+  --on-green: #fff5e4;
+  --line: #c5b398;
+  --active-color: #763f3d;
+  --panel: #faf1e1;
+  background: var(--paper);
 }
+/* Use the shared header's type, border, padding and height. */
 .pending-project .portfolio-header,
-.pending-project .nav-dropdown { background: #c0c0c0; color: #111; font-family: inherit; border: 2px solid; border-color: #fff #404040 #404040 #fff; }
+.pending-project .nav-dropdown { background: var(--paper); }
+.pending-project .nav-dropdown { color: var(--ink); }
 .pending-project .nav-dropdown a:hover,
-.pending-project .nav-dropdown a[aria-current] { background: #000080; color: #fff; }
-.pending-project .project-breadcrumb,
-.pending-project .eyebrow,
-.pending-project .project-intro { color: #fff; }
-.pending-project .project-title { color: #fff; font-family: inherit; font-weight: 700; letter-spacing: -.04em; text-shadow: 3px 3px #004747; }
-.pending-project .project-title span { color: #fff; }
-.pending-project .project-mark { border-radius: 0; border: 3px solid; border-color: #fff #404040 #404040 #fff; background: #c0c0c0; padding: 9px; box-shadow: inset 0 0 0 5px #c0c0c0; position: relative; }
-.pending-project .project-mark::before { content: ''; display: block; height: 20px; background: #000080; }
-.pending-project .project-mark::after { content: '✈'; position: absolute; inset: 30px 0 0; display: grid; place-items: center; font: 64px/1 Arial, sans-serif; color: #000080; }
+.pending-project .nav-dropdown a:focus-visible,
+.pending-project .nav-dropdown a[aria-current] { background: var(--green); color: var(--on-green); }
+.pending-project .project-mark {
+  border-radius: 0;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 9px;
+  box-shadow: 5px 5px 0 #c5b39866;
+  position: relative;
+}
+.pending-project .project-mark::before { content: ''; display: block; height: 20px; background: var(--green); }
+.pending-project .project-mark::after { content: '✈'; position: absolute; inset: 30px 0 0; display: grid; place-items: center; font: 64px/1 Arial, sans-serif; color: var(--green); }
 .pending-project .project-film,
 .pending-project .project-meta,
-.pending-project .project-section { background: #c0c0c0; border: 2px solid; border-color: #fff #404040 #404040 #fff; box-shadow: 2px 2px 0 #004747; padding: 4px; border-radius: 0; }
+.pending-project .project-section {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 3px 3px 0 #c5b39855;
+  padding: 5px;
+  border-radius: 0;
+}
 .pending-project .film-label,
 .pending-project .meta-heading,
-.pending-project .section-heading { background: #000080; color: #fff; padding: .55rem .75rem; letter-spacing: 0; }
-.pending-project .film-label { font-family: inherit; }
-.pending-project .project-video { border: 2px solid; border-color: #808080 #fff #fff #808080; }
-.pending-project .film-edge { background: #c0c0c0; height: 4px; border-top: 1px solid #808080; }
-.pending-project .game-embed-link { margin: 0; padding: .35rem .65rem; }
-.pending-project .game-embed-link a { padding: .35rem .8rem; background: #c0c0c0; border: 2px solid; border-color: #fff #404040 #404040 #fff; color: #111; text-decoration: none; }
-.pending-project .project-meta { color: #111; }
+.pending-project .section-heading { background: var(--green); color: var(--on-green); padding: .65rem .9rem; }
+.pending-project .project-video { border: 1px solid var(--line); }
+.pending-project .film-edge { background: linear-gradient(90deg, var(--green) 0 45%, var(--yellow) 45% 70%, var(--rust) 70%); }
+.pending-project .game-embed-link { margin: 0; padding: .4rem .8rem; }
+.pending-project .project-meta { color: var(--ink); }
 .pending-project .meta-heading { margin-bottom: 1.1rem; font-size: .75rem; }
 .pending-project .project-meta dl { padding: 0 .85rem 1rem; }
-.pending-project .meta-label { color: #444; }
-.pending-project .project-section + .project-section { padding: 4px; margin-top: 2rem; }
-.pending-project .project-section h2 { font-family: inherit; font-size: clamp(1.2rem, 2.5vw, 1.55rem); letter-spacing: 0; }
-.pending-project .section-number { color: #fff; border: 0; font-family: 'Courier New', monospace; }
+.pending-project .meta-label { color: var(--muted); }
+.pending-project .project-section + .project-section { padding: 5px; margin-top: 2rem; }
+.pending-project .project-section h2 { font-size: clamp(1.5rem, 2.5vw, 1.9rem); }
+.pending-project .section-number { color: var(--on-green); border: 0; font-family: 'Courier New', monospace; }
 .pending-project .project-section p { padding-inline: 1.1rem; font-size: 1rem; line-height: 1.8; }
 .pending-project .project-section > p:last-child { padding-bottom: 1.1rem; }
-.pending-project .core-loop { margin: 1rem; padding: .8rem !important; background: #fff; border: 2px solid; border-color: #808080 #fff #fff #808080; }
-.pending-project .project-images { margin: 1.2rem; }
-.pending-project .project-images figure { background: #fff; border: 2px solid; border-color: #808080 #fff #fff #808080; }
-.pending-project .pending-cover { margin-top: 2rem; color: #fff; }
-.pending-project .project-footer { color: #fff; border-color: #ffffff66; }
-.pending-project .collection-link { font-family: inherit; font-size: 1.3rem; }
-.pending-project .collection-link span,
-.pending-project .footer-credit { color: #fff; }
+.pending-project .core-loop { margin: 1rem; padding: .9rem !important; background: #e9dabf; border-left: 3px solid var(--yellow); }
+.pending-project .pending-screenshot,
+.pending-project .pending-feedback-image { margin: 1.3rem 1.1rem; }
+.pending-project .pending-screenshot img,
+.pending-project .pending-feedback-image img { display: block; width: 100%; height: auto; }
+.pending-project .pending-screenshot { border: 1px solid var(--line); }
+.pending-project .pending-feedback-image { background: #fff; border: 1px solid #ddd3c4; padding: .6rem; }
+.pending-project .pending-screenshot a,
+.pending-project .pending-feedback-image a { display: block; cursor: zoom-in; }
+.pending-project .pending-screenshot a:focus-visible,
+.pending-project .pending-feedback-image a:focus-visible { outline: 3px solid var(--rust); outline-offset: 4px; }
+.pending-project .pending-feedback-list { display: grid; gap: 1rem; padding: 0 1.1rem 1.1rem; }
+.pending-project .pending-feedback-list .pending-feedback-image { margin: 0; }
+.pending-project .pending-flow { width: min(440px, calc(100% - 2.2rem)); margin: 1.5rem auto; }
+.pending-project .pending-flow figure { background: #fff; border: 1px solid var(--line); }
+.pending-project .pending-flow figcaption { color: var(--muted); font-size: .7rem; }
 @media (max-width: 600px) {
   .pending-project .project-mark::after { inset: 0; font-size: 30px; }
   .pending-project .project-mark::before { width: 25%; height: 100%; }
   .pending-project .project-section p { padding-inline: .75rem; }
-  .pending-project .project-images { margin: .75rem; }
+  .pending-project .pending-screenshot,
+  .pending-project .pending-feedback-image { margin: 1rem .75rem; }
+  .pending-project .pending-feedback-list { padding-inline: .75rem; }
+  .pending-project .pending-feedback-image { padding: .3rem; }
+  .pending-project .pending-flow { width: calc(100% - 1.5rem); }
 }
