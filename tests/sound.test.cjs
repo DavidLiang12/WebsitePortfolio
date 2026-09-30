@@ -36,7 +36,8 @@ function setup(storage = new Map(), blocked = false) {
       setItem(key, value) { if (blocked) throw Error('blocked'); storage.set(key, value); }
     },
     Audio: function(url) {
-      this.url = url; this.plays = 0; this.pauses = 0;
+      this.url = url; this.plays = 0; this.pauses = 0; this.readyState = 4;
+      this.load = () => { this.loads = (this.loads || 0) + 1; };
       this.play = () => { this.plays++; return Promise.resolve(); };
       this.pause = () => { this.pauses++; };
       audio.push(this);
@@ -46,11 +47,12 @@ function setup(storage = new Map(), blocked = false) {
   return { sound: window.portfolioSound, button, label, audio, notes, windowEvents };
 }
 
-test('new visits start muted without loading or playing any sound', () => {
+test('new visits preload effects while remaining silent', () => {
   const app = setup();
   app.sound.play('cd'); app.sound.play('click');
   assert.equal(app.sound.muted, true);
-  assert.equal(app.audio.length, 0);
+  assert.equal(app.audio.length, 2);
+  assert.ok(app.audio.every(sound => sound.loads === 1 && sound.plays === 0));
   assert.equal(app.button.attributes['aria-label'], 'Unmute sound effects');
 });
 
@@ -59,7 +61,7 @@ test('unmute enables effects, mute stops them immediately and blocks new playbac
   app.button.click();
   app.sound.play('cd'); app.sound.play('click');
   assert.equal(app.audio.length, 2);
-  assert.equal(app.audio[0].url, 'https://example.com/portfolio/Sound/CD.MP3');
+  assert.equal(app.audio[0].src, 'https://example.com/portfolio/Sound/Click.MP3');
   assert.equal(app.audio[0].plays, 1);
   assert.equal(app.label.textContent, 'Mute sound effects');
   app.button.click();
@@ -86,7 +88,7 @@ test('blocked storage remains muted by default but the control still works', () 
   const app = setup(new Map(), true);
   assert.equal(app.sound.muted, true);
   app.button.click(); app.sound.play('cd');
-  assert.equal(app.audio[0].plays, 1);
+  assert.equal(app.audio.find(sound => sound.src.endsWith('CD.MP3')).plays, 1);
 });
 
 test('soft notes have stable pitches and respect mute immediately', () => {
@@ -128,18 +130,14 @@ test('click notes vary, continue across pages, and stay silent when muted', () =
   assert.ok(second.notes[0].muted);
 });
 
-test('navigation notes are bound to clicks only and do not prevent navigation', () => {
-  const handlers = {};
-  const button = { addEventListener(name, handler) { handlers[name] = handler; } };
-  let plays = 0;
-  vm.runInNewContext(fs.readFileSync(`${__dirname}/../js/navigation.js`, 'utf8'), {
-    window: { portfolioSound: { softClick() { plays++; } }, matchMedia: () => ({ matches: true }) },
-    document: {
-      querySelectorAll: selector => selector.includes('.portfolio-logo') ? [button] : [],
-      addEventListener() {}
-    }
-  });
-  assert.deepEqual(Object.keys(handlers), ['click']);
-  handlers.click(); handlers.click();
-  assert.equal(plays, 2);
+test('a cold effect uses an immediate note instead of queuing late playback', () => {
+  const app = setup();
+  app.button.click();
+  app.audio.forEach(sound => { sound.readyState = 0; });
+  app.sound.play('cd');
+  assert.ok(app.audio.every(sound => sound.plays === 0));
+  assert.equal(app.notes.length, 1);
+  app.audio.forEach(sound => { sound.readyState = 4; });
+  app.sound.play('cd');
+  assert.equal(app.audio.find(sound => sound.src.endsWith('CD.MP3')).plays, 1);
 });

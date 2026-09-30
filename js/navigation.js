@@ -10,20 +10,25 @@
       if (hover.matches && openedByHover && group.open) event.preventDefault();
       openedByHover = false;
     });
-    group.addEventListener('pointerenter', () => {
-      if (!hover.matches) return;
+    group.addEventListener('pointerdown', event => {
+      if (event.pointerType !== 'mouse') openedByHover = false;
+    });
+    group.addEventListener('pointerenter', event => {
+      if (!hover.matches || event.pointerType !== 'mouse') return;
       closeOthers(group);
       openedByHover = !group.open;
       group.open = true;
     });
-    group.addEventListener('pointerleave', () => {
-      if (hover.matches && !group.contains(document.activeElement)) group.open = false;
+    group.addEventListener('pointerleave', event => {
+      if (hover.matches && event.pointerType === 'mouse' && !group.contains(document.activeElement)) group.open = false;
     });
     group.addEventListener('toggle', () => {
       if (group.open) closeOthers(group);
     });
     group.addEventListener('focusout', event => {
-      if (!group.contains(event.relatedTarget)) group.open = false;
+      // Safari can blur the summary with no new focus target during a link tap.
+      // Keep the link visible until its native click; outside clicks dismiss below.
+      if (event.relatedTarget && !group.contains(event.relatedTarget)) group.open = false;
     });
     group.addEventListener('keydown', event => {
       if (event.key !== 'Escape') return;

@@ -138,7 +138,7 @@
   <link rel="stylesheet" href="css/page-transitions.css?v=graphite-butter-3">
   <script src="js/page-transitions.js?v=nav-notes-2"></script>
   <link rel="stylesheet" href="css/sound.css">
-  <script src="js/sound.js?v=soft-click-3"></script>
+  <script src="js/sound.js?v=preload-4"></script>
 </head>
 <body class="retro-page home-page cassette-home">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -150,14 +150,14 @@
         <p class="eyebrow">Creative Portfolio</p>
         <h1 id="home-title" aria-label="David Liang"><span>David</span><span>Liang</span></h1>
         <p class="cassette-tagline">Game Designer | Developer</p>
-        <div class="cassette-contact"><a class="text-link" href="mailto:200446junqi@gmail.com">Email <span aria-hidden="true">↗</span></a><a class="text-link" href="https://www.linkedin.com/in/david-liang-0a73032ab" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a><a class="text-link" href="images/DavidLiang_Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé <span aria-hidden="true">↗</span></a></div>
+        <div class="cassette-contact"><a class="text-link" href="mailto:200446junqi@gmail.com">Email</a><a class="text-link" href="https://www.linkedin.com/in/david-liang-0a73032ab" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="text-link" href="images/DavidLiang_Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</a></div>
       </div>
       <section class="cassette-games" aria-labelledby="featured-games-title" aria-roledescription="carousel">
         <div class="cassette-games-heading"><h2 id="featured-games-title">Featured Games</h2><span class="eyebrow">In rotation</span></div>
         <div class="cassette-game-stage">
           <div class="cassette-game-disc" data-game="0">
             <div class="cassette-game-print" aria-hidden="true" hidden><span class="cassette-disc-label">David Liang / Games</span><span class="cassette-disc-word">GAME</span><span class="cassette-disc-number">01</span><span class="cassette-disc-note">Cover artwork placeholder</span></div>
-            <a class="cassette-game-cover-link cd-project-link game-cover" data-cover="pending" data-cd-link href="games/pending-departures.html" aria-label="View Pending Departures project"><img class="cd-disc" src="images/PendingDepatures/PendingDepCover.png" alt="Pending Departures CD cover" width="587" height="587" decoding="async"></a>
+            <a class="cassette-game-cover-link cd-project-link game-cover" data-cover="pending" data-cd-link href="games/pending-departures.html" aria-label="View Pending Departures project"><img class="cd-disc" src="images/PendingDepatures/PendingDepCover-web.webp" alt="Pending Departures CD cover" width="587" height="587" decoding="async"></a>
           </div>
         </div>
         <div class="cassette-game-caption" aria-live="polite" aria-atomic="true"><h3 class="cassette-game-title"><a href="games/pending-departures.html">Pending Departures</a></h3><p class="eyebrow">GAME JAM 2026 / UNITY / PERSONAL PROJECT</p><span class="sr-only cassette-game-announcement">1 of 3</span></div>
@@ -200,9 +200,9 @@
     const samplePrint = carousel.querySelector('.cassette-game-print');
     const description = carousel.querySelector('.cassette-game-caption .eyebrow');
     const games = [
-      { title: 'Pending Departures', description: 'GAME JAM 2026 / UNITY / PERSONAL PROJECT', href: 'games/pending-departures.html', image: 'images/PendingDepatures/PendingDepCover.png', cover: 'pending', width: 587, height: 587 },
+      { title: 'Pending Departures', description: 'GAME JAM 2026 / UNITY / PERSONAL PROJECT', href: 'games/pending-departures.html', image: 'images/PendingDepatures/PendingDepCover-web.webp', cover: 'pending', width: 587, height: 587 },
       { title: 'The Perfect LOOP', description: 'Puzzle / Unity / 2025', href: 'games/the-perfect-loop.html', image: 'images/PerfectLOOp/PerfectLOOPCover.png', cover: 'loop', width: 638, height: 630 },
-      { title: 'HandSpell', description: 'Gesture-based combat / Unity / 2026', href: 'games/handspell.html', image: 'images/HandSpell/HandSpellCover.png', cover: 'handspell', width: 587, height: 587 }
+      { title: 'HandSpell', description: 'Gesture-based combat / Unity / 2026', href: 'games/handspell.html', image: 'images/HandSpell/HandSpellCover-web.webp', cover: 'handspell', width: 587, height: 587 }
     ];
     games.filter(game => game.image).forEach(game => {
       const image = new Image();
@@ -268,7 +268,7 @@
   })();
   </script>
   <script src="js/retro.js?v=click-spin-2"></script>
-  <script src="js/navigation.js?v=soft-click-4"></script>
+  <script src="js/navigation.js?v=touch-menu-1"></script>
   <script src="js/interactions.js?v=disc-interactions-3"></script>
 </body>
 </html>

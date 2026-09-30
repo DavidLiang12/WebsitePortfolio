@@ -14,6 +14,20 @@
   let nextNote = 0;
   try { nextNote = (Number(sessionStorage.getItem(noteKey)) || 0) % clickNotes.length; } catch (_) {}
 
+  function prepareSounds() {
+    Object.entries(files).forEach(([name, file]) => {
+      if (sounds.has(name)) return;
+      try {
+        const sound = new Audio();
+        sound.preload = 'auto';
+        sound.src = new URL(file, root).href;
+        sounds.set(name, sound);
+        // Fetch the small effects before the first click, without playing them.
+        sound.load();
+      } catch (_) { /* A failed preload must not block the page. */ }
+    });
+  }
+
   function unlockNotes() {
     if (!enabled) return;
     try {
@@ -78,13 +92,21 @@
     play(name) {
       if (!enabled || !Object.hasOwn(files, name)) return;
       try {
-        if (!sounds.has(name)) sounds.set(name, new Audio(new URL(files[name], root).href));
+        prepareSounds();
         const sound = sounds.get(name);
+        // Never queue a stale effect while a cold connection is still loading it.
+        if (sound.readyState < 3) {
+          window.portfolioSound.softClick();
+          return;
+        }
         sound.currentTime = 0;
         sound.play()?.catch(() => {});
       } catch (_) { /* Audio must never block navigation. */ }
     }
   };
+
+  // Begin fetching as soon as this script runs, before the rest of the page loads.
+  prepareSounds();
 
   document.addEventListener('DOMContentLoaded', () => {
     button = document.createElement('button');
@@ -95,7 +117,7 @@
       enabled = !enabled;
       try { sessionStorage.setItem(key, String(enabled)); } catch (_) {}
       if (!enabled) stop();
-      else unlockNotes();
+      else { prepareSounds(); unlockNotes(); }
       render();
     });
     render();
@@ -111,6 +133,7 @@
       if (stripes) stripes.before(controls);
       else main.append(controls);
     }
+    prepareSounds();
   }, { once: true });
 
   window.addEventListener('pagehide', stop);
@@ -120,6 +143,7 @@
     if (!event.persisted) return;
     enabled = readEnabled();
     if (!enabled) stop();
+    else prepareSounds();
     render();
   });
 })();
