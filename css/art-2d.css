@@ -96,8 +96,8 @@
 .gallery-thumbnails img { width: 100%; height: 100%; object-fit: contain; }
 .spring-window { width: min(1060px, calc(100% - 100px)); left: 50px; }
 .spring-content { overflow: auto; min-height: 0; flex: 1; background: #e5e9dc; }
-.spring-game { width: 100%; aspect-ratio: 980 / 640; background: var(--os-chrome); border: 2px solid; border-color: #808080 #dfdfdf #dfdfdf #808080; }
-.spring-game iframe { display: block; width: 100%; height: 100%; border: 0; }
+.spring-game { width: min(800px, calc(100% - 24px)); aspect-ratio: 980 / 640; margin: 12px auto; overflow: hidden; background: var(--os-chrome); box-shadow: 0 0 0 1px #808080; }
+.spring-game iframe { display: block; width: 980px; height: 640px; max-width: none; border: 0; transform: scale(var(--spring-game-scale, 1)); transform-origin: top left; }
 .spring-notes { padding: 2rem; }
 .spring-heading { display: flex; align-items: center; gap: 1.5rem; }
 .spring-heading img { object-fit: contain; flex: none; image-rendering: pixelated; }
@@ -106,7 +106,20 @@
 .spring-notes a { color: #225c42; font: bold .75rem 'Courier New', monospace; text-underline-offset: 4px; }
 .spring-section { border-top: 1px solid #808080; margin-top: 2rem; padding-top: 1.5rem; }
 .spring-section h3 { font-size: 1.2rem; margin: 0 0 1rem; }
-.spring-learning-image { margin: 0; }
+.spring-inspiration-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1.25rem 0; }
+.spring-inspiration-images figure { margin: 0; min-width: 0; }
+.spring-inspiration-images img { display: block; width: 100%; height: auto; border: 1px solid #808080; }
+.spring-inspiration-images figcaption { margin-top: .5rem; font-size: .75rem; color: #333; }
+.spring-asset-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.spring-asset-grid figure { min-width: 0; margin: 0; }
+.spring-asset-grid a, .spring-asset-sheet a { display: block; cursor: zoom-in; }
+.spring-asset-grid a:focus-visible, .spring-asset-sheet a:focus-visible { outline: 2px solid #000080; outline-offset: 4px; }
+.spring-asset-grid img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: contain; background: #a6a6a6; border: 1px solid #808080; }
+.spring-asset-sheet { width: min(100%, 800px); margin: 1.5rem auto; }
+.spring-asset-sheet img { display: block; width: 100%; height: auto; border: 1px solid #808080; }
+.spring-tree-comparison img { aspect-ratio: 4 / 3; }
+.spring-tree-comparison figcaption { margin-top: .5rem; font-size: .75rem; line-height: 1.5; color: #333; }
+.spring-learning-image { width: min(100%, 620px); margin: 1.25rem auto 1.5rem; }
 .spring-learning-image a { display: block; cursor: zoom-in; }
 .spring-learning-image a:focus-visible { outline: 2px solid #000080; outline-offset: 4px; }
 .spring-learning-image img { display: block; width: 100%; height: auto; border: 1px solid #808080; }

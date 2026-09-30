@@ -13,6 +13,20 @@
   let drag;
   const nameOf = panel => panel.querySelector('.os-window-title').textContent;
 
+  // Scale the whole Unity embed so its fixed-size canvas fits the visible window.
+  const springContent = workspace.querySelector('.spring-content');
+  const springGame = springContent?.querySelector('.spring-game');
+  if (springGame) {
+    const fitSpringGame = () => {
+      if (!springContent.clientWidth || !springContent.clientHeight) return;
+      const width = Math.max(1, Math.min(800, springContent.clientWidth - 24,
+        (springContent.clientHeight - 24) * 980 / 640));
+      springGame.style.width = `${width}px`;
+      springGame.style.setProperty('--spring-game-scale', String(width / 980));
+    };
+    new ResizeObserver(fitSpringGame).observe(springContent);
+  }
+
   // Only the local game frame receives these messages; other embeds stay independent.
   const gameFrames = [...workspace.querySelectorAll('iframe[data-desktop-game]')];
   function syncGame(panel) {

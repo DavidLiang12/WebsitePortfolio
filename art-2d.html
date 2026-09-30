@@ -12,7 +12,7 @@
   <!-- Page-local styling keeps the other portfolio sections unchanged. -->
   <link rel="stylesheet" href="css/retro.css?v=pointer-tilt-1">
   <link rel="stylesheet" href="css/portfolio.css?v=cd-logo-2">
-  <link rel="stylesheet" href="css/art-2d.css?v=spring-notes-7">
+  <link rel="stylesheet" href="css/art-2d.css?v=spring-fit-10">
   <link rel="stylesheet" href="css/page-transitions.css?v=graphite-butter-3">
   <script src="js/page-transitions.js?v=nav-notes-2"></script>
   <link rel="stylesheet" href="css/sound.css">
@@ -181,20 +181,47 @@
 <p>Art demo · A / D to move</p>
 </div></div>
 <section class="spring-section" aria-labelledby="spring-about-title">
-<h3 id="spring-about-title">About</h3>
-<p>Endless Spring is a playable art demo. Use A / D to explore.</p>
+<h3 id="spring-about-title">About the Game</h3>
+<p>Endless Spring is a 2D infinite looping side scroller built in Unity, featuring a multilayered parallax environment. The visuals were created using Figma and Procreate, then brought into Unity with custom 2D shaders, lighting, and post processing.</p>
+</section>
+<section class="spring-section" aria-labelledby="spring-inspiration-title">
+<h3 id="spring-inspiration-title">Inspiration</h3>
+<p>Inspired by games like GRIS and Neva, I wanted to create a quiet, nature focused 2D environment with a strong visual identity.</p>
+<div class="spring-inspiration-images">
+<figure><img src="images/2D%20Art/EndlessSpring/inspiration-neva.png" alt="Neva: a figure and white wolf in a sunlit forest with layered hanging foliage." width="1920" height="1080" loading="lazy" decoding="async"><figcaption>Neva</figcaption></figure>
+<figure><img src="images/2D%20Art/EndlessSpring/inspiration-gris.png" alt="Gris: pastel pink scenery with floating platforms and a weathered tower." width="2560" height="1438" loading="lazy" decoding="async"><figcaption>Gris</figcaption></figure>
+</div>
+<p>The scene is centered around a large statue, with animals and environmental details scattered throughout the world. Multiple foreground and background layers move at different speeds to create depth through a parallax effect.</p>
 </section>
 <section class="spring-section" aria-labelledby="spring-process-title">
 <h3 id="spring-process-title">Process</h3>
-<!-- Project process notes. -->
+<p>I started by creating rough landscape layouts to establish the composition and depth of the scene.</p>
+<div class="spring-asset-grid">
+<figure><a href="images/2D%20Art/EndlessSpring/process-birch-trees.png" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size: White birch tree trunks with hand-painted bark markings."><img src="images/2D%20Art/EndlessSpring/process-birch-trees.png" alt="White birch tree trunks with hand-painted bark markings." width="1920" height="1080" loading="lazy" decoding="async"></a></figure>
+<figure><a href="images/2D%20Art/EndlessSpring/process-patterned-trees.png" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size: Dark tree trunks with angular white bark patterns."><img src="images/2D%20Art/EndlessSpring/process-patterned-trees.png" alt="Dark tree trunks with angular white bark patterns." width="1920" height="1080" loading="lazy" decoding="async"></a></figure>
+<figure><a href="images/2D%20Art/EndlessSpring/process-leaf-clusters.png" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size: Hand-painted green foliage clusters in different sizes."><img src="images/2D%20Art/EndlessSpring/process-leaf-clusters.png" alt="Hand-painted green foliage clusters in different sizes." width="962" height="1080" loading="lazy" decoding="async"></a></figure>
+<figure><a href="images/2D%20Art/EndlessSpring/process-terrain.png" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size: Textured green terrain layers for the scrolling landscape."><img src="images/2D%20Art/EndlessSpring/process-terrain.png" alt="Textured green terrain layers for the scrolling landscape." width="1920" height="1080" loading="lazy" decoding="async"></a></figure>
+</div>
+<p>From there, I used Figma to build the main landscape, trees, statue, and animals using simple shapes. I then brought those assets into Procreate and hand-painted textures onto the trees and terrain so they would not feel like flat blocks of color.</p>
+<p>After importing everything into Unity, I built the lighting using god rays, sprite lights for leaf shadows, and post-processing.</p>
+<figure class="spring-asset-sheet"><a href="images/2D%20Art/EndlessSpring/process-environment-assets.png" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size: Environment asset sheet showing statue designs, animals, rocks, flowers, trees, and bird poses."><img src="images/2D%20Art/EndlessSpring/process-environment-assets.png" alt="Environment asset sheet showing statue designs, animals, rocks, flowers, trees, and bird poses." width="3394" height="2324" loading="lazy" decoding="async"></a></figure>
+<p>I then created smaller environmental assets such as rocks, grass, and flowers in Figma, along with hand-painted leaf clusters in Procreate. Finally, I created a leaf shader to make the foliage move naturally in the wind and assembled everything into the final looping environment.</p>
 </section>
 <section class="spring-section" aria-labelledby="spring-learning-title">
-<h3 id="spring-learning-title">Learning</h3>
+<h3 id="spring-learning-title">Learnings</h3>
 <figure class="spring-learning-image"><a href="images/2D%20Art/EndlessSpring/leaf-shader-graph.png" target="_blank" rel="noopener noreferrer" aria-label="Open the leaf shader graph at full size"><img src="images/2D%20Art/EndlessSpring/leaf-shader-graph.png" alt="Unity Shader Graph for a leaf material, connecting position, gradient noise, time, and UV nodes to the vertex position, with a preview of the leaves." width="3024" height="1656" loading="lazy" decoding="async"></a><figcaption>Leaf material in Unity Shader Graph.</figcaption></figure>
+<p>This project introduced me to shader creation in Unity, including building a gradient background and creating animated leaves that move with the wind.</p>
+<p>I also learned more about creating 2D assets from simple shapes in Figma, combining vector and hand-painted workflows, and using 2D lighting and post-processing to give a flat scene more depth.</p>
+
 </section>
 <section class="spring-section" aria-labelledby="spring-challenges-title">
 <h3 id="spring-challenges-title">Challenges</h3>
-<!-- Project challenges notes. -->
+<p>The biggest challenge was achieving the visual style I originally imagined.</p>
+<p>Even after several iterations, I still felt that the lighting did not look as natural as I wanted. One reason was that many of the assets began as simple flat shapes in Figma, so they lacked the built-in gradients and value variation that would naturally react to lighting like the assets used in Neva.</p>
+<div class="spring-asset-grid spring-tree-comparison">
+<figure><a href="images/2D%20Art/EndlessSpring/neva-trees-raquel-cholbi.png" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size: Neva tree assets by Raquel Cholbi, showing layered foliage, shading, and value variation."><img src="images/2D%20Art/EndlessSpring/neva-trees-raquel-cholbi.png" alt="Neva tree assets by Raquel Cholbi, showing layered foliage, shading, and value variation." width="2500" height="1321" loading="lazy" decoding="async"></a><figcaption>Neva tree assets by Raquel Cholbi</figcaption></figure>
+<figure><a href="images/2D%20Art/EndlessSpring/endless-spring-tree-asset.png" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size: Endless Spring in-game asset with white birch trunks and green leaf clusters."><img src="images/2D%20Art/EndlessSpring/endless-spring-tree-asset.png" alt="Endless Spring in-game asset with white birch trunks and green leaf clusters." width="1075" height="1080" loading="lazy" decoding="async"></a><figcaption>My in-game asset</figcaption></figure>
+</div>
 </section></div>
 </div><div class="os-statusbar"><span>Endless Spring</span><span>Scroll for project notes ↓</span>
 </div></section>
@@ -223,7 +250,7 @@
 </noscript></main>
   <script src="js/navigation.js?v=nav-silent-3"></script>
   <script src="js/desktop-boot.js?v=every-entry-1"></script>
-  <script src="js/art-desktop.js?v=doom-desktop-4"></script>
+  <script src="js/art-desktop.js?v=spring-fit-5"></script>
   <script src="js/paint.js"></script>
 </body>
 </html>
