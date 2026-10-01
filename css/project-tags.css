@@ -1,16 +1,17 @@
 /* Shared labels: project type, engine, then other tools. */
 .game-tags { display: flex; flex-wrap: wrap; gap: .5rem; padding-top: 1.25rem; margin-top: auto; }
-.game-tag { display: inline-block; padding: .3rem .65rem; border-radius: 3px; font-size: .7rem; line-height: 1.5; font-weight: 700; letter-spacing: .02em; }
+.game-tag { display: inline-block; padding: .3rem .65rem; border-radius: 0; font-size: .7rem; line-height: 1.5; font-weight: 700; letter-spacing: .02em; }
 .cd-caption .game-tags { justify-content: center; }
-.tag-personal { background: #d9e3c6; color: #304529; }
-.tag-team { background: #e2d5e3; color: #573752; }
-.tag-unity { background: #ecdbb4; color: #654719; }
-.tag-bitsy { background: #f2c8b2; color: #63331d; }
-.tag-assembly { background: #d7c6ad; color: #48361e; }
-.tag-maya { background: #bce3df; color: #204c49; }
-.tag-blender { background: #f5d09e; color: #603912; }
-.tag-aseprite { background: #cfc9ee; color: #423768; }
-.tag-photoshop { background: #bcdaf1; color: #244968; }
-.tag-python { background: #eee69b; color: #554b10; }
-.tag-obs { background: #d1d5db; color: #343a45; }
-.tag-premiere { background: #edc9dc; color: #65354e; }
+/* Consistent colors with a little more separation and saturation. */
+.tag-personal { background: #bfd09b; color: #2d4025; }
+.tag-team { background: #ddb1bf; color: #572d40; }
+.tag-unity { background: #ebc477; color: #573a14; }
+.tag-bitsy { background: #e6a18c; color: #612f22; }
+.tag-assembly { background: #b8ad94; color: #3e3524; }
+.tag-maya { background: #91c4b1; color: #214b3d; }
+.tag-blender { background: #e8b07d; color: #603b19; }
+.tag-aseprite { background: #bcb0d9; color: #443260; }
+.tag-photoshop { background: #9fbdd7; color: #27435d; }
+.tag-python { background: #dfd47c; color: #4f4718; }
+.tag-obs { background: #b9c1c0; color: #34413e; }
+.tag-premiere { background: #cda2c0; color: #56324e; }

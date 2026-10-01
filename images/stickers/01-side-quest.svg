@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240"><g stroke-linejoin="round"><circle cx="140" cy="120" r="107" fill="#f3ead2"/><circle cx="140" cy="120" r="99" fill="#302720"/>
+<g fill="none" stroke-width="11"><path d="M68 110a72 72 0 0 1 144 0" stroke="#b93825"/><path d="M82 110a58 58 0 0 1 116 0" stroke="#dc632d"/><path d="M96 110a44 44 0 0 1 88 0" stroke="#d9a12e"/><path d="M110 110a30 30 0 0 1 60 0" stroke="#5c8270"/></g>
+<path d="M42 110h196v51H42z" fill="#f3ead2"/>
+<text x="140" y="132" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="24" letter-spacing="-1" fill="#302720">SIDE QUEST</text>
+<text x="140" y="151" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="3" fill="#302720">EXPLORERS CLUB</text>
+<text x="140" y="185" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="2" fill="#f3ead2">A LITTLE CURIOSITY</text><path d="m131 196 9-5 9 5-9 5Z" fill="#d9a12e"/></g></svg>

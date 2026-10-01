@@ -83,3 +83,22 @@
 .portfolio-logo { overflow: hidden; }
 .portfolio-logo-disc { display: block; flex: none; width: 100%; height: 100%; max-width: none; object-fit: contain; }
 .stereo-page .portfolio-logo-disc { filter: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(427%) hue-rotate(342deg) brightness(103%) contrast(93%); }
+
+/* Keep the logo and all four navigation entries in one touch-friendly row. */
+@media (max-width: 700px) {
+  .portfolio-header-inner { width: calc(100% - 1.5rem); left: 0; flex-direction: row; flex-wrap: nowrap; align-items: center; gap: .6rem; padding: .6rem 0; }
+  .portfolio-header .portfolio-logo { width: 32px; height: 32px; }
+  .portfolio-header .portfolio-nav { flex: 1; min-width: 0; flex-wrap: nowrap; justify-content: space-between; gap: .3rem; font-size: clamp(.75rem,3.25vw,.875rem); }
+  .portfolio-header .portfolio-nav > a, .portfolio-header .portfolio-nav summary { white-space: nowrap; gap: .35rem; min-height: 44px; padding: .6rem 0; }
+  .portfolio-header .nav-group:last-of-type .nav-dropdown { left: auto; right: 0; }
+  .portfolio-header .nav-dropdown { font-size: .875rem; }
+}
+
+/* The mark has its own responsive column, separate from Home. */
+.portfolio-header .portfolio-header-inner { display: grid; grid-template-columns: clamp(34px, 4vw, 54px) minmax(0, 1fr); column-gap: clamp(1.25rem, 5vw, 5rem); align-items: center; }
+.portfolio-header .portfolio-logo { width: 100%; height: auto; aspect-ratio: 1; }
+.portfolio-header .portfolio-nav { width: auto; justify-self: end; justify-content: flex-end; }
+@media (max-width: 700px) {
+  .portfolio-header .portfolio-header-inner { grid-template-columns: clamp(28px, 8vw, 40px) minmax(0, 1fr); column-gap: clamp(.85rem, 4vw, 1.5rem); }
+  .portfolio-header .portfolio-nav { width: 100%; justify-content: space-between; }
+}

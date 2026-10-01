@@ -13,6 +13,10 @@
   let download;
   let bundleUrl;
 
+  function releaseMouse() {
+    if (document.pointerLockElement) document.exitPointerLock?.();
+  }
+
   function loadRuntime() {
     if (window.Dos) return Promise.resolve();
     if (loading) return loading;
@@ -37,6 +41,7 @@
   }
 
   function dispose() {
+    releaseMouse();
     clearTimeout(timeout);
     download?.abort();
     // A stalled backend must not hold the retry button hostage.
@@ -90,7 +95,7 @@
         autoStart: true,
         theme: 'dark', lang: 'en',
         renderBackend: 'canvas', renderAspect: '4/3', imageRendering: 'pixelated',
-        mouseCapture: false, thinSidebar: true,
+        mouseCapture: true, thinSidebar: true,
         volume: .5,
         // Bundle URLs are ephemeral; game saves stay within this window session.
         fsChanges: { local: false },
@@ -125,9 +130,11 @@
   window.addEventListener('message', event => {
     if (event.origin !== location.origin || event.source !== parent || event.data?.type !== 'desktop-game-state') return;
     paused = Boolean(event.data.paused);
+    if (paused) releaseMouse();
     if (container.dataset.state === 'ready') player?.setPaused(paused || document.hidden);
   });
   document.addEventListener('visibilitychange', () => {
+    if (document.hidden) releaseMouse();
     if (container.dataset.state === 'ready') player?.setPaused(paused || document.hidden);
   });
   window.addEventListener('pagehide', () => { attempt++; dispose(); });

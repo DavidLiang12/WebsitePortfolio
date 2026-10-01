@@ -7,12 +7,12 @@
 }
 .theme-brookings { --project-display: 'Special Elite'; --project-weight: 400; --project-tracking: -.035em; }
 .theme-handspell { --project-display: 'Cinzel'; --project-weight: 600; --project-tracking: -.045em; }
-.theme-meteocraft { --project-display: 'Nunito'; --project-weight: 800; }
+.theme-meteocraft { --project-display: 'Passero One'; --project-weight: 400; }
 .theme-starwars { --project-display: 'Chakra Petch'; --project-tracking: -.035em; }
 .theme-consume { --project-display: 'VT323'; --project-weight: 400; --project-tracking: 0; }
 .theme-flying-home,
 .theme-flying-machine { --project-display: 'Pixelify Sans'; --project-weight: 600; --project-tracking: -.035em; }
-.theme-perfect-loop { --project-display: 'Patrick Hand'; --project-weight: 400; --project-tracking: -.015em; }
+.theme-perfect-loop { --project-display: 'Playwrite US Modern'; --project-weight: 400; --project-tracking: -.015em; }
 .theme-pixar { --project-display: 'Libre Baskerville'; --project-tracking: -.05em; }
 .theme-cyberpunk { --project-display: 'Rajdhani'; --project-tracking: .005em; }
 .theme-pending { --project-display: 'Arial Black', Arial; --project-tracking: -.025em; }

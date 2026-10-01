@@ -1,0 +1,31 @@
+/* Project card fonts and hover palettes mirror their detail pages. */
+.cd-project-link[data-cover="pending"] { --card-font: 'Arial Black'; --card-weight: 700; --card-paper: #c8cbc8; --card-ink: #202b38; --card-accent: #174c9b; }
+.cd-project-link[data-cover="loop"] { --card-font: 'Playwrite US Modern'; --card-weight: 400; --card-paper: #e6dfc2; --card-ink: #344632; --card-accent: #405a45; }
+.cd-project-link[data-cover="handspell"] { --card-font: 'Cinzel'; --card-weight: 600; --card-paper: #2a111b; --card-ink: #f5e9cd; --card-accent: #e0bd77; }
+.cd-project-link[data-cover="brookings"] { --card-font: 'Special Elite'; --card-weight: 400; --card-paper: #1e2321; --card-ink: #e6e3d8; --card-accent: #dba18b; }
+.cd-project-link[data-cover="flyinghome"] { --card-font: 'Pixelify Sans'; --card-weight: 600; --card-paper: #122d55; --card-ink: #e2f1fb; --card-accent: #8ed6ed; }
+.cd-project-link[data-cover="flyingmachine"] { --card-font: 'Pixelify Sans'; --card-weight: 600; --card-paper: #efbcc8; --card-ink: #503451; --card-accent: #74405d; }
+.cd-project-link[data-cover="meteocraft"] { --card-font: 'Passero One'; --card-weight: 400; --card-paper: #dbeaf0; --card-ink: #233e56; --card-accent: #865d28; }
+.cd-project-link[data-cover="riverraid"] { --card-font: 'Star Jedi'; --card-weight: 400; --card-paper: #171c25; --card-ink: #e4e8ee; --card-accent: #f28b7f; }
+.cd-project-link[data-cover="consume"] { --card-font: 'VT323'; --card-weight: 400; --card-paper: #c9c087; --card-ink: #344b38; --card-accent: #794d4a; }
+.cd-project-link[href="art/pixar-studio.html"] { --card-font: 'Libre Baskerville'; --card-weight: 700; --card-paper: #e2e5ee; --card-ink: #303a51; --card-accent: #475d85; }
+.cd-project-link[href="art/cyberpunk-character.html"] { --card-font: 'Rajdhani'; --card-weight: 700; --card-paper: #172730; --card-ink: #edf2d9; --card-accent: #e1c531; }
+
+:is(.games-shelf,.cd-collection) .cd-project-link { transition: none; }
+:is(.games-shelf,.cd-collection) .cd-project-link h2 { font-family: var(--card-font),sans-serif; font-weight: var(--card-weight); letter-spacing: -.025em; }
+:is(.games-shelf,.cd-collection) .cd-project-link:is(:hover,:focus-visible) h2 { color: var(--card-title-hover, var(--card-accent)); }
+.games-shelf .game-album .cd-project-link:is(:hover,:focus-visible) .game-disc-art { filter: drop-shadow(5px 17px 14px #08171380); }
+.games-shelf [data-cover='loop'] h2 { line-height: 1.65; font-size: clamp(1.35rem,2vw,1.85rem); letter-spacing: -.035em; }
+.games-shelf [data-cover='riverraid'] h2 { text-transform: lowercase; font-synthesis: none; letter-spacing: 0; }
+.games-shelf [data-cover='pending'] h2, .cd-collection [href='art/cyberpunk-character.html'] h2 { text-transform: uppercase; }
+.cd-collection .cd-project-link { padding: 1rem; }
+@media(prefers-reduced-motion:reduce) { :is(.games-shelf,.cd-collection) .cd-project-link { transition: none; } }
+
+:is(.games-shelf,.cd-collection) .cd-project-link h2 { transition: color .25s ease; }
+.games-shelf [data-cover='loop'] h2 { font-weight: 700; font-synthesis: weight; }
+[data-cover='handspell'] { --card-title-hover: #5a263a; }
+[data-cover='brookings'] { --card-title-hover: #343f38; }
+[data-cover='flyinghome'] { --card-title-hover: #194777; }
+[data-cover='meteocraft'] { --card-title-hover: #8cb5c6; }
+[data-cover='consume'] { --card-title-hover: #ded59d; }
+[href='art/pixar-studio.html'] { --card-title-hover: #c4cddd; }

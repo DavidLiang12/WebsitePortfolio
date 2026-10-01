@@ -69,6 +69,7 @@
   }
 
   function open(id, launcher) {
+    if (id === 'doom' && mobile.matches) return;
     const panel = windows.find(item => item.id === id);
     if (!panel) return;
     if (launcher && !launcher.closest('.os-window') && !launcher.dataset.task) launchers.set(id, launcher);
@@ -101,6 +102,17 @@
 
   document.querySelectorAll('[data-open]').forEach(button => {
     button.addEventListener('click', () => { open(button.dataset.open, button); window.portfolioSound?.play('click'); });
+  });
+
+  mobile.addEventListener('change', event => {
+    if (!event.matches) return;
+    const doom = windows.find(panel => panel.id === 'doom');
+    if (!doom) return;
+    doom.hidden = true;
+    doom.querySelectorAll('iframe[data-src]').forEach(frame => frame.removeAttribute('src'));
+    openWindows.delete('doom');
+    if (active === 'doom') focusNext(doom);
+    else renderTasks();
   });
 
   windows.forEach(panel => {

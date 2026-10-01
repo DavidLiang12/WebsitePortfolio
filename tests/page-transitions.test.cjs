@@ -46,15 +46,17 @@ function setup(path = 'index.html', { reduced = false, blocked = false, stored =
   };
 }
 
-test('every distinct pair of main pages transitions, including a subdirectory deployment', async () => {
+test('selected page exits transition across a subdirectory deployment; 2D remains native', async () => {
   const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html'];
-  const effects = ['tape', 'shutter', 'shutter', 'shutter', 'shutter', 'cd'];
+  const effects = ['tape', 'iris', 'iris', null, 'film', 'cd'];
   for (const from of pages) for (const to of pages) {
     const app = setup(from);
     const event = await app.click(to);
-    assert.equal(!!event.defaultPrevented, from !== to, `${from} -> ${to}`);
-    assert.equal(app.destinations.length, from !== to ? 1 : 0);
-    if (from !== to) assert.equal(app.overlays[0].className, `page-transition pt-${effects[pages.indexOf(from)]} pt-from-${from.replace('.html', '')}`);
+    const transitions = from !== to && from !== 'art-2d.html';
+    assert.equal(!!event.defaultPrevented, transitions, `${from} -> ${to}`);
+    assert.equal(app.destinations.length, transitions ? 1 : 0);
+    if (from === 'art-3d.html' && transitions) assert.equal(app.overlays[0].children[0].textContent, 'NEXT SCENE');
+    if (transitions) assert.equal(app.overlays[0].className, `page-transition pt-${effects[pages.indexOf(from)]} pt-from-${from.replace('.html', '')}`);
   }
 });
 
@@ -82,7 +84,7 @@ test('reduced motion and unavailable storage never delay navigation', async () =
 });
 
 test('departure effect and palette survive arrival regardless of old preferences or query overrides', async () => {
-  for (const [from, type] of Object.entries({'index.html':'tape', 'about.html':'cd', 'games.html':'shutter', 'projects.html':'shutter', 'art-2d.html':'shutter', 'art-3d.html':'shutter'})) {
+  for (const [from, type] of Object.entries({'index.html':'tape', 'about.html':'cd', 'games.html':'iris', 'projects.html':'iris', 'art-3d.html':'film'})) {
     const app = setup(`${from}?transition=circles`, {stored:{'portfolio-transition':'circles'}});
     const destination = from === 'games.html' ? 'index.html' : 'games.html';
     await app.click(destination);

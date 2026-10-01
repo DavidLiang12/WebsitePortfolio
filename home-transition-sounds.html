@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3ead2">
+  <title>Home transition sounds — David Liang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/retro.css">
+  <link rel="stylesheet" href="css/page-transitions.css?v=graphite-butter-3">
+  <script src="js/page-transitions.js?v=sound-options-1"></script>
+  <style>
+    .options-page main { padding-block: 3rem 5rem; }
+    .options-page h1 { font-family: 'Archivo Black', 'DM Sans', sans-serif; font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: .95; letter-spacing: -.03em; color: var(--rust, #b93825); margin: .6rem 0 1.2rem; }
+    .options-page .lede { max-width: 46rem; font-size: 1.05rem; line-height: 1.6; }
+    .sound-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+    .sound-card { display: flex; flex-direction: column; gap: .7rem; padding: 1.4rem; border: 1px solid #1e302e33; background: #f8f1df; }
+    .sound-card.is-current { background: transparent; border-style: dashed; }
+    .sound-card .tag { font-size: .75rem; font-weight: 700; letter-spacing: .1em; color: var(--rust, #b93825); }
+    .sound-card h2 { font-size: 1.35rem; margin: 0; }
+    .sound-card p { margin: 0; line-height: 1.55; font-size: .95rem; flex: 1; }
+    .sound-card .stripe { height: 6px; background: linear-gradient(to right, #b93825 0 33.3%, #dc632d 33.3% 66.6%, #d9a12e 66.6%); }
+    .sound-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .sound-actions button { font: 600 .9rem 'DM Sans', sans-serif; padding: .7rem 1rem; min-height: 44px; border: 2px solid #1e302e; background: #1e302e; color: #f3ead2; cursor: pointer; }
+    .sound-actions button + button { background: transparent; color: #1e302e; }
+    .sound-actions button:hover { background: #b93825; border-color: #b93825; color: #f3ead2; }
+    .sound-actions button:focus-visible { outline: 3px solid #b93825; outline-offset: 3px; }
+    .note { margin-top: 2rem; font-size: .9rem; opacity: .8; max-width: 46rem; line-height: 1.6; }
+  </style>
+</head>
+<body class="retro-page options-page">
+  <main class="page-width">
+    <p class="eyebrow">Home page / transition sound</p>
+    <h1>Three smoother<br>stripe sounds.</h1>
+    <p class="lede">Each option follows the real stripe animation: the sound swells as the three stripes speed up through the middle of their slide, and eases off as they settle. Press <strong>Play with transition</strong> to hear it in sync, or <strong>Sound only</strong> to hear it on its own. All four are set to the same loudness.</p>
+    <section class="sound-grid" aria-label="Sound options">
+      <article class="sound-card is-current">
+        <span class="tag">CURRENT</span><h2>Today's sound</h2>
+        <p>The sound on the site now, for comparison. Hiss plus a low hum.</p>
+        <div class="sound-actions"><button type="button" data-play="current">Play with transition</button><button type="button" data-solo="current">Sound only</button></div>
+      </article>
+      <article class="sound-card">
+        <div class="stripe" aria-hidden="true"></div><span class="tag">OPTION A</span><h2>Soft chord</h2>
+        <p>One warm tone per stripe, arriving 45ms apart, just like the stripes. Together they form a gentle major chord that rises slightly as the stripes travel. The most musical of the three.</p>
+        <div class="sound-actions"><button type="button" data-play="A-soft-chord">Play with transition</button><button type="button" data-solo="A-soft-chord">Sound only</button></div>
+      </article>
+      <article class="sound-card">
+        <div class="stripe" aria-hidden="true"></div><span class="tag">OPTION B</span><h2>Air swoosh</h2>
+        <p>A soft, low whoosh of air that brightens as the stripes cross the screen and fades as they land. Closest in spirit to today's sound, without the rasp.</p>
+        <div class="sound-actions"><button type="button" data-play="B-air-swoosh">Play with transition</button><button type="button" data-solo="B-air-swoosh">Sound only</button></div>
+      </article>
+      <article class="sound-card">
+        <div class="stripe" aria-hidden="true"></div><span class="tag">OPTION C</span><h2>Tape glide</h2>
+        <p>A single smooth tone that glides up an octave in step with the stripes, like a tape reel spinning up, then three soft taps as each stripe lands.</p>
+        <div class="sound-actions"><button type="button" data-play="C-tape-glide">Play with transition</button><button type="button" data-solo="C-tape-glide">Sound only</button></div>
+      </article>
+    </section>
+    <p class="note">On the real site the sound plays as you leave Home, and the stripes finish sliding away once the next page loads. These previews run both halves back to back.</p>
+  </main>
+  <script>
+    (() => {
+      const clips = {};
+      const clip = name => clips[name] ||= Object.assign(new Audio(`Sound/options/home-transition-${name}.wav`), { preload: 'auto' });
+      document.querySelectorAll('[data-play],[data-solo]').forEach(button => clip(button.dataset.play || button.dataset.solo));
+      let busy = false;
+      const start = name => { const audio = clip(name); audio.pause(); audio.currentTime = 0; audio.play()?.catch(() => {}); };
+      document.addEventListener('click', async event => {
+        const solo = event.target.closest('[data-solo]');
+        if (solo) { start(solo.dataset.solo); return; }
+        const play = event.target.closest('[data-play]');
+        if (!play || busy) return;
+        busy = true;
+        start(play.dataset.play);
+        try { await window.portfolioTransitions.preview('tape', document.documentElement, () => {}, 'index.html'); }
+        finally { busy = false; }
+      });
+    })();
+  </script>
+</body>
+</html>

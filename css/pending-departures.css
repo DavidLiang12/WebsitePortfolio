@@ -60,10 +60,6 @@
 .pending-project .pending-feedback-image img { display: block; width: 100%; height: auto; }
 .pending-project .pending-screenshot { border: 1px solid var(--line); }
 .pending-project .pending-feedback-image { background: #fff; border: 1px solid #ddd3c4; padding: .6rem; }
-.pending-project .pending-screenshot a,
-.pending-project .pending-feedback-image a { display: block; cursor: zoom-in; }
-.pending-project .pending-screenshot a:focus-visible,
-.pending-project .pending-feedback-image a:focus-visible { outline: 3px solid var(--rust); outline-offset: 4px; }
 .pending-project .pending-feedback-list { display: grid; gap: 1rem; padding: 0 1.1rem 1.1rem; }
 .pending-project .pending-feedback-list .pending-feedback-image { margin: 0; }
 .pending-project .pending-flow { width: min(440px, calc(100% - 2.2rem)); margin: 1.5rem auto; }

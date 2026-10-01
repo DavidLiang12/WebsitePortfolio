@@ -1,24 +1,29 @@
+/* A cassette transport: stationary when muted, reels rolling when effects are on. */
 .sound-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .55rem;
-  min-height: 44px;
-  padding: .6rem .9rem;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  background: var(--body-background, #f3ead2);
-  color: var(--body-color, #302720);
-  box-shadow: 2px 3px 0 #30272018;
-  font: 600 .75rem/1.4 'DM Sans', Arial, sans-serif;
-  letter-spacing: normal;
-  text-transform: none;
-  margin-left: auto;
-  cursor: pointer;
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .35rem; width: 184px; min-height: 44px; flex-shrink: 0; padding: 4px;
+  border: 0; border-radius: 8px; background: transparent;
+  color: var(--body-color, #302720); margin-left: auto; cursor: pointer;
+  font: 600 10px/1.4 'DM Sans', Arial, sans-serif; letter-spacing: .04em;
+  text-transform: none; box-shadow: none;
 }
-.sound-toggle:hover { border-color: var(--active-color, #b93825); }
+.sound-cassette { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(2px 4px 0 #30272025); transition: transform .18s ease; }
+.sound-toggle:hover .sound-cassette { transform: rotate(-3deg) translateY(-2px); }
+.sound-toggle:active .sound-cassette { transform: translateY(1px); }
 .sound-toggle:focus-visible { outline: 3px solid var(--active-color, #b93825); outline-offset: 4px; }
-.sound-toggle svg { flex-shrink: 0; }
-.sound-toggle[data-muted='true'] .sound-on,
-.sound-toggle[data-muted='false'] .sound-off { display: none; }
+.cassette-reel { transform-box: fill-box; transform-origin: center; animation: cassette-roll 2.5s linear infinite; animation-play-state: paused; }
+.sound-toggle[data-muted='false'] .cassette-reel { animation-play-state: running; }
 .sound-controls { display: flex; justify-content: flex-end; flex-shrink: 0; padding-block: 1rem; }
+.art-2d-page .sound-toggle { width: 112px; padding: 3px; gap: 1px; font-size: 9px; }
+@keyframes cassette-roll { to { transform: rotate(360deg); } }
+@media (max-width: 640px) { .sound-toggle { width: 150px; } }
+@media (prefers-reduced-motion: reduce) {
+  .sound-cassette { transition: none; }
+  .cassette-reel { animation: none; }
+  .sound-toggle[data-muted='false'] .sound-cassette { filter: drop-shadow(0 0 3px #d9a12e); }
+}
+
+.art-2d-page .sound-toggle-classic { width: auto; flex-direction: row; gap: .5rem; min-height: 36px; padding: .4rem; font: 11px Tahoma,Arial,sans-serif; }
+.sound-toggle-classic svg { flex: none; }
+.sound-toggle-classic[data-muted='true'] .sound-on,
+.sound-toggle-classic[data-muted='false'] .sound-off { display: none; }

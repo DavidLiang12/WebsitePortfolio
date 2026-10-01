@@ -6,8 +6,7 @@
   const variants = ['tape', 'cd', 'circles', 'equalizer', 'shutter'];
   const names = ['Tape stripes', 'CD spin', 'Concentric circles', 'Equalizer bars', 'Stereo shutter'];
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  // Only Home and About play an exit transition; other pages navigate natively.
-  const pageEffects = { 'index.html': 'tape', 'about.html': 'cd' };
+  const pageEffects = { 'index.html': 'tape', 'about.html': 'cd', 'games.html': 'iris', 'projects.html': 'iris', 'art-3d.html': 'film', 'art-2d.html': 'crt' };
   const pendingKey = 'portfolio-transition-pending';
   const read = key => { try { return sessionStorage.getItem(key); } catch (_) { return null; } };
   const write = (key, value) => { try { sessionStorage.setItem(key, value); return true; } catch (_) { return false; } };
@@ -22,12 +21,15 @@
   function create(type, host = document.documentElement, from) {
     const overlay = document.createElement('div');
     overlay.className = `page-transition pt-${type}`;
+    overlay.transitionFrom = from;
     if (pages.includes(from)) overlay.className += ` pt-from-${from.replace('.html', '')}`;
     overlay.setAttribute('aria-hidden', 'true');
-    const count = { tape: 3, cd: 1, circles: 3, equalizer: 10, shutter: 2 }[type];
+    const count = { tape: 3, cd: 1, circles: 3, equalizer: 10, shutter: 2, iris: 1, film: 1, crt: 0 }[type];
+    if (type === 'crt') overlay.crtScreen = host === document.documentElement ? document.body : host.querySelector('.motion-screen');
     for (let i = 0; i < count; i++) {
       const layer = document.createElement('span');
       layer.className = 'pt-layer';
+      if (type === 'film') layer.textContent = 'NEXT SCENE';
       layer.style.setProperty('--i', i);
       overlay.append(layer);
     }
@@ -36,9 +38,15 @@
   }
 
   function frames(type, i, entering) {
+    if (type === 'iris') {
+      const closed = { clipPath: 'circle(75% at 50% 50%)' };
+      const open = { clipPath: 'circle(0% at 50% 50%)' };
+      return entering ? [closed, open] : [open, closed];
+    }
     const full = 'translate(0, 0) scale(1) rotate(0deg)';
     let hidden;
     if (type === 'tape') hidden = `translateX(${entering ? 101 : -101}%)`;
+    if (type === 'film') hidden = `translateY(${entering ? -101 : 101}%)`;
     if (type === 'cd') hidden = `translate(0, 0) scale(0) rotate(${entering ? 210 : -210}deg)`;
     if (type === 'circles') hidden = 'scale(0)';
     if (type === 'equalizer') hidden = `translateY(${entering ? -101 : 101}%)`;
@@ -48,13 +56,31 @@
 
   async function animate(overlay, type, entering) {
     if (motion.matches || !Element.prototype.animate) return;
+    if (type === 'iris') window.portfolioSound?.transition('iris', entering ? 'in' : 'out', overlay.transitionFrom);
+    if (type === 'crt') {
+      if (entering) {
+        overlay.crtAnimation?.cancel();
+        overlay.crtScreen?.classList.remove('crt-screen-shutdown');
+        await overlay.animate([{opacity:1},{opacity:0}], {duration:260,fill:'both'}).finished.catch(() => {});
+      } else if (overlay.crtScreen) {
+        // Collapse the actual desktop, preserving its wallpaper, windows and colors.
+        overlay.crtScreen.classList.add('crt-screen-shutdown');
+        overlay.crtAnimation = overlay.crtScreen.animate([
+          {transform:'scale(1,1)',opacity:1,offset:0},
+          {transform:'scale(1,.006)',opacity:1,offset:.65},
+          {transform:'scale(0,.006)',opacity:0,offset:1}
+        ], {duration:650,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});
+        await overlay.crtAnimation.finished.catch(() => {});
+      }
+      return;
+    }
     const animations = [...overlay.children].map((layer, i) => {
       let delay = 0;
       if (type === 'tape') delay = i * 45;
       if (type === 'circles') delay = (entering ? 2 - i : i) * 55;
       if (type === 'equalizer') delay = [0, 45, 80, 30, 65, 100, 55, 15, 70, 40][i];
       return layer.animate(frames(type, i, entering), {
-        duration: type === 'cd' ? 520 : 390,
+        duration: ['cd', 'iris', 'film'].includes(type) ? 520 : 390,
         delay, easing: 'cubic-bezier(.65, 0, .25, 1)', fill: 'both'
       });
     });
@@ -64,6 +90,8 @@
   function reset() {
     clearTimeout(watchdog);
     if (active) {
+      active.crtAnimation?.cancel();
+      active.crtScreen?.classList.remove('crt-screen-shutdown');
       active.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
       active.remove();
     }
@@ -105,6 +133,7 @@
     event.preventDefault();
     busy = true;
     active = create(type, document.documentElement, from);
+    if (type !== 'iris') window.portfolioSound?.transition(type);
     const navigate = () => location.assign(target.href);
     watchdog = setTimeout(navigate, 1400);
     try { await animate(active, type, false); } finally {
@@ -114,18 +143,20 @@
   });
 
   window.addEventListener('pageshow', event => { if (event.persisted) { clear(pendingKey); reset(); } });
+  window.addEventListener('pagehide', reset);
   motion.addEventListener('change', () => { if (motion.matches && active) reset(); });
 
   // Shared by the comparison page; previews use the exact navigation animation.
   window.portfolioTransitions = {
     variants, names,
-    async preview(type, host, atMidpoint) {
-      const overlay = create(type, host);
+    async preview(type, host, atMidpoint, from) {
+      const overlay = create(type, host, from);
       try {
+        if (!motion.matches && type !== 'iris') window.portfolioSound?.transition(type);
         await animate(overlay, type, false);
         atMidpoint();
         await animate(overlay, type, true);
-      } finally { overlay.remove(); }
+      } finally { overlay.crtAnimation?.cancel(); overlay.crtScreen?.classList.remove('crt-screen-shutdown'); overlay.remove(); }
     }
   };
 })();

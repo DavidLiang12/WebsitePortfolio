@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,800;9..144,900&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/retro.css?v=click-spin-2">
-  <link rel="stylesheet" href="css/portfolio.css?v=nav-full-width-1">
+  <link rel="stylesheet" href="css/portfolio.css?v=selected-motion-8">
   <style id="home-styles">
 /* Cassette-inspired homepage styles, scoped to this page. */
 .cassette-home {
@@ -135,10 +135,11 @@
   </style>
   <link rel="stylesheet" href="css/game-discs.css?v=new-covers-1">
   <link rel="stylesheet" href="css/interactions.css?v=disc-interactions-3">
-  <link rel="stylesheet" href="css/page-transitions.css?v=graphite-butter-3">
-  <script src="js/page-transitions.js?v=nav-notes-2"></script>
-  <link rel="stylesheet" href="css/sound.css">
-  <script src="js/sound.js?v=preload-4"></script>
+  <link rel="stylesheet" href="css/page-transitions.css?v=transition-audio-10">
+  <script src="js/page-transitions.js?v=distinct-melodies-13"></script>
+  <link rel="stylesheet" href="css/sound.css?v=cassette-3">
+  <script src="js/sound.js?v=distinct-melodies-13"></script>
+  <link rel="stylesheet" href="css/stickers.css?v=october-refinements-6">
 </head>
 <body class="retro-page home-page cassette-home">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -211,7 +212,7 @@
     let selected = 0;
     let animation;
     const changeGame = step => {
-      window.portfolioSound?.softClick();
+      window.portfolioSound?.softClick(1.8);
       selected = (selected + step + games.length) % games.length;
       const label = String(selected + 1).padStart(2, '0');
       disc.dataset.game = String(selected);
@@ -268,7 +269,8 @@
   })();
   </script>
   <script src="js/retro.js?v=click-spin-2"></script>
-  <script src="js/navigation.js?v=touch-menu-1"></script>
+  <script src="js/navigation.js?v=touch-menu-1"></script><script src="js/disc-hover.js?v=rewind-1"></script>
   <script src="js/interactions.js?v=disc-interactions-3"></script>
+  <script src="js/stickers.js?v=supplied-audio-11"></script>
 </body>
 </html>
