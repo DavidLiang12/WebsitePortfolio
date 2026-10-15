@@ -2,11 +2,11 @@
   'use strict';
 
   const root = new URL('../', document.currentScript.src);
-  const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html', 'secret-mission.html'];
+  const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html'];
   const variants = ['tape', 'cd', 'circles', 'equalizer', 'shutter'];
   const names = ['Tape stripes', 'CD spin', 'Concentric circles', 'Equalizer bars', 'Stereo shutter'];
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const pageEffects = { 'index.html': 'tape', 'about.html': 'cd', 'games.html': 'iris', 'projects.html': 'iris', 'art-3d.html': 'film', 'art-2d.html': 'crt', 'secret-mission.html': 'doors' };
+  const pageEffects = { 'index.html': 'tape', 'about.html': 'cd', 'games.html': 'iris', 'projects.html': 'iris', 'art-3d.html': 'film', 'art-2d.html': 'crt' };
   const pendingKey = 'portfolio-transition-pending';
   const read = key => { try { return sessionStorage.getItem(key); } catch (_) { return null; } };
   const write = (key, value) => { try { sessionStorage.setItem(key, value); return true; } catch (_) { return false; } };
@@ -24,7 +24,7 @@
     overlay.transitionFrom = from;
     if (pages.includes(from)) overlay.className += ` pt-from-${from.replace('.html', '')}`;
     overlay.setAttribute('aria-hidden', 'true');
-    const count = { tape: 3, cd: 1, circles: 3, equalizer: 10, shutter: 2, iris: 1, film: 1, crt: 0, doors: 2 }[type];
+    const count = { tape: 3, cd: 1, circles: 3, equalizer: 10, shutter: 2, iris: 1, film: 1, crt: 0 }[type];
     if (type === 'crt') overlay.crtScreen = host === document.documentElement ? document.body : host.querySelector('.motion-screen');
     for (let i = 0; i < count; i++) {
       const layer = document.createElement('span');
@@ -51,7 +51,6 @@
     if (type === 'circles') hidden = 'scale(0)';
     if (type === 'equalizer') hidden = `translateY(${entering ? -101 : 101}%)`;
     if (type === 'shutter') hidden = `translateY(${i === 0 ? -101 : 101}%)`;
-    if (type === 'doors') hidden = `translateX(${i === 0 ? -101 : 101}%)`;
     return entering ? [{ transform: full }, { transform: hidden }] : [{ transform: hidden }, { transform: full }];
   }
 
@@ -81,7 +80,7 @@
       if (type === 'circles') delay = (entering ? 2 - i : i) * 55;
       if (type === 'equalizer') delay = [0, 45, 80, 30, 65, 100, 55, 15, 70, 40][i];
       return layer.animate(frames(type, i, entering), {
-        duration: type === 'doors' ? 620 : ['cd', 'iris', 'film'].includes(type) ? 520 : 390,
+        duration: ['cd', 'iris', 'film'].includes(type) ? 520 : 390,
         delay, easing: 'cubic-bezier(.65, 0, .25, 1)', fill: 'both'
       });
     });

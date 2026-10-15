@@ -60,7 +60,7 @@ test('new visits preload effects while remaining silent', () => {
   const app = setup();
   app.sound.play('cd'); app.sound.play('click');
   assert.equal(app.sound.muted, true);
-  assert.equal(app.audio.length, 7);
+  assert.equal(app.audio.length, 6);
   assert.ok(app.audio.every(sound => sound.loads === 1 && sound.plays === 0));
   assert.equal(app.button.attributes['aria-label'], 'Unmute sound effects');
 });
@@ -69,7 +69,7 @@ test('unmute enables effects, mute stops them immediately and blocks new playbac
   const app = setup();
   app.button.click();
   app.sound.play('cd'); app.sound.play('click');
-  assert.equal(app.audio.length, 7);
+  assert.equal(app.audio.length, 6);
   assert.equal(app.audio[0].src, 'https://example.com/portfolio/Sound/Click.MP3');
   assert.equal(app.audio[0].plays, 1);
   assert.equal(app.label.textContent, 'Unmuted');
@@ -144,7 +144,7 @@ test('a cold effect uses an immediate note instead of queuing late playback', ()
   app.button.click();
   app.audio.forEach(sound => { sound.readyState = 0; });
   app.sound.play('cd');
-  assert.ok(app.audio.every(sound => sound.plays === 0));
+  assert.ok(app.audio.filter(sound => !sound.src.endsWith('/cassette-toggle.mp3')).every(sound => sound.plays === 0));
   assert.equal(app.notes.length, 1);
   app.audio.forEach(sound => { sound.readyState = 4; });
   app.sound.play('cd');
@@ -159,20 +159,6 @@ test('2D desktop retains the compact speaker control and original labels', () =>
   assert.equal(app.label.textContent, 'Mute sound effects');
 });
 
-test('paper peel is silent when muted and stops immediately on mute', () => {
-  const app = setup();
-  app.sound.peel();
-  const peel = app.audio.find(sound => sound.src.endsWith('/Peel.MP3'));
-  assert.equal(peel.plays, 0);
-  app.button.click(); app.sound.peel();
-  assert.equal(peel.plays, 1);
-  assert.equal(peel.currentTime, 0);
-  app.button.click();
-  assert.equal(peel.pauses, 1);
-  app.sound.peel();
-  assert.equal(peel.plays, 1);
-});
-
 test('home arrow volume increases the soft note without changing its envelope', () => {
   const app = setup(); app.button.click();
   app.sound.softClick(); app.sound.softClick(1.8);
@@ -182,30 +168,29 @@ test('home arrow volume increases the soft note without changing its envelope', 
 
 test('cassette latch sounds on both toggle directions, with no sound on initial load', () => {
   const app = setup();
-  assert.equal(app.buffers.length, 0);
+  const latch = app.audio.find(sound => sound.src.endsWith('/cassette-toggle.mp3'));
+  assert.equal(latch.plays, 0);
   app.button.click();
-  assert.equal(app.buffers.length, 1);
-  assert.equal(app.buffers[0].started, true);
+  assert.equal(latch.plays, 1);
   app.button.click();
   assert.equal(app.sound.muted, true);
-  assert.equal(app.buffers[0].muted, true);
-  assert.equal(app.buffers[1].started, true);
-  app.sound.peel(); app.sound.softClick();
-  assert.equal(app.buffers.length, 2);
+  assert.equal(latch.pauses, 1);
+  assert.equal(latch.plays, 2);
+  app.sound.softClick();
+  assert.equal(app.notes.length, 0);
+  assert.equal(latch.plays, 2);
   app.windowEvents.pagehide();
-  assert.equal(app.buffers[1].muted, true);
+  assert.equal(latch.pauses, 2);
 });
 
-test('achievement audio and mission doors respect the existing mute control', () => {
+test('achievement audio respects the existing mute control', () => {
   const app = setup();
   const achievement = app.audio.find(a => a.src.endsWith('/achievement.mp3'));
-  const doors = app.audio.find(a => a.src.endsWith('/mission-doors.wav'));
-  app.sound.play('achievement'); app.sound.transition('doors');
-  assert.equal(achievement.plays,0); assert.equal(doors.plays,0);
+  app.sound.play('achievement');
+  assert.equal(achievement.plays,0);
   app.button.click();
-  app.sound.play('achievement'); app.sound.transition('doors');
+  app.sound.play('achievement');
   assert.equal(achievement.plays,1); assert.equal(achievement.volume,.7);
-  assert.equal(doors.plays,1); assert.equal(doors.volume,.65);
   app.button.click();
-  assert.equal(achievement.pauses,1); assert.equal(doors.pauses,1);
+  assert.equal(achievement.pauses,1);
 });

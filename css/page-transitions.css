@@ -79,9 +79,3 @@
 .pt-crt { background: #101918; }
 .crt-screen-shutdown { z-index: 10001 !important; pointer-events: none !important; transform-origin: 50% 50%; will-change: transform, opacity; }
 body.crt-screen-shutdown { position: relative; }
-
-/* Secret Mission closes from both sides and reveals the destination outward. */
-.pt-doors .pt-layer { top:0; bottom:0; width:calc(50% + 1px); background:#33273d; box-shadow:inset 0 0 65px #160e23; }
-.pt-doors .pt-layer:first-child { left:0; border-right:2px solid #c1abd7; }
-.pt-doors .pt-layer:last-child { right:0; border-left:2px solid #c1abd7; }
-.pt-doors .pt-layer::after { content:''; position:absolute; top:0; left:0; right:0; height:7px; background:linear-gradient(90deg,#ed786e 0 33%,#f19e60 33% 66%,#ead578 66%); }

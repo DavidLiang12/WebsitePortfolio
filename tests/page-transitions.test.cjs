@@ -49,8 +49,8 @@ function setup(path = 'index.html', { reduced = false, blocked = false, stored =
 }
 
 test('selected page exits transition across a subdirectory deployment', async () => {
-  const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html', 'secret-mission.html'];
-  const effects = ['tape', 'iris', 'iris', 'crt', 'film', 'cd', 'doors'];
+  const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html'];
+  const effects = ['tape', 'iris', 'iris', 'crt', 'film', 'cd'];
   for (const from of pages) for (const to of pages) {
     const app = setup(from);
     const event = await app.click(to);
@@ -60,22 +60,6 @@ test('selected page exits transition across a subdirectory deployment', async ()
     if (from === 'art-3d.html' && transitions) assert.equal(app.overlays[0].children[0].textContent, 'NEXT SCENE');
     if (transitions) assert.equal(app.overlays[0].className, `page-transition pt-${effects[pages.indexOf(from)]} pt-from-${from.replace('.html', '')}`);
   }
-});
-
-test('mission doors close from opposing sides, stay covered, then reopen on arrival', async () => {
-  const app=setup('secret-mission.html');
-  await app.click('about.html');
-  assert.equal(app.overlays[0].children.length,2);
-  assert.equal(app.animations[0].frames[0].transform,'translateX(-101%)');
-  assert.equal(app.animations[1].frames[0].transform,'translateX(101%)');
-  assert.equal(app.animations[0].options.duration,620);
-  app.windowEvents.pagehide({persisted:false});
-  assert.notEqual(app.overlays[0].removed,true);
-  const incoming=setup('about.html',{stored:Object.fromEntries(app.storage)});
-  await incoming.events.DOMContentLoaded();
-  assert.equal(incoming.animations[0].frames[1].transform,'translateX(-101%)');
-  assert.equal(incoming.animations[1].frames[1].transform,'translateX(101%)');
-  assert.equal(incoming.overlays[0].removed,true);
 });
 
 test('navigation keeps the outgoing cover until a cached page is restored', async () => {

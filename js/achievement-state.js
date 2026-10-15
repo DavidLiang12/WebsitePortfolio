@@ -1,9 +1,8 @@
 (() => {
   'use strict';
   const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html'];
-  const names = ['The mixtape', 'Save for later', 'A spare key', 'Bonus level', 'Admit one', 'Little moments', 'Heavy rotation', 'Space to dream', 'The compass', 'An old letter', 'One more scene', 'The final token'];
-  const icons = ['cassette', 'floppy', 'key', 'cartridge', 'ticket', 'camera', 'disc', 'rocket', 'disc', 'ticket', 'cartridge', 'star'];
-  const artifacts = names.map((name, id) => ({ id, name, icon: icons[id], page: pages[Math.floor(id / 2)], clue: 'KEEPCREATING'[id] }));
+  // Legacy page mapping is retained only to interpret earned achievements.
+  const artifacts = Array.from({ length: 12 }, (_, id) => ({ page: pages[Math.floor(id / 2)] }));
   const achievements = [
     {id:'accepted', icon:'star', title:'Mission accepted', description:'Accept the invitation.', earned:s=>s.accepted},
     {id:'light', icon:'spark', title:'Lights on', description:'Use a flashlight.', earned:s=>s.lit},
@@ -20,21 +19,11 @@
     const accepted = value?.accepted === true;
     return { accepted, collected: accepted ? collected : [], lit: accepted && value?.lit === true, secret: accepted && value?.secret === true, solved: accepted && value?.solved === true && collected.length === artifacts.length };
   }
-  function collect(state, id) {
-    const next = normalize(state);
-    if (next.accepted && artifacts.some(item => item.id === id) && !next.collected.includes(id)) next.collected.push(id);
-    return next;
-  }
-  function solve(state, answer) {
-    const next = normalize(state);
-    next.solved = next.solved || (next.accepted && next.collected.length === artifacts.length && String(answer).toUpperCase().replace(/[^A-Z]/g, '') === 'KEEPCREATING');
-    return next;
-  }
   function newlyEarned(previous, next) {
     const before = normalize(previous), after = normalize(next);
     return achievements.filter(item => !item.earned(before) && item.earned(after)).map(item => item.id);
   }
-  const api = { artifacts, pages, achievements, normalize, collect, solve, newlyEarned };
+  const api = { achievements, normalize, newlyEarned };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
-  else window.MissionState = api;
+  else window.AchievementState = api;
 })();
