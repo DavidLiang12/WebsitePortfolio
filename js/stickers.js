@@ -12,13 +12,12 @@
     const artwork = ticket ? 'images/stickers/bonus-ticket.png' : `images/stickers/${design[0]}.svg`;
     host.classList.add('peel-sticker'); host.dataset.design = design[0];
     const date = new Date().toLocaleDateString('en-US', { month:'short', day:'2-digit', year:'numeric' }).toUpperCase();
-    host.innerHTML = `<section class="peel-mission" id="${id}-mission" hidden inert><small>SECRET MISSION / 01</small><strong>Under construction</strong><p>Something is coming soon.</p></section>
+    host.innerHTML = `<section class="peel-mission" id="${id}-mission" hidden inert><strong>Accept Secret Mission?</strong><div class="peel-actions"><button class="peel-accept" type="button">Yes</button><button class="peel-reset" type="button" hidden>No</button></div></section>
       <button class="peel-front" type="button" aria-label="Peel ${design[1]} sticker" aria-expanded="false" aria-controls="${id}-mission">
       <svg class="peel-paper" viewBox="0 0 280 240" aria-hidden="true"><defs><clipPath id="${id}-face"><path data-face-clip/></clipPath><clipPath id="${id}-lift"><path data-lift-clip/></clipPath><mask id="${id}-shape" style="mask-type:alpha"><image href="${artwork}" x="0" y="${ticket?36:0}" width="280" height="${ticket?168:240}"/></mask></defs>
       <g clip-path="url(#${id}-face)"><image href="${artwork}" x="0" y="${ticket?36:0}" width="280" height="${ticket?168:240}"/>${ticket?`<text x="126" y="153" text-anchor="middle" fill="#f3ead2" font-family="monospace" font-size="10" font-weight="bold">${date}</text>`:''}</g>
-      <g data-paper-back><g clip-path="url(#${id}-lift)"><rect width="280" height="240" fill="#eee0bd" mask="url(#${id}-shape)"/></g></g></svg></button>
-      <button class="peel-reset" type="button" hidden>Put sticker back</button>`;
-    const front=host.querySelector('.peel-front'), mission=host.querySelector('.peel-mission'), reset=host.querySelector('.peel-reset');
+      <g data-paper-back><g clip-path="url(#${id}-lift)"><rect width="280" height="240" fill="#eee0bd" mask="url(#${id}-shape)"/></g></g></svg></button>`;
+    const front=host.querySelector('.peel-front'), mission=host.querySelector('.peel-mission'), reset=host.querySelector('.peel-reset'), accept=host.querySelector('.peel-accept');
     const face=host.querySelector('[data-face-clip]'), lift=host.querySelector('[data-lift-clip]'), back=host.querySelector('[data-paper-back]');
     let origin, progress=0, moved=false, revealed=false, frame=0, animating=false;
     function draw(value) {
@@ -38,7 +37,7 @@
         const t=duration?Math.min(1,(now-start)/duration):1;
         draw(from+(target-from)*(t*t*(3-2*t)));
         if(t<1) frame=requestAnimationFrame(tick);
-        else { animating=false; revealed=target===1; front.disabled=revealed; front.classList.toggle('is-peeled',revealed); front.setAttribute('aria-expanded',String(revealed)); mission.inert=!revealed; reset.hidden=!revealed; if(revealed&&keyboard) reset.focus(); }
+        else { animating=false; revealed=target===1; front.disabled=revealed; front.classList.toggle('is-peeled',revealed); front.setAttribute('aria-expanded',String(revealed)); mission.inert=!revealed; reset.hidden=!revealed; if(revealed&&keyboard) accept.focus(); }
       };
       frame=requestAnimationFrame(tick);
     }
@@ -63,6 +62,7 @@
     front.addEventListener('pointercancel',cancel); front.addEventListener('lostpointercapture',cancel);
     front.addEventListener('click',event=>{if(moved&&event.detail!==0){moved=false;return;}if(!revealed&&!animating)reveal(event.detail===0);});
     reset.addEventListener('click',()=>{cancelAnimationFrame(frame);animating=false;revealed=false;moved=false;front.disabled=false;front.classList.remove('is-peeled');front.setAttribute('aria-expanded','false');draw(0);reset.hidden=true;front.focus();});
+    accept.addEventListener('click',()=>{if(revealed&&!animating&&desktop.matches&&window.portfolioMission?.accept()) location.assign(window.portfolioMission.url);});
   }
   document.querySelectorAll('[data-sticker]').forEach(host=>mount(host,Number(host.dataset.sticker)-1));
   const selection=new URLSearchParams(location.search).get('sticker'), selected=selection===null?2:Number(selection);

@@ -3,7 +3,7 @@
   const root = new URL('../Sound/', document.currentScript.src);
   const key = 'portfolio-sound-enabled';
   const sounds = new Map();
-  const files = { click: 'Click.MP3', cd: 'CD.MP3', peel: 'Peel.MP3', tv: 'TV-Shut.MP3', film: '3D-Transition.mp3' };
+  const files = { click: 'Click.MP3', cd: 'CD.MP3', peel: 'Peel.MP3', tv: 'TV-Shut.MP3', film: '3D-Transition.mp3', achievement:'achievement.mp3', doors:'mission-doors.wav', flashlightOn: 'flashlight-on.mp3', flashlightOff: 'flashlight-on.mp3', cassetteToggle: 'cassette-toggle.mp3' };
   const readEnabled = () => { try { return sessionStorage.getItem(key) === 'true'; } catch (_) { return false; } };
   let enabled = readEnabled();
   let button;
@@ -50,26 +50,14 @@
     });
   }
 
-  // A short two-part mechanical latch, including the final click when muting.
+  // Keep the control's own feedback audible for both mute and unmute.
   function cassetteClick() {
-    unlockNotes(true);
-    if (!audioContext || audioContext.state !== 'running') return;
     try {
-      const duration = .095;
-      const buffer = audioContext.createBuffer(1, Math.ceil(audioContext.sampleRate * duration), audioContext.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < data.length; i++) {
-        const t = i / audioContext.sampleRate;
-        const envelope = Math.exp(-t * 190) + (t > .035 ? .65 * Math.exp(-(t - .035) * 130) : 0);
-        data[i] = ((Math.random() * 2 - 1) * .65 + Math.sin(t * 2 * Math.PI * 180) * .35) * envelope;
-      }
-      const source = audioContext.createBufferSource();
-      const gain = audioContext.createGain();
-      source.buffer = buffer; gain.gain.value = .22;
-      source.connect(gain); gain.connect(audioContext.destination);
-      voices.add(source);
-      source.onended = () => { voices.delete(source); source.disconnect(); gain.disconnect(); };
-      source.start(); source.stop(audioContext.currentTime + duration);
+      prepareSounds();
+      const sound = sounds.get('cassetteToggle');
+      sound.currentTime = 0;
+      sound.volume = .65;
+      sound.play()?.catch(() => {});
     } catch (_) { /* The control remains usable when audio is unavailable. */ }
   }
 
@@ -121,6 +109,7 @@
     },
     transition(type, phase = 'out', from) {
       if (!enabled) return;
+      if (type === 'doors') { window.portfolioSound.play('doors'); return; }
       if (type === 'iris') {
         // The arrow's rounded sine voice, stretched into a closing/opening phrase.
         // Each page owns its 520ms half so navigation cannot cut the phrase short.
@@ -225,6 +214,17 @@
           return;
         }
         sound.currentTime = 0;
+        if (name === 'achievement') sound.volume = .7;
+        if (name === 'doors') sound.volume = .65;
+        if (name === 'flashlightOn' || name === 'flashlightOff') {
+          const other = sounds.get(name === 'flashlightOn' ? 'flashlightOff' : 'flashlightOn');
+          other.pause();
+          other.currentTime = 0;
+          // Derive a deeper, softer switch-off from the supplied switch-on recording.
+          sound.preservesPitch = false;
+          sound.playbackRate = name === 'flashlightOff' ? .78 : 1;
+          sound.volume = name === 'flashlightOff' ? .5 : .75;
+        }
         sound.play()?.catch(() => {});
       } catch (_) { /* Audio must never block navigation. */ }
     }
@@ -250,7 +250,7 @@
       <g fill="#d2c4a5"><circle cx="67" cy="113" r="4"/><circle cx="133" cy="113" r="4"/><circle cx="84" cy="112" r="2"/><circle cx="116" cy="112" r="2"/></g>
       <g stroke="#bba889" stroke-width="1.5"><path d="m12 108 5 5m0-5-5 5m169-5 5 5m0-5-5 5"/></g>
     </svg>`;
-    if (document.body.classList.contains('art-2d-page')) {
+    if (document.body.classList.contains('art-2d-page') || document.body.classList.contains('mission-page')) {
       button.classList.add('sound-toggle-classic');
       button.innerHTML = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="sound-off" d="m16 9 6 6m0-6-6 6"/><path class="sound-on" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg><span class="sound-toggle-label"></span>';
     }
@@ -266,7 +266,7 @@
       render();
     });
     render();
-    const homeBottom = document.querySelector('.cassette-intro-bottom');
+    const homeBottom = document.querySelector('.cassette-intro-bottom') || document.querySelector('.mission-footer');
     if (homeBottom) {
       homeBottom.append(button);
     } else {

@@ -8,16 +8,18 @@ const source = fs.readFileSync(`${__dirname}/../js/page-transitions.js`, 'utf8')
 function setup(path = 'index.html', { reduced = false, blocked = false, stored = {} } = {}) {
   const root = 'https://example.com/portfolio/';
   const events = {}, windowEvents = {}, storage = new Map(Object.entries(stored));
-  const overlays = [], destinations = [];
+  const overlays = [], destinations = [], animations = [];
   const makeElement = () => ({
+    classList: { values: new Set(), add(value) { this.values.add(value); }, remove(value) { this.values.delete(value); } },
     children: [], style: { setProperty() {} }, setAttribute() {},
     append(child) { this.children.push(child); },
     remove() { this.removed = true; },
     getAnimations() { return []; },
-    animate() { return { finished: Promise.resolve() }; }
+    animate(frames,options) { animations.push({frames,options}); return { finished: Promise.resolve(), cancel() {} }; }
   });
   const document = {
     currentScript: { src: `${root}js/page-transitions.js` },
+    body: makeElement(),
     documentElement: { append(element) { overlays.push(element); } },
     createElement: makeElement,
     addEventListener(name, handler) { events[name] = handler; }
@@ -36,7 +38,7 @@ function setup(path = 'index.html', { reduced = false, blocked = false, stored =
   };
   vm.runInNewContext(source, context);
   return {
-    events, windowEvents, overlays, destinations, storage,
+    events, windowEvents, overlays, destinations, storage, document, animations,
     async click(href, options = {}) {
       const link = { href: new URL(href, location.href).href, target: options.target || '', hasAttribute: () => !!options.download };
       const event = { button: 0, ...options, target: { closest: () => link }, preventDefault() { this.defaultPrevented = true; } };
@@ -46,17 +48,52 @@ function setup(path = 'index.html', { reduced = false, blocked = false, stored =
   };
 }
 
-test('selected page exits transition across a subdirectory deployment; 2D remains native', async () => {
-  const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html'];
-  const effects = ['tape', 'iris', 'iris', null, 'film', 'cd'];
+test('selected page exits transition across a subdirectory deployment', async () => {
+  const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html', 'secret-mission.html'];
+  const effects = ['tape', 'iris', 'iris', 'crt', 'film', 'cd', 'doors'];
   for (const from of pages) for (const to of pages) {
     const app = setup(from);
     const event = await app.click(to);
-    const transitions = from !== to && from !== 'art-2d.html';
+    const transitions = from !== to;
     assert.equal(!!event.defaultPrevented, transitions, `${from} -> ${to}`);
     assert.equal(app.destinations.length, transitions ? 1 : 0);
     if (from === 'art-3d.html' && transitions) assert.equal(app.overlays[0].children[0].textContent, 'NEXT SCENE');
     if (transitions) assert.equal(app.overlays[0].className, `page-transition pt-${effects[pages.indexOf(from)]} pt-from-${from.replace('.html', '')}`);
+  }
+});
+
+test('mission doors close from opposing sides, stay covered, then reopen on arrival', async () => {
+  const app=setup('secret-mission.html');
+  await app.click('about.html');
+  assert.equal(app.overlays[0].children.length,2);
+  assert.equal(app.animations[0].frames[0].transform,'translateX(-101%)');
+  assert.equal(app.animations[1].frames[0].transform,'translateX(101%)');
+  assert.equal(app.animations[0].options.duration,620);
+  app.windowEvents.pagehide({persisted:false});
+  assert.notEqual(app.overlays[0].removed,true);
+  const incoming=setup('about.html',{stored:Object.fromEntries(app.storage)});
+  await incoming.events.DOMContentLoaded();
+  assert.equal(incoming.animations[0].frames[1].transform,'translateX(-101%)');
+  assert.equal(incoming.animations[1].frames[1].transform,'translateX(101%)');
+  assert.equal(incoming.overlays[0].removed,true);
+});
+
+test('navigation keeps the outgoing cover until a cached page is restored', async () => {
+  for (const from of ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html']) {
+    for (const persisted of [false, true]) {
+      const app = setup(from);
+      await app.click(from === 'index.html' ? 'games.html' : 'index.html');
+      const cover = app.overlays[0];
+      app.windowEvents.pagehide({ persisted });
+      assert.notEqual(cover.removed, true, `${from}: old page must remain covered at pagehide`);
+      if (from === 'art-2d.html') assert.equal(app.document.body.classList.values.has('crt-screen-shutdown'), true);
+      app.windowEvents.pageshow({ persisted: true });
+      assert.equal(cover.removed, true, `${from}: Back/Forward must clear the cover`);
+      assert.equal(app.document.body.classList.values.has('crt-screen-shutdown'), false);
+      assert.equal(app.storage.has('portfolio-transition-pending'), false);
+      await app.click(from === 'index.html' ? 'games.html' : 'index.html');
+      assert.equal(app.destinations.length, 2, `${from}: restored page must allow navigation again`);
+    }
   }
 });
 

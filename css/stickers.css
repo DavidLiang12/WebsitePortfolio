@@ -15,6 +15,11 @@
 .peel-corner { position: absolute; right: 17%; bottom: 13%; background: #f9f3df; color: #302720; border: 1px solid #30272044; border-radius: 3px 0 3px 0; box-shadow: -2px -2px 3px #30272022; padding: 4px 7px; font: bold 8px/1 monospace; letter-spacing: 1px; transform: rotate(-7deg); }
 .peel-reset { position: absolute; right: 12px; bottom: 0; background: none; border: 0; padding: 8px; color: #6e5540; text-decoration: underline; font: 10px Arial,sans-serif; cursor: pointer; }
 .peel-reset[hidden] { display: none; }
+.peel-actions { display:flex; gap:8px; margin-top:8px; }
+.peel-actions button { position:static; flex:1; min-height:36px; padding:7px 12px; border:1px solid #302720; border-radius:0; background:transparent; color:#302720; font:bold 12px Arial,sans-serif; text-decoration:none; cursor:pointer; }
+.peel-actions .peel-accept { background:#302720; color:#f3ead2; }
+.peel-actions button:hover { background:#b93825; color:#f3ead2; }
+.peel-actions button:focus-visible { outline:3px solid #b93825; outline-offset:3px; }
 .home-sticker-preview { margin-top: 1.5rem; width: 230px; }
 .home-sticker-preview .peel-sticker { width: 230px; }
 .home-sticker-preview .peel-mission { inset: 15px 8px; padding: 16px; }

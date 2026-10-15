@@ -32,7 +32,7 @@ function setup(storage = new Map(), blocked = false, desktop = false) {
     };
   };
   vm.runInNewContext(source, {
-    URL, window,
+    URL, window, cancelAnimationFrame() {}, requestAnimationFrame() { return 1; }, performance: { now: () => 0 },
     document: {
       currentScript: { src: 'https://example.com/portfolio/js/sound.js' },
       createElement(tag) { return tag === 'button' ? button : { append() {} }; },
@@ -60,7 +60,7 @@ test('new visits preload effects while remaining silent', () => {
   const app = setup();
   app.sound.play('cd'); app.sound.play('click');
   assert.equal(app.sound.muted, true);
-  assert.equal(app.audio.length, 3);
+  assert.equal(app.audio.length, 7);
   assert.ok(app.audio.every(sound => sound.loads === 1 && sound.plays === 0));
   assert.equal(app.button.attributes['aria-label'], 'Unmute sound effects');
 });
@@ -69,7 +69,7 @@ test('unmute enables effects, mute stops them immediately and blocks new playbac
   const app = setup();
   app.button.click();
   app.sound.play('cd'); app.sound.play('click');
-  assert.equal(app.audio.length, 3);
+  assert.equal(app.audio.length, 7);
   assert.equal(app.audio[0].src, 'https://example.com/portfolio/Sound/Click.MP3');
   assert.equal(app.audio[0].plays, 1);
   assert.equal(app.label.textContent, 'Unmuted');
@@ -194,4 +194,18 @@ test('cassette latch sounds on both toggle directions, with no sound on initial 
   assert.equal(app.buffers.length, 2);
   app.windowEvents.pagehide();
   assert.equal(app.buffers[1].muted, true);
+});
+
+test('achievement audio and mission doors respect the existing mute control', () => {
+  const app = setup();
+  const achievement = app.audio.find(a => a.src.endsWith('/achievement.mp3'));
+  const doors = app.audio.find(a => a.src.endsWith('/mission-doors.wav'));
+  app.sound.play('achievement'); app.sound.transition('doors');
+  assert.equal(achievement.plays,0); assert.equal(doors.plays,0);
+  app.button.click();
+  app.sound.play('achievement'); app.sound.transition('doors');
+  assert.equal(achievement.plays,1); assert.equal(achievement.volume,.7);
+  assert.equal(doors.plays,1); assert.equal(doors.volume,.65);
+  app.button.click();
+  assert.equal(achievement.pauses,1); assert.equal(doors.pauses,1);
 });
