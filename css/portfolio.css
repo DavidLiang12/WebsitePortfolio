@@ -20,6 +20,7 @@
 /* The shared header is in normal flow on legacy pages, too. */
 .portfolio-header + .content { padding-top: 2rem; }
 .section-placeholder { max-width: 1240px; margin: 0 auto; padding-inline: 2.5rem; }
+.footer-credit { margin: 0 0 0 auto; text-align: right; }
 .section-placeholder h1 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(2.5rem,6vw,5rem); }
 .section-placeholder p { margin-top: 1rem; }
 .portfolio-main { padding-bottom: 4.5rem; }

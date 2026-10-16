@@ -148,16 +148,33 @@
   .cassette-hero {
     min-height: 0;
     grid-template-rows: minmax(0, 1fr);
-    padding-block: clamp(.5rem, 2dvh, 1.75rem);
+    padding-block: clamp(1.25rem, 6dvh, 5rem) clamp(.75rem, 3dvh, 2.5rem);
     container-type: size;
   }
-  .cassette-identity { min-width: 0; }
+  /* Both columns share their top edge and bottom action row. */
+  .cassette-identity {
+    min-width: 0;
+    height: 100%;
+    max-height: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cassette-identity > .eyebrow {
+    min-height: calc(clamp(1.4rem, 2.3vw, 1.9rem) * 1.08);
+    display: flex;
+    align-items: center;
+  }
   .cassette-identity h1 {
     font-size: min(10vw, 27cqh, 9rem);
-    margin-block: min(1.7rem, 3cqh);
+    margin-block: auto min(1.7rem, 3cqh);
   }
   .cassette-tagline { font-size: clamp(1rem, 2vw, 1.5rem); }
-  .cassette-identity .cassette-contact { margin-top: min(1.8rem, 4cqh); gap: .25rem clamp(.75rem, 2vw, 1.6rem); }
+  .cassette-identity .cassette-contact {
+    margin-top: auto;
+    padding-top: calc(clamp(.35rem, 1.5dvh, .8rem) + 1px);
+    gap: .25rem clamp(.75rem, 2vw, 1.6rem);
+  }
   .cassette-games {
     height: 100%;
     max-height: 640px;
@@ -181,7 +198,7 @@
   .cassette-game-caption { min-height: 0; }
   .cassette-game-controls { margin-top: 0; padding-top: clamp(.35rem, 1.5dvh, .8rem); }
   .cassette-intro-bottom { flex-wrap: nowrap; gap: .75rem; padding-bottom: clamp(.5rem, 1.5dvh, 1rem); }
-  .cassette-home .sound-toggle { width: clamp(88px, 20dvh, 184px); }
+  .cassette-home .sound-toggle { width: clamp(80px, 16dvh, 144px); }
   .cassette-tape { height: clamp(24px, 4dvh, 48px); }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -193,8 +210,8 @@
   <link rel="stylesheet" href="css/interactions.css?v=disc-interactions-3">
   <link rel="stylesheet" href="css/page-transitions.css?v=portfolio-16">
   <script src="js/page-transitions.js?v=portfolio-16"></script>
-  <link rel="stylesheet" href="css/sound.css?v=cassette-3">
-  <script src="js/sound.js?v=portfolio-audio-16"></script>
+  <link rel="stylesheet" href="css/sound.css?v=cassette-5">
+  <script src="js/sound.js?v=portfolio-audio-19"></script>
 </head>
 <body class="retro-page home-page cassette-home">
   <a class="skip-link" href="#main-content">Skip to content</a>

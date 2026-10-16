@@ -15,3 +15,4 @@
 .art-3d-page .nav-dropdown a:hover, .art-3d-page .nav-dropdown a:focus-visible, .art-3d-page .nav-dropdown a[aria-current] { background: #e3c96f; color: #242e33; }
 .art-3d-page .cd-meta::before { background: #e3c96f; }
 .art-3d-page .stereo-stripes { background: linear-gradient(#242e33 0 25%, #697477 25% 50%, #b4ad86 50% 75%, #e3c96f 75%); }
+.art-3d-page .site-footer { flex-direction: row; align-items: center; gap: .75rem; }

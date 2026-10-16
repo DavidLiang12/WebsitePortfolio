@@ -3,7 +3,7 @@
 .other-projects-page .game-album { background: #f6e7c705; }
 .other-projects-page .placeholder-disc-stage { padding: 0; filter: none; }
 .other-projects-page { background-image: radial-gradient(#f6e7c710 .55px, transparent .8px); background-size: 4px 4px; }
-.other-projects-main { flex: 1; padding-bottom: 3rem; }
+.other-projects-main { flex: 1; padding-bottom: .5rem; }
 .other-projects-heading { padding-block: clamp(2.5rem, 5vw, 4.5rem) 2.5rem; }
 .other-projects-heading h1 { font-family: 'Archivo Black', 'Arial Black', Arial, sans-serif; font-size: clamp(2.7rem, 6vw, 5.5rem); line-height: 1.05; letter-spacing: -.065em; margin-top: 1.1rem; }
 .other-projects-heading .eyebrow { color: var(--active-color); }
@@ -18,4 +18,4 @@
 .other-projects-footer a { text-underline-offset: .3em; }
 .other-projects-tape { flex-shrink: 0; height: 24px; background: linear-gradient(#7f9a88 0 33.333%, #e8ba46 33.333% 66.666%, #f6e7c7 66.666%); }
 @media (max-width: 950px) { .other-projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px) { .other-projects-grid { grid-template-columns: 1fr; } .other-projects-heading { padding-block: 2.25rem 1.75rem; } .other-projects-main { padding-bottom: 2rem; } }
+@media (max-width: 600px) { .other-projects-grid { grid-template-columns: 1fr; } .other-projects-heading { padding-block: 2.25rem 1.75rem; } .other-projects-main { padding-bottom: .5rem; } }

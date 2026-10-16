@@ -1,7 +1,7 @@
 /* A cassette transport: stationary when muted, reels rolling when effects are on. */
 .sound-toggle {
   display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: .35rem; width: 184px; min-height: 44px; flex-shrink: 0; padding: 4px;
+  gap: .35rem; width: 144px; min-height: 44px; flex-shrink: 0; padding: 4px;
   border: 0; border-radius: 8px; background: transparent;
   color: var(--body-color, #302720); margin-left: auto; cursor: pointer;
   font: 600 10px/1.4 'DM Sans', Arial, sans-serif; letter-spacing: .04em;
@@ -16,7 +16,7 @@
 .sound-controls { display: flex; justify-content: flex-end; flex-shrink: 0; padding-block: 1rem; }
 .art-2d-page .sound-toggle { width: 112px; padding: 3px; gap: 1px; font-size: 9px; }
 @keyframes cassette-roll { to { transform: rotate(360deg); } }
-@media (max-width: 640px) { .sound-toggle { width: 150px; } }
+@media (max-width: 640px) { .sound-toggle { width: 128px; } }
 @media (prefers-reduced-motion: reduce) {
   .sound-cassette { transition: none; }
   .cassette-reel { animation: none; }

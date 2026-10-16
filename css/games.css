@@ -7,7 +7,7 @@
   min-height: 100svh; display: flex; flex-direction: column;
 }
 .games-page .nav-dropdown { background: var(--paper); }
-.games-main { flex: 1; padding-bottom: 4rem; }
+.games-main { flex: 1; padding-bottom: .5rem; }
 .games-heading { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem; padding-block: clamp(2.5rem, 5vw, 4.5rem) 2.8rem; }
 .games-heading h1 { font-family: 'Archivo Black', 'Arial Black', sans-serif; font-size: clamp(4rem, 9vw, 8rem); letter-spacing: -.065em; line-height: .95; color: var(--rust); margin-top: 1rem; }
 .games-heading-copy { max-width: 23rem; padding-bottom: .4rem; }
@@ -43,7 +43,7 @@
   .game-disc-art { max-width: 340px; margin-block: 1.5rem 2rem; }
   .game-placeholder-disc strong { font-size: clamp(1.5rem, 8vw, 3rem); }
   .games-heading { padding-block: 2.3rem 2rem; }
-  .games-main { padding-bottom: 2.5rem; }
+  .games-main { padding-bottom: .5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .game-disc-art { transition: none; }
