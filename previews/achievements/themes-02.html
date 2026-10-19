@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three more achievement directions — David Liang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e9e5dc;color:#302b25;font:14px/1.6 'DM Sans',Arial,sans-serif}main{width:min(100% - 64px,1500px);margin:auto;padding:40px 0 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid #bdb7aa;padding-bottom:18px;font-size:11px;letter-spacing:.08em}.top a{color:inherit;text-underline-offset:4px}.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:48px;margin:34px 0 28px}h1{font:900 clamp(28px,3.3vw,52px)/1.03 'Archivo Black',Arial,sans-serif;letter-spacing:-.06em;margin:8px 0}p{margin:0}.intro>p{max-width:330px;color:#71685c;font-size:13px}.eyebrow{font-size:10px;letter-spacing:.16em;font-weight:700}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.option{min-width:0;background:#f6f3eb;border:1px solid #bdb7aa}.frame{width:100%;overflow:hidden;position:relative;background:#ead2a5;border-bottom:1px solid #bdb7aa}.frame iframe{display:block;position:absolute;left:0;top:0;width:1100px;height:1500px;border:0;transform-origin:0 0;pointer-events:none}.details{padding:22px}.number{font:12px 'Courier New',monospace;color:#8d7e6a}h2{font-size:22px;line-height:1.1;letter-spacing:-.04em;margin:10px 0}.details p{color:#71685c;font-size:12px;min-height:39px}.palette{display:flex;gap:6px;margin:18px 0 8px}.palette span{height:22px;flex:1;border:1px solid #00000012}.hex{font:9px/1.6 'Courier New',monospace;letter-spacing:-.025em;color:#71685c}.details>a{display:flex;align-items:center;justify-content:space-between;margin-top:22px;border-top:1px solid #bdb7aa;padding-top:14px;color:inherit;font-size:12px;font-weight:700;text-decoration:none}.details>a:hover{text-decoration:underline;text-underline-offset:4px}.bottom{display:flex;justify-content:space-between;margin-top:25px;color:#817668;font-size:10px}@media(max-width:850px){main{width:calc(100% - 32px)}.intro{display:block}.intro>p{margin-top:18px}.grid{grid-template-columns:1fr}.option{max-width:640px;margin:auto;width:100%}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body><main>
+<header class="top"><span>DAVID LIANG / ACHIEVEMENTS</span><a href="redline-studies.html">Redline variations 07–09 ↗</a></header>
+<div class="intro"><div><span class="eyebrow">THREE MORE VISUAL DIRECTIONS</span><h1>After dark.<br>Back in time.</h1></div><p>Black retro, phosphor terminals, and arcade hardware.<br>Three more directions inspired by your references.</p></div>
+<div class="grid">
+<article class="option"><div class="frame"><iframe src="black-signal.html" title="Black Signal achievement preview" tabindex="-1"></iframe></div><div class="details"><span class="number">04 / BLACK RETRO</span><h2>Black Signal</h2><p>Near-black, warm type, tiny RGB edges.<br>A worn screen with restrained phosphor glow.</p><div class="palette"><span style="background:#101210"></span><span style="background:#e67549"></span><span style="background:#d9dca1"></span><span style="background:#4c5345"></span></div><div class="hex">#101210 · #E67549 · #D9DCA1 · #4C5345</div><a href="black-signal.html">Open full preview <span>↗</span></a></div></article>
+<article class="option"><div class="frame"><iframe src="phosphor-os.html" title="Phosphor OS achievement preview" tabindex="-1"></iframe></div><div class="details"><span class="number">05 / COMPUTER INTERFACE</span><h2>Phosphor OS</h2><p>Green phosphor, monospace, window chrome.<br>A working collection inside a fake terminal.</p><div class="palette"><span style="background:#030a06"></span><span style="background:#0a1e10"></span><span style="background:#76da94"></span><span style="background:#b8eac3"></span></div><div class="hex">#030a06 · #0A1E10 · #76DA94 · #B8EAC3</div><a href="phosphor-os.html">Open full preview <span>↗</span></a></div></article>
+<article class="option"><div class="frame"><iframe src="redline-arcade.html" title="Redline Arcade achievement preview" tabindex="-1"></iframe></div><div class="details"><span class="number">06 / ARCADE HARDWARE</span><h2>Redline Arcade</h2><p>Signal red, gold, and original wireframe art.<br>A bold eighties hardware-sleeve direction.</p><div class="palette"><span style="background:#151410"></span><span style="background:#ef4b3f"></span><span style="background:#ecc94c"></span><span style="background:#f6dc94"></span></div><div class="hex">#151410 · #EF4B3F · #ecc94c · #f6dc94</div><a href="redline-arcade.html">Open full preview <span>↗</span></a></div></article>
+</div>
+<footer class="bottom"><span>DESIGN STUDIES / 04–06</span><span>Preview only · Current page unchanged</span></footer>
+</main>
+<script>
+const observer = new ResizeObserver(entries => entries.forEach(({target}) => {
+  const scale = target.clientWidth / 1100;
+  target.style.height = `${1500 * scale}px`;
+  target.querySelector('iframe').style.transform = `scale(${scale})`;
+}));
+document.querySelectorAll('.frame').forEach(frame => observer.observe(frame));
+</script>
+</body></html>

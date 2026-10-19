@@ -6,6 +6,7 @@ const source = fs.readFileSync(`${__dirname}/../js/sound.js`, 'utf8');
 
 function setup(storage = new Map(), blocked = false, desktop = false) {
   const events = {}, windowEvents = {}, audio = [], notes = [], buffers = [], gains = [];
+  const boot = { hidden: true };
   const label = {};
   const button = {
     dataset: {}, attributes: {}, classList: { add() {} },
@@ -34,10 +35,11 @@ function setup(storage = new Map(), blocked = false, desktop = false) {
   vm.runInNewContext(source, {
     URL, window, cancelAnimationFrame() {}, requestAnimationFrame() { return 1; }, performance: { now: () => 0 },
     document: {
-      currentScript: { src: 'https://example.com/portfolio/js/sound.js' },
+      currentScript: { src: 'https://example.com/portfolio/js/sound.js', dataset: desktop === 'achievement-pc-page' ? {achievementAudio:'true'} : {} },
       createElement(tag) { return tag === 'button' ? button : { append() {} }; },
-      body: { classList: { contains: name => desktop && name === 'art-2d-page' }, append() {}, querySelector() { return null; } },
+      body: { classList: { contains: name => desktop && name === (desktop === true ? 'art-2d-page' : desktop) }, append() {}, querySelector() { return null; } },
       querySelector() { return null; },
+      getElementById: id => id === 'achievement-boot' ? boot : null,
       addEventListener(name, handler) { events[name] = handler; }
     },
     sessionStorage: {
@@ -46,14 +48,16 @@ function setup(storage = new Map(), blocked = false, desktop = false) {
     },
     Audio: function(url) {
       this.url = url; this.plays = 0; this.pauses = 0; this.readyState = 4;
+      this.listeners = {};
+      this.addEventListener = (name, handler) => { this.listeners[name] = handler; };
       this.load = () => { this.loads = (this.loads || 0) + 1; };
-      this.play = () => { this.plays++; return Promise.resolve(); };
+      this.play = () => { this.plays++; return this.playError ? Promise.reject(this.playError) : Promise.resolve(); };
       this.pause = () => { this.pauses++; };
       audio.push(this);
     }
   });
   events.DOMContentLoaded();
-  return { sound: window.portfolioSound, button, label, audio, notes, buffers, gains, windowEvents };
+  return { sound: window.portfolioSound, button, label, audio, notes, buffers, gains, windowEvents, events, boot };
 }
 
 test('new visits preload effects while remaining silent', () => {
@@ -63,6 +67,21 @@ test('new visits preload effects while remaining silent', () => {
   assert.equal(app.audio.length, 6);
   assert.ok(app.audio.every(sound => sound.loads === 1 && sound.plays === 0));
   assert.equal(app.button.attributes['aria-label'], 'Unmute sound effects');
+});
+
+test('achievement PC uses the compact speaker and its shutdown sound respects mute', () => {
+  const app = setup(new Map(), false, 'achievement-pc-page');
+  assert.ok(app.button.innerHTML.includes('sound-off'));
+  assert.equal(app.label.textContent, 'Unmute sound effects');
+  const tv = app.audio.find(sound => sound.src.endsWith('TV-Shut.MP3'));
+  app.sound.transition('crt');
+  assert.equal(tv.plays, 0);
+  app.button.click();
+  app.sound.transition('crt');
+  assert.equal(tv.plays, 1);
+  app.button.click();
+  app.sound.transition('crt');
+  assert.equal(tv.plays, 1);
 });
 
 test('unmute enables effects, mute stops them immediately and blocks new playback', () => {
@@ -193,4 +212,88 @@ test('achievement audio respects the existing mute control', () => {
   assert.equal(achievement.plays,1); assert.equal(achievement.volume,.7);
   app.button.click();
   assert.equal(achievement.pauses,1);
+});
+
+test('provided retro clicks apply only to achievement controls and obey mute', () => {
+  assert.ok(setup().audio.every(sound => !sound.src.includes('/achievement-click.mp3') && !sound.src.includes('/achievement-startup.mp3')));
+  const app = setup(new Map(), false, 'achievement-pc-page');
+  const click = app.audio.find(sound => sound.src.endsWith('/achievement-click.mp3'));
+  const control = { closest: () => null, matches: () => false, getAttribute: () => null };
+  const event = { target: { closest: () => control } };
+  app.events.click(event);
+  assert.equal(click.plays, 0);
+  app.button.click();
+  app.events.click(event);
+  assert.equal(click.plays, 1);
+  assert.equal(click.volume, .45);
+  control.closest = selector => selector === '.portfolio-header' ? {} : null;
+  app.events.click(event);
+  assert.equal(click.plays, 1, 'navbar links, logo, and dropdown controls do not play the retro click');
+  control.closest = () => null;
+  control.disabled = true; app.events.click(event);
+  assert.equal(click.plays, 1);
+  control.disabled = false; control.matches = () => true; app.events.click(event);
+  assert.equal(click.plays, 1, 'the sound toggle keeps its own feedback without a duplicate click');
+  control.matches = () => false;
+  app.button.click(); app.events.click(event);
+  assert.equal(click.plays, 1);
+  assert.equal(click.pauses, 1);
+});
+
+test('startup waits for its audio, then finishes naturally without delaying the page', async () => {
+  const app = setup(new Map([['portfolio-sound-enabled', 'true']]), false, 'achievement-pc-page');
+  const startup = app.audio.find(sound => sound.src.endsWith('/achievement-startup.mp3'));
+  app.boot.hidden = false;
+  startup.readyState = 0;
+  app.sound.startAchievementBoot();
+  assert.equal(startup.plays, 0);
+  startup.readyState = 4; startup.listeners.canplay();
+  await Promise.resolve();
+  assert.equal(startup.plays, 1);
+  assert.equal(startup.volume, .5);
+  app.sound.finishAchievementBoot(); app.boot.hidden = true;
+  assert.equal(startup.pauses, 0, 'normal startup completion lets the chime finish');
+  app.events.pointerdown(); startup.listeners.canplay();
+  assert.equal(startup.plays, 1);
+  app.windowEvents.pagehide();
+  assert.equal(startup.pauses, 1);
+});
+
+test('startup stays silent when muted and skip or a late load cannot replay it', async () => {
+  const app = setup(new Map(), false, 'achievement-pc-page');
+  const startup = app.audio.find(sound => sound.src.endsWith('/achievement-startup.mp3'));
+  app.boot.hidden = false; app.sound.startAchievementBoot();
+  assert.equal(startup.plays, 0);
+  app.button.click();
+  await Promise.resolve();
+  assert.equal(startup.plays, 1, 'unmuting during the visible boot can start its sound');
+  app.sound.finishAchievementBoot(true); app.boot.hidden = true;
+  assert.equal(startup.pauses, 1);
+  startup.listeners.canplay(); app.events.keydown();
+  assert.equal(startup.plays, 1);
+
+  const cold = setup(new Map([['portfolio-sound-enabled', 'true']]), false, 'achievement-pc-page');
+  const delayed = cold.audio.find(sound => sound.src.endsWith('/achievement-startup.mp3'));
+  delayed.readyState = 0;
+  cold.boot.hidden = false; cold.sound.startAchievementBoot();
+  cold.sound.finishAchievementBoot(); cold.boot.hidden = true;
+  delayed.readyState = 4; delayed.listeners.canplay(); cold.events.pointerdown();
+  assert.equal(delayed.plays, 0, 'a cold startup sound cannot arrive after the boot ends');
+});
+
+test('autoplay-blocked startup retries on a gesture only while the boot is visible', async () => {
+  const app = setup(new Map([['portfolio-sound-enabled', 'true']]), false, 'achievement-pc-page');
+  const startup = app.audio.find(sound => sound.src.endsWith('/achievement-startup.mp3'));
+  startup.playError = new Error('NotAllowedError');
+  app.boot.hidden = false; app.sound.startAchievementBoot();
+  await new Promise(setImmediate);
+  assert.equal(startup.plays, 1);
+  delete startup.playError;
+  app.events.pointerdown();
+  await new Promise(setImmediate);
+  assert.equal(startup.plays, 2);
+  app.events.keydown();
+  assert.equal(startup.plays, 2, 'a successful startup cannot repeat');
+  app.button.click();
+  assert.equal(startup.pauses, 1, 'muting stops the chime immediately');
 });

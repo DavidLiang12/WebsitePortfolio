@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#12130f">
+  <title>Achievements: three slanted title studies — David Liang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=DM+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #12130f; color: #f0d79a; font: 14px/1.6 'DM Sans', Arial, sans-serif; }
+    main { width: min(100% - 56px, 1600px); margin: auto; padding: 28px 0 34px; }
+    a { color: inherit; text-underline-offset: 4px; }
+    .top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-bottom: 18px; border-bottom: 1px solid #4b452f; font: 10px/1.6 'IBM Plex Mono', monospace; letter-spacing: .06em; }
+    .intro { display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem; margin: 30px 0 28px; }
+    .eyebrow { color: #c3ab71; font: 10px/1.6 'IBM Plex Mono', monospace; letter-spacing: .12em; }
+    h1 { margin: 8px 0 0; font: 900 clamp(28px, 3.4vw, 48px)/1.08 'Archivo Black', Arial, sans-serif; letter-spacing: -.06em; }
+    p { margin: 0; }
+    .intro p { max-width: 315px; font-size: 12px; color: #b5a67e; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .option { min-width: 0; border: 1px solid #4b452f; background: #1c1b15; }
+    .frame { width: 100%; overflow: hidden; position: relative; background: #151410; border-bottom: 1px solid #4b452f; }
+    .frame iframe { display: block; position: absolute; top: 0; left: 0; width: 1100px; height: 750px; border: 0; transform-origin: 0 0; pointer-events: none; }
+    .details { padding: 18px; }
+    .number { color: #ef6c55; font: 10px/1.6 'IBM Plex Mono', monospace; letter-spacing: .12em; }
+    h2 { margin: 8px 0 10px; font-size: 24px; font-weight: 500; line-height: 1.15; letter-spacing: -.04em; }
+    .details p { min-height: 40px; color: #b5a67e; font-size: 12px; }
+    .type { display: block; margin-top: 14px; color: #d4bd82; font: 10px/1.6 'IBM Plex Mono', monospace; }
+    .details > a { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px solid #4b452f; font-size: 12px; text-decoration: none; }
+    .details > a:hover { color: #ecc94c; text-decoration: underline; }
+    .bottom { display: flex; justify-content: space-between; gap: 1rem; margin-top: 22px; color: #9f9472; font: 10px/1.6 'IBM Plex Mono', monospace; }
+    :focus-visible { outline: 2px solid #ecc94c; outline-offset: 4px; }
+    @media (max-width: 850px) { main { width: calc(100% - 32px); } .grid { grid-template-columns: 1fr; } .intro { display: block; } .intro p { margin-top: 20px; } .option { width: 100%; max-width: 620px; margin: auto; } }
+  </style>
+</head>
+<body><main>
+  <header class="top"><span>ACHIEVEMENTS / TITLE STUDIES</span><a href="../../achievements.html">Current achievements page ↗</a></header>
+  <div class="intro"><div><span class="eyebrow">THREE DIRECTIONS / SAME CRT WORLD</span><h1>A different angle.</h1></div><p>Bigger titles that climb across the empty space.<br>The spinning sphere, red-and-gold palette, and CRT effect stay in every version.</p></div>
+  <div class="grid">
+    <article class="option"><div class="frame"><iframe src="slanted-signal.html" title="Diagonal Signal achievement preview" tabindex="-1"></iframe></div><div class="details"><span class="number">01 / SINGLE LINE</span><h2>Diagonal Signal</h2><p>A sweeping geometric title with a steep rise and a fine gold underline.</p><span class="type">Space Grotesk · 18° rise</span><a href="slanted-signal.html">Open full preview <span>↗</span></a></div></article>
+    <article class="option"><div class="frame"><iframe src="slanted-velocity.html" title="Split Velocity achievement preview" tabindex="-1"></iframe></div><div class="details"><span class="number">02 / OVERSIZED STACK</span><h2>Split Velocity</h2><p>Two huge lines, extended italic lettering, and a solid-to-outline contrast.</p><span class="type">Barlow Condensed · 10° rise</span><a href="slanted-velocity.html">Open full preview <span>↗</span></a></div></article>
+    <article class="option"><div class="frame"><iframe src="slanted-echo.html" title="Neon Echo achievement preview" tabindex="-1"></iframe></div><div class="details"><span class="number">03 / VECTOR ECHO</span><h2>Neon Echo</h2><p>A wide gold outline with faint red trails, like a glowing vector display.</p><span class="type">Space Grotesk · 12° rise</span><a href="slanted-echo.html">Open full preview <span>↗</span></a></div></article>
+  </div>
+  <footer class="bottom"><span>PREVIEW STUDIES / 01–03</span><span>Sample progress · Current page unchanged</span></footer>
+</main>
+<script>
+  const observer = new ResizeObserver(entries => entries.forEach(({ target }) => {
+    const scale = target.clientWidth / 1100;
+    target.style.height = `${750 * scale}px`;
+    target.querySelector('iframe').style.transform = `scale(${scale})`;
+  }));
+  document.querySelectorAll('.frame').forEach(frame => observer.observe(frame));
+</script>
+</body>
+</html>

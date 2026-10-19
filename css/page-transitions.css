@@ -75,7 +75,14 @@
 
 /* Restore the printed label in the iris hub. */
 .pt-iris .pt-layer::after { content: 'CHANGE THE TRACK'; display: grid; place-items: center; width: clamp(120px, 18vmin, 180px); padding: 18px; box-sizing: border-box; text-align: center; color: #302720; font: 700 clamp(10px, 1.4vmin, 15px)/1.4 monospace; letter-spacing: .04em; }
-/* The real desktop scales above this dark backdrop; no recolored screen overlay. */
+/* The 2D desktop scales above this backdrop; achievements use the cover layers. */
 .pt-crt { background: #101918; }
+.pt-crt.pt-from-achievements { background: #151410; }
+/* The achievements screen remains stationary under three compositor layers. */
+.pt-crt[data-crt-curtain] { background: transparent; }
+.pt-crt[data-crt-curtain] :is(.pt-crt-top, .pt-crt-bottom) { left: 0; right: 0; height: calc(50% + 1px); background: #151410; transform: scaleY(0); }
+.pt-crt-top { top: 0; transform-origin: center top; }
+.pt-crt-bottom { bottom: 0; transform-origin: center bottom; }
+.pt-crt-line { z-index: 1; top: calc(50% - 1px); left: 0; right: 0; height: 2px; opacity: 0; background: #f6dc94; box-shadow: 0 0 6px #ef4b3fcc, 0 0 18px #ecc94c80; transform-origin: center; }
 .crt-screen-shutdown { z-index: 10001 !important; pointer-events: none !important; transform-origin: 50% 50%; will-change: transform, opacity; }
 body.crt-screen-shutdown { position: relative; }

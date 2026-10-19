@@ -6,20 +6,50 @@
   <meta name="description" content="Explore David Liang’s 2D art desktop. Open a project folder to browse the collection.">
   <meta name="theme-color" content="#008080">
   <title>2D Art — David Liang</title>
+  <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/png" href="images/branding/favicon-48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="images/branding/apple-touch-icon.png" sizes="180x180">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,800;9..144,900&display=swap" rel="stylesheet">
   <!-- Page-local styling keeps the other portfolio sections unchanged. -->
   <link rel="stylesheet" href="css/retro.css?v=pointer-tilt-1">
   <link rel="stylesheet" href="css/portfolio.css?v=selected-motion-8">
-  <link rel="stylesheet" href="css/art-2d.css?v=transition-audio-10">
-  <link rel="stylesheet" href="css/page-transitions.css?v=portfolio-16">
-  <script src="js/page-transitions.js?v=portfolio-16"></script>
+  <link rel="stylesheet" href="css/art-2d.css?v=crt-rgb-11">
+  <link rel="stylesheet" href="css/page-transitions.css?v=crt-curtain-18">
+  <script src="js/page-transitions.js?v=crt-curtain-20"></script>
   <link rel="stylesheet" href="css/sound.css?v=cassette-3">
-  <script src="js/sound.js?v=portfolio-audio-16"></script>
+  <script src="js/sound.js?v=achievement-pc-20"></script>
 
+
+  <link rel="stylesheet" href="css/achievements.css?v=exploration-3">
+  <script defer src="js/achievement-state.js?v=achievement-rules-4"></script>
+  <script defer src="js/achievement-notifications.js?v=boot-aware-4"></script>
+  <script defer src="js/site-achievements.js?v=achievement-rules-5"></script>
+  <style id="desktop-screen-effects">
+    /* Keep the filter fragment in this document, including local-file previews. */
+    .art-desktop { filter: url(#desktop-rgb-fringe); }
+    @media (prefers-contrast: more), (forced-colors: active) {
+      .art-desktop { filter: none; }
+      .art-desktop::after { display: none; }
+    }
+  </style>
 </head>
 <body class="retro-page art-2d-page">
+  <svg class="desktop-effects" width="0" height="0" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="desktop-rgb-fringe" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.12" result="soft-screen"/>
+        <feColorMatrix in="soft-screen" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red-channel"/>
+        <feOffset in="red-channel" dx="-0.55" dy="0.1" result="red-fringe"/>
+        <feColorMatrix in="soft-screen" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green-channel"/>
+        <feColorMatrix in="soft-screen" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue-channel"/>
+        <feOffset in="blue-channel" dx="0.55" dy="-0.1" result="blue-fringe"/>
+        <feBlend in="red-fringe" in2="green-channel" mode="screen" result="red-green"/>
+        <feBlend in="red-green" in2="blue-fringe" mode="screen"/>
+      </filter>
+    </defs>
+  </svg>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="portfolio-header">
 <div class="portfolio-header-inner"><a class="portfolio-logo" href="index.html" aria-label="David Liang home"><img class="portfolio-logo-disc" src="images/branding/cd-logo.png" alt="" width="44" height="44"></a><nav class="portfolio-nav" aria-label="Main navigation"><a href="index.html">Home</a><details class="nav-group"><summary>Projects<span class="nav-chevron" aria-hidden="true"></span></summary>
@@ -32,7 +62,7 @@
 <h1 class="sr-only">2D Art</h1>
 
 <div class="desktop-workspace" id="desktop-workspace">
-<div class="desktop-boot" id="desktop-boot" hidden><div class="boot-panel"><div class="boot-heading"><img class="boot-mark" src="images/desktop/david-os.svg" alt="" width="60" height="60"><span>DAVID OS <b>95</b><br><small>YOUR PERSONAL ART DESKTOP</small></span></div><p class="boot-status" id="boot-status" role="status">Starting art desk…</p><div class="boot-progress" aria-hidden="true"><span></span></div><p class="boot-footnote">Drawings, experiments, and a little imagination.</p><button type="button" id="skip-boot">Skip startup →</button></div></div>
+<div class="desktop-boot" id="desktop-boot" tabindex="-1" hidden><div class="boot-panel"><div class="boot-heading"><img class="boot-mark" src="images/desktop/david-os.svg" alt="" width="60" height="60"><span>DAVID OS <b>95</b><br><small>YOUR PERSONAL ART DESKTOP</small></span></div><p class="boot-status" id="boot-status" role="status">Starting art desk…</p><div class="boot-progress" aria-hidden="true"><span></span></div><p class="boot-footnote">Drawings, experiments, and a little imagination.</p><button type="button" id="skip-boot">Skip startup →</button></div></div>
 <div class="desktop-wallpaper" aria-hidden="true">
 <div class="wallpaper-orbit">
 </div></div>
@@ -247,9 +277,9 @@
 <p class="desktop-noscript">Enable JavaScript to open the artwork folders and apps.</p>
 </noscript></main>
   <script src="js/navigation.js?v=touch-menu-1"></script><script src="js/disc-hover.js?v=rewind-1"></script>
-  <script src="js/desktop-boot.js?v=every-entry-1"></script>
-  <script src="js/art-desktop.js?v=mobile-icons-10"></script>
-  <script src="js/paint.js"></script>
+  <script src="js/desktop-boot.js?v=session-boot-3"></script>
+  <script src="js/art-desktop.js?v=achievement-events-11"></script>
+  <script src="js/paint.js?v=achievement-save-2"></script>
 
 </body>
 </html>

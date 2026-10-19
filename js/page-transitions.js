@@ -2,11 +2,11 @@
   'use strict';
 
   const root = new URL('../', document.currentScript.src);
-  const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html'];
+  const pages = ['index.html', 'games.html', 'projects.html', 'art-2d.html', 'art-3d.html', 'about.html', 'achievements.html'];
   const variants = ['tape', 'cd', 'circles', 'equalizer', 'shutter'];
   const names = ['Tape stripes', 'CD spin', 'Concentric circles', 'Equalizer bars', 'Stereo shutter'];
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const pageEffects = { 'index.html': 'tape', 'about.html': 'cd', 'games.html': 'iris', 'projects.html': 'iris', 'art-3d.html': 'film', 'art-2d.html': 'crt' };
+  const pageEffects = { 'index.html': 'tape', 'about.html': 'cd', 'games.html': 'iris', 'projects.html': 'iris', 'art-3d.html': 'film', 'art-2d.html': 'crt', 'achievements.html': 'crt' };
   const pendingKey = 'portfolio-transition-pending';
   const read = key => { try { return sessionStorage.getItem(key); } catch (_) { return null; } };
   const write = (key, value) => { try { sessionStorage.setItem(key, value); return true; } catch (_) { return false; } };
@@ -22,6 +22,7 @@
     const overlay = document.createElement('div');
     overlay.className = `page-transition pt-${type}`;
     overlay.transitionFrom = from;
+    overlay.crtOrigin = null;
     if (pages.includes(from)) overlay.className += ` pt-from-${from.replace('.html', '')}`;
     overlay.setAttribute('aria-hidden', 'true');
     const count = { tape: 3, cd: 1, circles: 3, equalizer: 10, shutter: 2, iris: 1, film: 1, crt: 0 }[type];
@@ -62,6 +63,29 @@
         overlay.crtAnimation?.cancel();
         overlay.crtScreen?.classList.remove('crt-screen-shutdown');
         await overlay.animate([{opacity:1},{opacity:0}], {duration:260,fill:'both'}).finished.catch(() => {});
+      } else if (overlay.transitionFrom === 'achievements.html') {
+        // Close over the stationary, filtered screen. Scaling that whole DOM
+        // makes the browser re-rasterize its SVG filters at every scale.
+        overlay.setAttribute('data-crt-curtain', '');
+        const layers = ['top', 'bottom', 'line'].map(part => {
+          const layer = document.createElement('span');
+          layer.className = `pt-layer pt-crt-${part}`;
+          overlay.append(layer);
+          return layer;
+        });
+        const animations = layers.map((layer, index) => layer.animate(index < 2 ? [
+          {transform:'scaleY(0)'},
+          {transform:'scaleY(1)'}
+        ] : [
+          {transform:'scaleX(.6)',opacity:0,offset:0},
+          {transform:'scaleX(.6)',opacity:0,offset:.74},
+          {transform:'scaleX(.6)',opacity:1,offset:.78},
+          {transform:'scaleX(.035)',opacity:.9,offset:.95},
+          {transform:'scaleX(0)',opacity:0,offset:1}
+        ], index < 2
+          ? {duration:360,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'}
+          : {duration:480,easing:'linear',fill:'forwards'}));
+        await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
       } else if (overlay.crtScreen) {
         // Collapse the actual desktop, preserving its wallpaper, windows and colors.
         overlay.crtScreen.classList.add('crt-screen-shutdown');
@@ -92,11 +116,13 @@
     if (active) {
       active.crtAnimation?.cancel();
       active.crtScreen?.classList.remove('crt-screen-shutdown');
+      if (active.crtOrigin !== null && active.crtScreen) active.crtScreen.style.transformOrigin = active.crtOrigin;
       active.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
       active.remove();
     }
     active = null;
     busy = false;
+    window.dispatchEvent(new Event('portfolio:transitionend'));
   }
 
   // Read once in the head, so the destination is covered before its first paint.
@@ -132,6 +158,8 @@
     if (!write(pendingKey, JSON.stringify({ type, from, href: target.href, time: Date.now() }))) return;
     event.preventDefault();
     busy = true;
+    // Stop live drawings before the outgoing desktop is composited and scaled.
+    window.dispatchEvent(new Event('portfolio:transitionstart'));
     active = create(type, document.documentElement, from);
     if (type !== 'iris') window.portfolioSound?.transition(type);
     const navigate = () => location.assign(target.href);

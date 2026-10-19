@@ -97,6 +97,12 @@
   });
   function save() {
     finish(); sound();
+    // Saving an untouched or fully erased white canvas does not earn the badge.
+    const pixels = snapshot().data;
+    let hasArtwork = false;
+    for (let i = 0; i < pixels.length; i += 4) {
+      if (pixels[i + 3] && (pixels[i] < 255 || pixels[i + 1] < 255 || pixels[i + 2] < 255)) { hasArtwork = true; break; }
+    }
     canvas.toBlob(blob => {
       if (!blob) { status.textContent = 'Could not create the PNG. Please try again.'; return; }
       const url = URL.createObjectURL(blob);
@@ -105,6 +111,7 @@
       document.body.append(link); link.click(); link.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
       status.textContent = 'Your PNG is ready to download.';
+      if (hasArtwork) window.portfolioAchievements?.savePainting();
     }, 'image/png');
   }
   document.getElementById('paint-save').addEventListener('click', save);

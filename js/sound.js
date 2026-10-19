@@ -4,10 +4,13 @@
   const key = 'portfolio-sound-enabled';
   const sounds = new Map();
   const files = { click: 'Click.MP3', cd: 'CD.MP3', tv: 'TV-Shut.MP3', film: '3D-Transition.mp3', achievement:'achievement.mp3', cassetteToggle: 'cassette-toggle.mp3' };
+  const achievementAudio = document.currentScript.dataset?.achievementAudio === 'true';
+  if (achievementAudio) Object.assign(files, { achievementClick: 'achievement-click.mp3', achievementStartup: 'achievement-startup.mp3' });
   const readEnabled = () => { try { return sessionStorage.getItem(key) === 'true'; } catch (_) { return false; } };
   let enabled = readEnabled();
   let button;
   let audioContext;
+  let startupPending = false, startupAttempting = false;
   const voices = new Set();
   let tvFade = 0;
   const transitionBuffers = new Map();
@@ -15,6 +18,7 @@
   const noteKey = 'portfolio-click-note';
   let nextNote = 0;
   try { nextNote = (Number(sessionStorage.getItem(noteKey)) || 0) % clickNotes.length; } catch (_) {}
+  const isDesktopInterface = () => document.body.classList.contains('art-2d-page') || document.body.classList.contains('achievement-pc-page');
 
   function prepareSounds() {
     Object.entries(files).forEach(([name, file]) => {
@@ -23,6 +27,7 @@
         const sound = new Audio();
         sound.preload = 'auto';
         sound.src = new URL(file, root).href;
+        if (name === 'achievementStartup') sound.addEventListener('canplay', tryAchievementStartup);
         sounds.set(name, sound);
         // Fetch the small effects before the first click, without playing them.
         sound.load();
@@ -41,6 +46,7 @@
   }
 
   function stop() {
+    startupPending = false;
     cancelAnimationFrame(tvFade);
     voices.forEach(voice => { try { voice.stop(); } catch (_) {} });
     voices.clear();
@@ -48,6 +54,24 @@
       sound.pause();
       sound.currentTime = 0;
     });
+  }
+
+  function tryAchievementStartup() {
+    if (!startupPending || startupAttempting || !enabled || document.getElementById('achievement-boot')?.hidden !== false) return;
+    const sound = sounds.get('achievementStartup');
+    if (!sound || sound.readyState < 3) return;
+    startupAttempting = true;
+    try {
+      sound.currentTime = 0;
+      sound.volume = .5;
+      Promise.resolve(sound.play()).then(() => {
+        startupPending = false;
+        startupAttempting = false;
+      }, () => {
+        // Browsers may require a gesture. Retry only while this boot is visible.
+        startupAttempting = false;
+      });
+    } catch (_) { startupAttempting = false; }
   }
 
   // Keep the control's own feedback audible for both mute and unmute.
@@ -67,11 +91,23 @@
     button.title = enabled ? 'Mute sound effects' : 'Unmute sound effects';
     button.dataset.muted = String(!enabled);
     button.setAttribute('aria-pressed', String(enabled));
-    button.querySelector('.sound-toggle-label').textContent = document.body.classList.contains('art-2d-page') ? (enabled ? 'Mute sound effects' : 'Unmute sound effects') : (enabled ? 'Unmuted' : 'Muted');
+    button.querySelector('.sound-toggle-label').textContent = isDesktopInterface() ? (enabled ? 'Mute sound effects' : 'Unmute sound effects') : (enabled ? 'Unmuted' : 'Muted');
   }
 
   window.portfolioSound = {
     get muted() { return !enabled; },
+    startAchievementBoot() {
+      if (!achievementAudio) return;
+      startupPending = true;
+      prepareSounds();
+      tryAchievementStartup();
+    },
+    finishAchievementBoot(skipped = false) {
+      startupPending = false;
+      if (!skipped) return; // Let an already-playing chime finish over the scene.
+      const sound = sounds.get('achievementStartup');
+      if (sound) { sound.pause(); sound.currentTime = 0; }
+    },
     softClick(volume = 1) {
       if (!enabled) return;
       window.portfolioSound.note(clickNotes[nextNote], volume);
@@ -211,6 +247,7 @@
         }
         sound.currentTime = 0;
         if (name === 'achievement') sound.volume = .7;
+        if (name === 'achievementClick') sound.volume = .45;
         sound.play()?.catch(() => {});
       } catch (_) { /* Audio must never block navigation. */ }
     }
@@ -236,7 +273,7 @@
       <g fill="#d2c4a5"><circle cx="67" cy="113" r="4"/><circle cx="133" cy="113" r="4"/><circle cx="84" cy="112" r="2"/><circle cx="116" cy="112" r="2"/></g>
       <g stroke="#bba889" stroke-width="1.5"><path d="m12 108 5 5m0-5-5 5m169-5 5 5m0-5-5 5"/></g>
     </svg>`;
-    if (document.body.classList.contains('art-2d-page')) {
+    if (isDesktopInterface()) {
       button.classList.add('sound-toggle-classic');
       button.innerHTML = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="sound-off" d="m16 9 6 6m0-6-6 6"/><path class="sound-on" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg><span class="sound-toggle-label"></span>';
     }
@@ -244,7 +281,7 @@
       enabled = !enabled;
       try { sessionStorage.setItem(key, String(enabled)); } catch (_) {}
       if (!enabled) stop();
-      else { prepareSounds(); unlockNotes(); }
+      else { prepareSounds(); unlockNotes(); tryAchievementStartup(); }
       cassetteClick();
       if (!window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
         button.animate?.([{ transform: 'translateY(0)' }, { transform: 'translateY(2px) scale(.97)' }, { transform: 'translateY(0)' }], { duration: 140 });
@@ -268,8 +305,13 @@
   }, { once: true });
 
   window.addEventListener('pagehide', stop);
-  document.addEventListener('pointerdown', unlockNotes, { passive: true });
-  document.addEventListener('keydown', unlockNotes);
+  document.addEventListener('pointerdown', () => { unlockNotes(); tryAchievementStartup(); }, { passive: true });
+  document.addEventListener('keydown', () => { unlockNotes(); tryAchievementStartup(); });
+  if (achievementAudio) document.addEventListener('click', event => {
+    const control = event.target.closest?.('button, a[href], summary');
+    if (!control || control.closest('.portfolio-header') || control.matches('.sound-toggle') || control.disabled || control.getAttribute('aria-disabled') === 'true') return;
+    window.portfolioSound.play('achievementClick');
+  });
   window.addEventListener('pageshow', event => {
     if (!event.persisted) return;
     enabled = readEnabled();

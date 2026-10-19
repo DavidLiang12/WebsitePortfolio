@@ -1,0 +1,80 @@
+/* 04 / Black poster, warm phosphor, restrained RGB edges. */
+.theme-black {
+  --study-ground: #101210; --study-paper: #171b17; --study-ink: #efe8d2;
+  --study-accent: #e67549; --study-bright: #d9dca1; --study-muted: #a4ab96;
+  --study-line: #4c5345; --study-shadow: #00000055; --study-masthead: #101310;
+  --study-on-masthead: #efe8d2; --study-summary: #1b211a; --study-summary-ink: #dedfc5;
+  --study-summary-line: #5c624e; --study-track: #58614a55; --study-tint: #e675491a;
+  --study-row: #232920; --study-earned: #191f18; --study-earned-ink: #f4ecd3;
+  --study-earned-muted: #bac0a3; --study-earned-line: #8f9a64; --study-badge-border: #737d64; --study-glow: #d9dca13b;
+  color-scheme: dark; background-image: radial-gradient(#d3dab009 .6px, transparent .9px);
+}
+.theme-black .portfolio-logo-disc { filter: brightness(0) saturate(100%) invert(96%) sepia(14%) saturate(362%) hue-rotate(353deg) brightness(96%) contrast(91%); }
+.theme-black .achievement-masthead { overflow: hidden; isolation: isolate; border-bottom: 1px solid #92997d; padding-right: clamp(2rem, 7vw, 6rem); }
+.theme-black .achievement-masthead::after { content: ''; position: absolute; top: -15px; bottom: 50%; right: 42px; width: 15px; background: linear-gradient(90deg,#90ad68 0 33%,#e5bf62 33% 66%,#df7047 66%); transform: skewX(-17deg); transform-origin: center; opacity: .8; z-index: -1; }
+.theme-black .achievement-masthead h1 { text-transform: uppercase; font-size: clamp(2.3rem,5.1vw,4.8rem); letter-spacing: -.075em; text-shadow: -.7px 0 1.2px #77cd8b55,.7px 0 1.2px #ef67af66,0 0 12px #e9e6c912; }
+.theme-black .achievement-summary { border-width: 1px 0; padding-inline: 0; background: transparent; }
+.theme-black .achievement-summary-copy, .theme-black .achievement-edition, .theme-black .achievement-status { font-family: 'Courier New', monospace; }
+.theme-black .achievement-row { border-width: 1px 0; border-left: 2px solid #4c5345; }
+.theme-black .achievement-row.is-earned { border-left-color: #d9dca1; }
+.theme-black .achievement-copy h2 { text-shadow: -.4px 0 .5px #71dc8760,.4px 0 .5px #e45fbb55; }
+.theme-black .achievement-toolbar { background: #131713; }
+.theme-black .achievement-list { gap: .55rem; }
+.theme-black .achievement-progress { height: 5px; }
+
+/* 05 / An original phosphor monitor interface, with actual working filters. */
+.theme-phosphor {
+  --study-ground: #030a06; --study-paper: #06130b; --study-ink: #b8eac3;
+  --study-accent: #76da94; --study-bright: #a0f6a6; --study-muted: #6d9f7e;
+  --study-line: #31573c; --study-shadow: #00000077; --study-masthead: #07160c;
+  --study-on-masthead: #b8eac3; --study-summary: #0a1e10; --study-summary-ink: #93d7a3;
+  --study-summary-line: #44774e; --study-track: #31573c88; --study-tint: #76da9417;
+  --study-row: #0a1c10; --study-earned: #102a18; --study-earned-ink: #c7fbd0;
+  --study-earned-muted: #8fc9a0; --study-earned-line: #559b64; --study-badge-border: #46754c; --study-glow: #74f49b40;
+  color-scheme: dark; background-image: repeating-linear-gradient(0deg,transparent 0 3px,#b8eac305 3px 4px);
+  font-family: 'Courier New', monospace;
+}
+.theme-phosphor .portfolio-logo-disc { filter: brightness(0) saturate(100%) invert(89%) sepia(31%) saturate(420%) hue-rotate(75deg) brightness(105%) contrast(87%); }
+.theme-phosphor .achievement-collection { box-shadow: 0 0 0 3px #030a06,0 0 0 4px #31573c,0 0 38px #68cc7c08; }
+.study-windowbar { display: flex; justify-content: space-between; gap: 1rem; padding: .55rem .8rem; background: #76da94; color: #07160c; font: bold 12px/1.3 'Courier New',monospace; }
+.study-menubar { padding: .6rem 1rem; border-bottom: 1px solid #31573c; color: #8cbb97; font: 11px/1.3 'Courier New',monospace; letter-spacing: .08em; }
+.theme-phosphor .achievement-masthead { padding-top: 1.75rem; border-bottom: 1px solid #31573c; background-image: repeating-linear-gradient(0deg,transparent 0 3px,#b8eac305 3px 4px); }
+.theme-phosphor .achievement-masthead h1 { font: bold clamp(2.1rem,4.5vw,4rem)/1.1 'Courier New',monospace; letter-spacing: -.065em; text-shadow: 0 0 6px #a0f6a642; }
+.theme-phosphor .achievement-masthead h1::before { content: '> '; color: #76da94; }
+.theme-phosphor .achievement-masthead > p, .theme-phosphor .achievement-copy p, .theme-phosphor .achievement-copy h2, .theme-phosphor .achievement-status, .theme-phosphor .achievement-summary-copy, .theme-phosphor .achievement-filters button, .theme-phosphor .achievement-search input, .theme-phosphor .achievement-edition, .theme-phosphor .achievement-endnote { font-family: 'Courier New',monospace; }
+.theme-phosphor .achievement-copy h2 { font-size: clamp(1.1rem,1.8vw,1.4rem); font-weight: bold; text-shadow: 0 0 5px #a0f6a622; }
+.theme-phosphor .achievement-copy p { font-size: .75rem; }
+.theme-phosphor .achievement-copy .achievement-rarity { font-size: .6875rem; }
+.theme-phosphor .achievement-filters button[aria-pressed='true'] { background: #76da94; color: #06130b; }
+.theme-phosphor .achievement-summary { padding-inline: 1rem; }
+.theme-phosphor .achievement-row { border-left-width: 1px; }
+.theme-phosphor .achievement-row.is-earned { border-left-width: 3px; }
+.theme-phosphor .achievement-progress { height: 9px; }
+.theme-phosphor .achievement-progress > span { background: repeating-linear-gradient(90deg,#a0f6a6 0 9px,transparent 9px 12px); }
+.theme-phosphor .achievement-toolbar { border-block: 1px solid #31573c; }
+
+/* 06 / Red, yellow and black: an arcade hardware sleeve, without brand logos. */
+.theme-redline {
+  --study-ground: #151410; --study-paper: #201e17; --study-ink: #f6dc94;
+  --study-accent: #ef4b3f; --study-bright: #ecc94c; --study-muted: #a99b6c;
+  --study-line: #665a32; --study-shadow: #00000066; --study-masthead: #141410;
+  --study-on-masthead: #ef4b3f; --study-summary: #ecc94c; --study-summary-ink: #302719;
+  --study-summary-line: #ecc94c; --study-track: #50421e55; --study-tint: #ef4b3f18;
+  --study-row: #2a281c; --study-earned: #341e19; --study-earned-ink: #ffebae;
+  --study-earned-muted: #d5b789; --study-earned-line: #a54a30; --study-badge-border: #958344; --study-glow: #ef4b3f45;
+  color-scheme: dark; background-image: radial-gradient(#ffdd7409 .6px,transparent .9px);
+}
+.theme-redline .portfolio-logo-disc { filter: brightness(0) saturate(100%) invert(85%) sepia(48%) saturate(560%) hue-rotate(354deg) brightness(103%) contrast(85%); }
+.theme-redline .achievement-masthead { isolation: isolate; overflow: hidden; border-top: 5px solid #ef4b3f; border-bottom: 2px solid #ecc94c; }
+.theme-redline .achievement-masthead h1 { position: relative; font-family: 'Archivo Black','Arial Black',Arial,sans-serif; font-style: italic; text-transform: uppercase; font-size: clamp(2.3rem,5.1vw,4.8rem); letter-spacing: -.075em; text-shadow: 2px 2px 0 #4a2016; }
+.theme-redline .achievement-masthead > p { color: #ecc94c; opacity: 1; }
+.theme-redline .achievement-edition { color: #ecc94c; }
+.theme-redline .achievement-summary { position: relative; }
+.theme-redline .achievement-summary #achievement-percent { color: #302719; }
+.theme-redline .achievement-summary .achievement-progress > span { background: #dc382e; }
+.study-orbit { position: absolute; right: -30px; top: 15px; width: 300px; height: 300px; color: #e5432f; opacity: .18; z-index: -1; }
+.theme-redline .achievement-row.is-earned { border-left-color: #ef4b3f; }
+.theme-redline .achievement-earned-label { color: #f1c94b; }
+.theme-redline .achievement-filters button[aria-pressed='true'] { background: #ef4b3f; color: #fff0bf; }
+.theme-redline .achievement-badge.earned { border-color: #ef7658; color: #ecc94c; }
+@media (prefers-contrast: more) { .theme-black .achievement-masthead h1, .theme-black .achievement-copy h2, .theme-phosphor .achievement-masthead h1, .theme-phosphor .achievement-copy h2 { text-shadow: none; } }

@@ -1,0 +1,78 @@
+/* One Redline palette; three independent typography and graphic systems. */
+.redline-hero { display: grid; grid-template-columns: minmax(0,1fr) 240px; align-items: center; gap: 2rem; position: relative; }
+.redline-hero-copy { min-width: 0; }
+.redline-hero-copy > p { color: #d4bc7e; font-size: .875rem; }
+.redline-art { display: block; width: 100%; height: auto; }
+.redline-art text { fill: currentColor; stroke: none; }
+.redline-kicker { display: block; margin-bottom: .75rem; color: #ecc94c; font-size: .625rem; letter-spacing: .15em; }
+.redline-variant .achievement-masthead { padding-top: 1.75rem; }
+.redline-variant .achievement-edition { margin-bottom: 1rem; }
+.redline-variant .achievement-masthead h1 { margin-bottom: .9rem; }
+.redline-variant .achievement-summary { margin-top: 1.6rem; }
+.redline-variant .achievement-row { min-height: 126px; }
+
+/* 07 / Italic condensed display, a race circuit and a perspective floor. */
+.variant-racing .achievement-masthead { background-image: linear-gradient(120deg,#ef4b3f09,transparent 70%); }
+.variant-racing .achievement-masthead h1 { font: italic 800 clamp(4rem,8vw,7rem)/.78 'Barlow Condensed',Impact,'Arial Narrow',sans-serif; letter-spacing: -.035em; text-transform: uppercase; text-shadow: none; }
+.variant-racing .achievement-masthead h1 span { display: block; }
+.variant-racing .achievement-masthead h1 span:last-child { color: transparent; -webkit-text-stroke: 1.3px #ecc94c; margin-top: .15em; }
+.variant-racing .redline-hero-copy > p { margin-top: 1.5rem; }
+.variant-racing .redline-kicker, .variant-racing .achievement-edition { font-family: 'IBM Plex Mono','Courier New',monospace; }
+.variant-racing .redline-art { color: #ecc94c; overflow: visible; }
+.variant-racing .achievement-summary { border: none; padding: .9rem 1.2rem; }
+.variant-racing .achievement-progress { height: 5px; }
+.variant-racing .achievement-copy h2 { font: 700 clamp(1.5rem,2.5vw,1.85rem)/1 'Barlow Condensed',Impact,'Arial Narrow',sans-serif; text-transform: uppercase; letter-spacing: .005em; }
+.variant-racing .achievement-filters button { font-family: 'Barlow Condensed','Arial Narrow',sans-serif; text-transform: uppercase; font-size: .95rem; letter-spacing: .04em; }
+.variant-racing .achievement-row { border-left-width: 6px; border-top: 0; border-right: 0; }
+.variant-racing .achievement-badge { border-width: 1px; box-shadow: inset 0 0 0 4px #201e17; }
+.variant-racing .achievement-badge.earned { box-shadow: inset 0 0 0 4px #341e19,0 0 15px #ef4b3f33; }
+
+/* 08 / Monospaced hardware readout, fine circuit traces, precise small type. */
+.variant-console { font-family: 'IBM Plex Mono','Courier New',monospace; }
+.variant-console .study-windowbar { background: #ef4b3f; color: #151410; font: 600 11px/1.4 'IBM Plex Mono','Courier New',monospace; }
+.variant-console .study-menubar { color: #bfae76; border-color: #665a32; font: 400 10px/1.4 'IBM Plex Mono','Courier New',monospace; padding: .6rem 1rem; }
+.variant-console .achievement-masthead { border-top: 0; border-bottom-width: 1px; background-image: radial-gradient(#ecc94c12 .5px,transparent .8px); background-size: 8px 8px; }
+.variant-console .achievement-masthead h1 { font: 500 clamp(1.6rem,3.4vw,3rem)/1.15 'IBM Plex Mono','Courier New',monospace; letter-spacing: -.06em; text-transform: uppercase; text-shadow: 0 0 8px #ef4b3f24; }
+.variant-console .achievement-masthead h1 span { display: block; color: #ecc94c; font-size: .52em; margin-top: .65em; letter-spacing: .06em; }
+.variant-console .redline-kicker { color: #bfae76; font-size: .5625rem; }
+.variant-console .redline-hero-copy > p { font: 400 .6875rem/1.8 'IBM Plex Mono','Courier New',monospace; max-width: 30rem; }
+.variant-console .redline-art { color: #ecc94c; }
+.variant-console .achievement-summary { color: #ecc94c; background: #1a1a13; border: 1px solid #665a32; }
+.variant-console .achievement-summary #achievement-percent { color: #ef4b3f; }
+.variant-console .achievement-summary-copy { font: 500 .6875rem/1.5 'IBM Plex Mono','Courier New',monospace; }
+.variant-console .achievement-summary .achievement-progress { background: #665a3244; }
+.variant-console .achievement-summary .achievement-progress > span { background: repeating-linear-gradient(90deg,#ef4b3f 0 10px,transparent 10px 13px); }
+.variant-console .achievement-edition, .variant-console .achievement-copy h2, .variant-console .achievement-copy p, .variant-console .achievement-status, .variant-console .achievement-filters button, .variant-console .achievement-search input { font-family: 'IBM Plex Mono','Courier New',monospace; }
+.variant-console .achievement-edition { font-size: .5625rem; letter-spacing: .08em; }
+.variant-console .achievement-copy h2 { font-size: 1.0625rem; font-weight: 600; line-height: 1.3; letter-spacing: -.04em; }
+.variant-console .achievement-copy p { font-size: .6875rem; line-height: 1.8; }
+.variant-console .achievement-copy .achievement-rarity { font-size: .625rem; }
+.variant-console .achievement-status { font-size: .625rem; }
+.variant-console .achievement-row { border-width: 1px; border-style: dashed; background-image: linear-gradient(90deg,#ecc94c04,transparent); }
+.variant-console .achievement-row.is-earned { border-style: solid; border-left-width: 3px; }
+.variant-console .achievement-toolbar { border-top: 1px solid #665a32; }
+.variant-console .achievement-filters button { font-size: .6875rem; }
+.variant-console .achievement-badge { border-width: 1px; }
+
+/* 09 / A warm display serif and a scalloped collector's record seal. */
+.variant-club .achievement-masthead { border-top-width: 1px; border-top-color: #665a32; border-bottom: 4px double #ecc94c; }
+.variant-club .achievement-masthead h1 { color: #ef4b3f; font: 900 clamp(2.4rem,5.5vw,5rem)/1 'Fraunces',Georgia,'Times New Roman',serif; letter-spacing: -.065em; text-transform: none; text-shadow: none; }
+.variant-club .redline-hero-copy > p { font: italic 400 1rem/1.6 Georgia,'Times New Roman',serif; max-width: 24rem; }
+.variant-club .redline-kicker { color: #ecc94c; font: 600 .625rem/1.4 'DM Sans',Arial,sans-serif; letter-spacing: .2em; }
+.variant-club .redline-art { color: #ecc94c; }
+.variant-club .achievement-edition { font-size: .625rem; letter-spacing: .15em; }
+.variant-club .achievement-edition span:last-child { border-radius: 100%; padding: .5rem .9rem; transform: rotate(7deg); }
+.variant-club .achievement-summary { background: #702b23; border-color: #bd6844; color: #f6dc94; }
+.variant-club .achievement-summary #achievement-percent { color: #f6dc94; }
+.variant-club .achievement-summary .achievement-progress { background: #f6dc9426; height: 6px; }
+.variant-club .achievement-summary .achievement-progress > span { background: #ecc94c; }
+.variant-club .achievement-copy h2 { font: 700 clamp(1.25rem,2vw,1.6rem)/1.15 'Fraunces',Georgia,'Times New Roman',serif; letter-spacing: -.035em; }
+.variant-club .achievement-list { gap: 0; }
+.variant-club .achievement-row { margin-bottom: .8rem; border-width: 1px 0; padding-block: 1.5rem; background: #25231a; }
+.variant-club .achievement-row.is-earned { background: #341e19; border-color: #a54a30; }
+.variant-club .achievement-badge { border-radius: 50%; border-width: 1px; }
+.variant-club .achievement-badge.earned { color: #ecc94c; border-color: #ecc94c; box-shadow: inset 0 0 0 5px #341e19,0 0 18px #ecc94c30; }
+.variant-club .achievement-filters button { border-radius: 40px; padding-inline: 1rem; }
+.variant-club .achievement-filters button[aria-pressed='true'] { color: #f6dc94; border-color: #a54a30; background: #702b23; }
+@media (max-width: 850px) { .redline-hero { grid-template-columns: minmax(0,1fr) 170px; gap: 1.25rem; } }
+@media (prefers-contrast: more) { .variant-racing .achievement-masthead h1 span:last-child { color: #ecc94c; -webkit-text-stroke: 0; } .variant-console .achievement-masthead h1 { text-shadow: none; } }

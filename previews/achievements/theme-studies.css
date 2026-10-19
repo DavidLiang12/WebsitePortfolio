@@ -1,0 +1,96 @@
+/* Three isolated directions. Production achievement styles stay unchanged. */
+.theme-chooser { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem 1.5rem; padding: .8rem max(2.5rem, calc((100% - 1240px) / 2)); background: var(--study-ink); color: var(--study-paper); font: 500 11px/1.5 'DM Sans', Arial, sans-serif; }
+.theme-chooser > a { text-decoration: none; opacity: .75; }
+.theme-chooser nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+.theme-chooser nav a { text-decoration: none; padding-block: .25rem; border-bottom: 1px solid transparent; opacity: .7; }
+.theme-chooser nav a[aria-current], .theme-chooser nav a:hover { opacity: 1; border-color: var(--study-accent); }
+.theme-chooser > span { font-size: 9px; letter-spacing: .1em; opacity: .6; }
+.achievements-page { --body-background: var(--study-ground); --body-color: var(--study-ink); --active-color: var(--study-accent); --line: var(--study-line); }
+.achievement-collection { border-color: var(--study-line); background: var(--study-paper); box-shadow: 7px 8px 0 var(--study-shadow); }
+.achievement-masthead { background: var(--study-masthead); color: var(--study-on-masthead); }
+.achievement-masthead > p { color: var(--study-on-masthead); opacity: .8; }
+.achievement-edition span:last-child { border-color: currentColor; }
+.achievement-summary { color: var(--study-summary-ink); background: var(--study-summary); border-color: var(--study-summary-line); }
+#achievement-percent { color: var(--study-bright); }
+.achievement-progress { background: var(--study-track); }
+.achievement-progress > span { background: var(--study-bright); }
+.achievement-toolbar { color: var(--study-ink); border-color: var(--study-line); }
+.achievement-filters button { color: var(--study-muted); }
+.achievement-filters button[aria-pressed='true'] { color: var(--study-accent); background: var(--study-tint); border-color: var(--study-accent); }
+.achievement-search input { color: var(--study-ink); border-color: var(--study-line); }
+.achievement-search input::placeholder { color: var(--study-muted); }
+.achievement-row { color: var(--study-muted); background: var(--study-row); border-color: var(--study-line); }
+.achievement-copy h2 { color: var(--study-ink); }
+.achievement-copy .achievement-rarity { color: var(--study-muted); }
+.achievement-row.is-earned { color: var(--study-earned-ink); background: var(--study-earned); border-color: var(--study-earned-line); border-left-color: var(--study-bright); }
+.is-earned .achievement-copy h2 { color: var(--study-earned-ink); }
+.is-earned .achievement-copy p, .is-earned .achievement-copy .achievement-rarity { color: var(--study-earned-muted); }
+.achievement-badge { border-color: var(--study-badge-border); color: var(--study-muted); background: var(--study-row); box-shadow: inset 0 0 0 4px var(--study-paper); }
+.achievement-badge.earned { color: var(--study-bright); background: var(--study-earned); border-color: var(--study-bright); box-shadow: inset 0 0 0 4px var(--study-earned), 0 0 0 1px var(--study-earned-line), 0 0 18px var(--study-glow); }
+.achievement-earned-label { color: var(--study-bright); }
+.achievement-status meter { background: var(--study-track); }
+.achievement-status meter::-webkit-meter-bar { background: var(--study-track); }
+.achievement-status meter::-webkit-meter-optimum-value { background: var(--study-accent); }
+.achievement-status meter::-moz-meter-bar { background: var(--study-accent); }
+.achievement-endnote, .achievement-empty, .achievements-footer { color: var(--study-muted); }
+.achievements-stripes { background: linear-gradient(var(--study-accent) 0 33.333%, var(--study-bright) 33.333% 66.666%, var(--study-ink) 66.666%); }
+.achievements-page .nav-dropdown { background: var(--study-paper); color: var(--study-ink); border-color: var(--study-line); }
+.achievements-page .portfolio-nav .nav-dropdown a:is(:hover, :focus-visible, [aria-current]) { background: var(--study-accent); color: var(--study-paper); }
+
+/* 01 / Light paper, tangerine ink, printed record-sleeve details. */
+.theme-tangerine {
+  --study-ground: #f2e8d5; --study-paper: #fff6e5; --study-ink: #35291f;
+  --study-accent: #d5562b; --study-bright: #f0bd4c; --study-muted: #80664e;
+  --study-line: #c9af8a; --study-shadow: #7546221c; --study-masthead: #d5562b;
+  --study-on-masthead: #fff6e5; --study-summary: #fff6e5; --study-summary-ink: #55331f;
+  --study-summary-line: #fff6e5; --study-track: #c18f4e33; --study-tint: #d5562b14;
+  --study-row: #f3e5cb; --study-earned: #35291f; --study-earned-ink: #fff6e5;
+  --study-earned-muted: #d9c6a9; --study-earned-line: #ad7036; --study-badge-border: #b8a181; --study-glow: #f0bd4c70;
+  background-image: radial-gradient(#77502c16 .6px, transparent .9px);
+}
+.theme-tangerine .achievement-masthead { border-bottom: 9px solid #f0bd4c; }
+.theme-tangerine .achievement-summary #achievement-percent { color: #b33c1c; }
+.theme-tangerine .achievement-summary .achievement-progress > span { background: #d5562b; }
+.theme-tangerine .achievement-masthead h1 { letter-spacing: -.075em; }
+.theme-tangerine .achievement-edition { font-family: 'Courier New', monospace; }
+.theme-tangerine .achievement-row { border-width: 0 0 1px 4px; }
+
+/* 02 / Copper lettering on a dark petrol listening-room palette. */
+.theme-midnight {
+  --study-ground: #142322; --study-paper: #1c302f; --study-ink: #f1e4cd;
+  --study-accent: #de9068; --study-bright: #f1ad72; --study-muted: #a7b7aa;
+  --study-line: #435650; --study-shadow: #07110d44; --study-masthead: #203b38;
+  --study-on-masthead: #f1e4cd; --study-summary: #152826; --study-summary-ink: #ced9c8;
+  --study-summary-line: #52635b; --study-track: #5e777244; --study-tint: #de906819;
+  --study-row: #263c38; --study-earned: #382f27; --study-earned-ink: #fff0d8;
+  --study-earned-muted: #d5ba9a; --study-earned-line: #a2734e; --study-badge-border: #617367; --study-glow: #e7a36a55;
+  background-image: radial-gradient(#b1c4b30b .6px, transparent .9px);
+  color-scheme: dark;
+}
+.theme-midnight .portfolio-logo-disc { filter: brightness(0) saturate(100%) invert(91%) sepia(15%) saturate(466%) hue-rotate(346deg) brightness(102%) contrast(88%); }
+.theme-midnight .achievement-masthead { background-image: radial-gradient(ellipse at 100% 0%, #d6964c13, transparent 65%); border-bottom: 1px solid #617367; }
+.theme-midnight .achievement-masthead h1 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter-spacing: -.055em; }
+.theme-midnight .achievement-row { border-left-width: 1px; }
+.theme-midnight .achievement-row.is-earned { border-left: 4px solid #de9068; }
+.theme-midnight .achievement-toolbar { background: #1a2b29; }
+.theme-midnight .achievement-filters button { border-radius: 3px; }
+
+/* 03 / Mustard sleeves, olive ink, utility-label typography. */
+.theme-olive {
+  --study-ground: #d9d9bd; --study-paper: #efeedc; --study-ink: #354332;
+  --study-accent: #536343; --study-bright: #dfbb53; --study-muted: #69745a;
+  --study-line: #a1aa88; --study-shadow: #35433220; --study-masthead: #d5b64f;
+  --study-on-masthead: #354332; --study-summary: #354332; --study-summary-ink: #efeedc;
+  --study-summary-line: #354332; --study-track: #a1aa8844; --study-tint: #53634314;
+  --study-row: #e0e2c9; --study-earned: #354332; --study-earned-ink: #f3edd3;
+  --study-earned-muted: #c3c8a8; --study-earned-line: #8c965c; --study-badge-border: #929e7a; --study-glow: #dfbb5360;
+  background-image: repeating-linear-gradient(0deg, transparent 0 3px, #35433207 3px 4px);
+}
+.theme-olive .portfolio-logo-disc { filter: brightness(0) saturate(100%) invert(24%) sepia(14%) saturate(770%) hue-rotate(60deg) brightness(92%) contrast(92%); }
+.theme-olive .achievement-masthead { border-bottom: 3px solid #354332; }
+.theme-olive .achievement-masthead h1 { font-family: 'Arial Black', 'Archivo Black', Arial, sans-serif; text-transform: uppercase; font-size: clamp(2.2rem, 5vw, 4.4rem); letter-spacing: -.06em; }
+.theme-olive .achievement-edition, .theme-olive .achievement-summary-copy, .theme-olive .achievement-filters button, .theme-olive .achievement-status { font-family: 'Courier New', monospace; }
+.theme-olive .achievement-row { border-style: dashed; border-left-style: solid; }
+.theme-olive .achievement-row.is-earned { border-style: solid; }
+.theme-olive .achievement-copy h2 { letter-spacing: -.02em; }
+@media (max-width: 900px) { .theme-chooser { padding-inline: 1.5rem; } .theme-chooser > span { display: none; } }

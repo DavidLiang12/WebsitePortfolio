@@ -80,6 +80,14 @@
     syncGame(panel);
     focus(panel); panel.focus({ preventScroll: true });
     announcement.textContent = `${nameOf(panel)} opened.`;
+    window.portfolioAchievements?.open2D(id);
+    requestAnimationFrame(() => checkProjectBottom(panel));
+  }
+
+  function checkProjectBottom(panel) {
+    if (panel.hidden || active !== panel.id || document.hidden) return;
+    const reader = panel.querySelector('.spring-content') || panel;
+    if (reader.scrollTop + reader.clientHeight >= reader.scrollHeight - 8) window.portfolioAchievements?.complete2D(panel.id);
   }
 
   function focusNext(panel) {
@@ -116,6 +124,7 @@
   });
 
   windows.forEach(panel => {
+    (panel.querySelector('.spring-content') || panel).addEventListener('scroll', () => checkProjectBottom(panel), { passive: true });
     panel.addEventListener('pointerdown', () => focus(panel));
     panel.addEventListener('focusin', () => { if (active !== panel.id) focus(panel); });
     const close = () => {

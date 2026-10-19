@@ -1,0 +1,28 @@
+/* Title-only studies; all keep the current palette, CRT filter and rotating sphere. */
+.title-study-nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem 1.5rem; padding: .75rem 1.5rem; border-bottom: 1px solid #665a32; background: #1c1a13; color: #c5b582; font: 400 .625rem/1.6 'IBM Plex Mono', monospace; }
+.title-study-nav nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+.title-study-nav a { display: inline-flex; align-items: center; min-height: 30px; text-decoration: none; }
+.title-study-nav a:hover, .title-study-nav a[aria-current] { color: #ecc94c; text-decoration: underline; text-underline-offset: 4px; }
+.title-study .achievement-hero { grid-template-columns: minmax(0, 1fr) minmax(230px, 27%); gap: .5rem; }
+.title-study .achievement-hero-copy { padding: 0; }
+.title-study .achievement-masthead h1 { margin: 0; font: inherit; line-height: 0; letter-spacing: normal; text-shadow: none; text-transform: none; }
+.title-study .slant-title { display: block; width: 100%; height: auto; overflow: visible; }
+.title-study .slant-title text { text-shadow: none; }
+.slanted-signal .slant-title { filter: drop-shadow(0 0 5px #ef4b3f66); }
+.slanted-velocity .slant-title { filter: drop-shadow(0 0 6px #ef4b3f44); }
+.slanted-echo .slant-title { filter: drop-shadow(0 0 5px #ecc94c55); }
+.title-study .achievement-summary { margin-top: .8rem; }
+.title-study .achievement-globe { width: 100%; justify-self: end; }
+.title-study .achievements-footer a { text-decoration: none; text-underline-offset: 4px; }
+.title-study .achievements-footer a:hover { text-decoration: underline; }
+.title-study-embedded .title-study-nav, .title-study-embedded .portfolio-header, .title-study-embedded .achievements-footer { display: none; }
+.title-study-embedded { scrollbar-width: none; }
+.title-study-embedded::-webkit-scrollbar { display: none; }
+.title-study-embedded .achievements-main { width: calc(100% - 24px); padding-block: 12px; }
+/* Avoid sampling subpixel cells away in the reduced comparison thumbnails. */
+.title-study-embedded .achievement-pc-page.crt-filter-on .achievement-screen :is(.achievement-masthead, .achievement-toolbar, .achievement-row, .achievement-endnote, .achievement-empty) { filter: none; }
+@media (min-width: 641px) and (max-width: 900px) {
+  .title-study .achievement-hero { grid-template-columns: minmax(0, 1fr) 185px; gap: .25rem; }
+  .title-study .achievement-masthead { padding: 1.25rem; }
+}
+@media (prefers-contrast: more), (forced-colors: active) { .title-study .slant-title { filter: none; } }
