@@ -4,16 +4,22 @@
   const key = 'portfolio-sound-enabled';
   const sounds = new Map();
   const files = { click: 'Click.MP3', cd: 'CD.MP3', tv: 'TV-Shut.MP3', film: '3D-Transition.mp3', achievement:'achievement.mp3', cassetteToggle: 'cassette-toggle.mp3' };
+  const notePitches = [60, 62, 64, 67, 69, 72];
+  notePitches.forEach(midi => { files[`note${midi}`] = `generated/note-${midi}.wav`; });
+  Object.assign(files, {
+    tapeTransition: 'generated/transition-tape.wav',
+    cdTransition: 'generated/transition-cd.wav',
+    gamesOut: 'generated/iris-games-out.wav', gamesIn: 'generated/iris-games-in.wav',
+    projectsOut: 'generated/iris-projects-out.wav', projectsIn: 'generated/iris-projects-in.wav'
+  });
   const achievementAudio = document.currentScript.dataset?.achievementAudio === 'true';
   if (achievementAudio) Object.assign(files, { achievementClick: 'achievement-click.mp3', achievementStartup: 'achievement-startup.mp3' });
   const readEnabled = () => { try { return sessionStorage.getItem(key) === 'true'; } catch (_) { return false; } };
   let enabled = readEnabled();
   let button;
-  let audioContext;
   let startupPending = false, startupAttempting = false;
   const voices = new Set();
   let tvFade = 0;
-  const transitionBuffers = new Map();
   const clickNotes = [60, 64, 67, 69, 62, 67, 64, 72];
   const noteKey = 'portfolio-click-note';
   let nextNote = 0;
@@ -35,20 +41,40 @@
     });
   }
 
-  function unlockNotes(force = false) {
-    if (!enabled && force !== true) return;
+  function stopVoice(voice) {
+    voice.pause();
+    voice.currentTime = 0;
+    voice.onended?.();
+  }
+
+  // AudioContext construction can synchronously stall Chrome on macOS for
+  // several seconds. Use pre-rendered clips for notes AND transitions so the
+  // stall cannot move from unmute to the next click or page change.
+  function playVoice(name, volume, rate = 1) {
+    const clip = sounds.get(name);
+    if (!enabled || !clip || clip.readyState < 3) return;
     try {
-      const Context = window.AudioContext || window.webkitAudioContext;
-      if (!Context) return;
-      if (!audioContext) audioContext = new Context();
-      if (audioContext.state === 'suspended') audioContext.resume()?.catch(() => {});
-    } catch (_) { /* Synthesized notes are optional. */ }
+      if (voices.size >= 8) stopVoice(voices.values().next().value);
+      const voice = clip.cloneNode(true);
+      voice.volume = volume;
+      voice.playbackRate = rate;
+      voice.preservesPitch = false;
+      voices.add(voice);
+      // A cached clip should start immediately. Drop a pending play request
+      // rather than letting feedback arrive after its interaction has passed.
+      const deadline = setTimeout(() => stopVoice(voice), 120);
+      voice.onended = () => { clearTimeout(deadline); voices.delete(voice); };
+      Promise.resolve(voice.play()).then(() => {
+        clearTimeout(deadline);
+        if (!voices.has(voice)) stopVoice(voice);
+      }, () => stopVoice(voice));
+    } catch (_) { /* Audio must never interrupt interaction. */ }
   }
 
   function stop() {
     startupPending = false;
     cancelAnimationFrame(tvFade);
-    voices.forEach(voice => { try { voice.stop(); } catch (_) {} });
+    voices.forEach(stopVoice);
     voices.clear();
     sounds.forEach(sound => {
       sound.pause();
@@ -79,6 +105,7 @@
     try {
       prepareSounds();
       const sound = sounds.get('cassetteToggle');
+      if (!sound || sound.readyState < 3) return;
       sound.currentTime = 0;
       sound.volume = .65;
       sound.play()?.catch(() => {});
@@ -116,65 +143,14 @@
     },
     note(midi, volume = 1) {
       if (!enabled || !Number.isFinite(midi) || midi < 36 || midi > 96) return;
-      unlockNotes();
-      if (!audioContext || audioContext.state !== 'running') return;
-      try {
-        if (voices.size >= 8) {
-          const oldest = voices.values().next().value;
-          oldest.stop();
-          voices.delete(oldest);
-        }
-        const oscillator = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        const now = audioContext.currentTime;
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(440 * 2 ** ((midi - 69) / 12), now);
-        gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(.05 * Math.max(0, Math.min(2, Number(volume) || 1)), now + .018);
-        gain.gain.exponentialRampToValueAtTime(.001, now + .27);
-        oscillator.connect(gain);
-        gain.connect(audioContext.destination);
-        voices.add(oscillator);
-        oscillator.onended = () => { voices.delete(oscillator); oscillator.disconnect(); gain.disconnect(); };
-        oscillator.start(now);
-        oscillator.stop(now + .29);
-      } catch (_) { /* Audio must never interrupt interaction. */ }
+      const pitch = notePitches.reduce((nearest, value) => Math.abs(value - midi) < Math.abs(nearest - midi) ? value : nearest);
+      playVoice(`note${pitch}`, .05 * Math.max(0, Math.min(2, Number(volume) || 1)), 2 ** ((midi - pitch) / 12));
     },
     transition(type, phase = 'out', from) {
       if (!enabled) return;
       if (type === 'iris') {
-        // The arrow's rounded sine voice, stretched into a closing/opening phrase.
-        // Each page owns its 520ms half so navigation cannot cut the phrase short.
-        unlockNotes();
-        if (!audioContext) return;
-        const requested = performance.now();
-        const playPhrase = () => {
-          if (!enabled || audioContext.state !== 'running' || performance.now() - requested > 120) return;
-          try {
-            const now = audioContext.currentTime;
-            const notes = from === 'projects.html'
-              ? (phase === 'in' ? [62, 69] : [57, 60])
-              : (phase === 'in' ? [67, 72] : [60, 64]);
-            notes.forEach((midi, index) => {
-              const oscillator = audioContext.createOscillator();
-              const gain = audioContext.createGain();
-              const start = now + index * .10;
-              oscillator.type = 'sine';
-              oscillator.frequency.setValueAtTime(440 * 2 ** ((midi - 69) / 12), start);
-              gain.gain.setValueAtTime(0, start);
-              gain.gain.linearRampToValueAtTime(index ? .022 : .045, start + .065);
-              gain.gain.exponentialRampToValueAtTime(.012, now + .31);
-              gain.gain.exponentialRampToValueAtTime(.0001, now + .50);
-              gain.gain.linearRampToValueAtTime(0, now + .52);
-              oscillator.connect(gain); gain.connect(audioContext.destination);
-              voices.add(oscillator);
-              oscillator.onended = () => { voices.delete(oscillator); oscillator.disconnect(); gain.disconnect(); };
-              oscillator.start(start); oscillator.stop(now + .52);
-            });
-          } catch (_) { /* Optional musical feedback must never delay the iris. */ }
-        };
-        if (audioContext.state === 'running') playPhrase();
-        else audioContext.resume()?.then(playPhrase).catch(() => {});
+        const page = from === 'projects.html' ? 'projects' : 'games';
+        playVoice(`${page}${phase === 'in' ? 'In' : 'Out'}`, 1);
         return;
       }
       if (type === 'film') {
@@ -205,35 +181,7 @@
         } catch (_) { /* A failed effect must never delay navigation. */ }
         return;
       }
-      if (!['tape','cd','iris','film'].includes(type)) return;
-      unlockNotes();
-      if (!audioContext || audioContext.state !== 'running') return;
-      try {
-        const duration = type === 'tape' ? .48 : .52;
-        if (!transitionBuffers.has(type)) {
-          const buffer = audioContext.createBuffer(1, Math.ceil(audioContext.sampleRate * duration), audioContext.sampleRate);
-          const samples = buffer.getChannelData(0);
-          let warmNoise = 0, phase = 0;
-          for (let i = 0; i < samples.length; i++) {
-            const t = i / audioContext.sampleRate, p = t / duration;
-            warmNoise = warmNoise * .97 + (Math.random() * 2 - 1) * .03;
-            const envelope = Math.pow(Math.sin(Math.PI * p), 1.8);
-            const hz = type === 'iris' ? 165 - 80*p : type === 'cd' ? 210 - 85*p : type === 'film' ? 115 : 145;
-            phase += 2 * Math.PI * hz / audioContext.sampleRate;
-            const pulse = type === 'tape'
-              ? [0,.045,.09].reduce((sum, offset) => sum + Math.exp(-Math.pow((t-offset-.11)/.048,2)),0)/2
-              : type === 'film' ? .35 + .65*Math.pow(Math.sin(Math.PI*t/.13),2) : 1;
-            samples[i] = envelope * (Math.sin(phase)*.14*pulse + warmNoise*(type === 'film' ? 1.1 : .65));
-          }
-          transitionBuffers.set(type, buffer);
-        }
-        const source = audioContext.createBufferSource();
-        const gain = audioContext.createGain();
-        source.buffer = transitionBuffers.get(type); gain.gain.value = .48;
-        source.connect(gain); gain.connect(audioContext.destination); voices.add(source);
-        source.onended = () => { voices.delete(source); source.disconnect(); gain.disconnect(); };
-        source.start(); source.stop(audioContext.currentTime + duration);
-      } catch (_) { /* Navigation stays independent of optional audio. */ }
+      if (type === 'tape' || type === 'cd') playVoice(`${type}Transition`, .48);
     },
     play(name) {
       if (!enabled || !Object.hasOwn(files, name)) return;
@@ -280,13 +228,13 @@
     button.addEventListener('click', () => {
       enabled = !enabled;
       try { sessionStorage.setItem(key, String(enabled)); } catch (_) {}
+      render();
       if (!enabled) stop();
-      else { prepareSounds(); unlockNotes(); tryAchievementStartup(); }
+      else { prepareSounds(); tryAchievementStartup(); }
       cassetteClick();
       if (!window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
         button.animate?.([{ transform: 'translateY(0)' }, { transform: 'translateY(2px) scale(.97)' }, { transform: 'translateY(0)' }], { duration: 140 });
       }
-      render();
     });
     render();
     const homeBottom = document.querySelector('.cassette-intro-bottom');
@@ -305,8 +253,8 @@
   }, { once: true });
 
   window.addEventListener('pagehide', stop);
-  document.addEventListener('pointerdown', () => { unlockNotes(); tryAchievementStartup(); }, { passive: true });
-  document.addEventListener('keydown', () => { unlockNotes(); tryAchievementStartup(); });
+  document.addEventListener('pointerdown', tryAchievementStartup, { passive: true });
+  document.addEventListener('keydown', tryAchievementStartup);
   if (achievementAudio) document.addEventListener('click', event => {
     const control = event.target.closest?.('button, a[href], summary');
     if (!control || control.closest('.portfolio-header') || control.matches('.sound-toggle') || control.disabled || control.getAttribute('aria-disabled') === 'true') return;

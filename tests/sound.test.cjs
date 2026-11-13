@@ -5,7 +5,8 @@ const vm = require('node:vm');
 const source = fs.readFileSync(`${__dirname}/../js/sound.js`, 'utf8');
 
 function setup(storage = new Map(), blocked = false, desktop = false) {
-  const events = {}, windowEvents = {}, audio = [], notes = [], buffers = [], gains = [];
+  const events = {}, windowEvents = {}, audio = [], notes = [], voices = [], deadlines = new Map();
+  let nextTimer = 0, contextAttempts = 0;
   const boot = { hidden: true };
   const label = {};
   const button = {
@@ -15,25 +16,28 @@ function setup(storage = new Map(), blocked = false, desktop = false) {
     addEventListener(name, handler) { this[name] = handler; }
   };
   const window = { addEventListener(name, handler) { windowEvents[name] = handler; } };
-  window.AudioContext = function() {
-    this.state = 'running'; this.currentTime = 0; this.destination = {}; this.sampleRate = 44100;
-    this.createBuffer = (_, length) => ({ getChannelData: () => new Float32Array(length) });
-    this.createBufferSource = () => {
-      const source = { connect() {}, disconnect() {}, start() { this.started = true; }, stop(time) { if (time === undefined) this.muted = true; } };
-      buffers.push(source); return source;
+  for (const name of ['AudioContext', 'webkitAudioContext']) Object.defineProperty(window, name, {
+    get() { contextAttempts++; throw Error('Web Audio startup would block the browser'); }
+  });
+  function Audio(url) {
+    this.url = url; this.plays = 0; this.pauses = 0; this.readyState = 4;
+    this.listeners = {};
+    this.addEventListener = (name, handler) => { this.listeners[name] = handler; };
+    this.load = () => { this.loads = (this.loads || 0) + 1; };
+    this.play = () => { this.plays++; return this.playPromise || (this.playError ? Promise.reject(this.playError) : Promise.resolve()); };
+    this.pause = () => { this.pauses++; this.muted = true; };
+    this.cloneNode = () => {
+      const voice = new Audio();
+      voice.src = this.src; voice.playError = this.playError; voice.playPromise = this.playPromise;
+      voices.push(voice);
+      if (this.src.includes('/note-')) notes.push(voice);
+      return voice;
     };
-    this.createBiquadFilter = () => ({ frequency: {}, Q: {}, connect() {}, disconnect() {} });
-    this.createOscillator = () => {
-      const note = { frequency: { setValueAtTime(value) { note.hz = value; } }, connect() {}, disconnect() {}, start() {}, stop(time) { if (time === undefined) note.muted = true; } };
-      notes.push(note); return note;
-    };
-    this.createGain = () => {
-      const gain = { gain: { setValueAtTime() {}, linearRampToValueAtTime(value) { gain.peak = value; }, exponentialRampToValueAtTime() {} }, connect() {}, disconnect() {} };
-      gains.push(gain); return gain;
-    };
-  };
+    audio.push(this);
+  }
   vm.runInNewContext(source, {
     URL, window, cancelAnimationFrame() {}, requestAnimationFrame() { return 1; }, performance: { now: () => 0 },
+    setTimeout(fn) { deadlines.set(++nextTimer, fn); return nextTimer; }, clearTimeout(id) { deadlines.delete(id); },
     document: {
       currentScript: { src: 'https://example.com/portfolio/js/sound.js', dataset: desktop === 'achievement-pc-page' ? {achievementAudio:'true'} : {} },
       createElement(tag) { return tag === 'button' ? button : { append() {} }; },
@@ -46,27 +50,47 @@ function setup(storage = new Map(), blocked = false, desktop = false) {
       getItem(key) { if (blocked) throw Error('blocked'); return storage.get(key); },
       setItem(key, value) { if (blocked) throw Error('blocked'); storage.set(key, value); }
     },
-    Audio: function(url) {
-      this.url = url; this.plays = 0; this.pauses = 0; this.readyState = 4;
-      this.listeners = {};
-      this.addEventListener = (name, handler) => { this.listeners[name] = handler; };
-      this.load = () => { this.loads = (this.loads || 0) + 1; };
-      this.play = () => { this.plays++; return this.playError ? Promise.reject(this.playError) : Promise.resolve(); };
-      this.pause = () => { this.pauses++; };
-      audio.push(this);
-    }
+    Audio
   });
   events.DOMContentLoaded();
-  return { sound: window.portfolioSound, button, label, audio, notes, buffers, gains, windowEvents, events, boot };
+  return { sound: window.portfolioSound, button, label, audio, notes, voices, deadlines, contextAttempts: () => contextAttempts,
+    windowEvents, events, boot, expire() { [...deadlines.values()].forEach(fn => fn()); } };
 }
 
 test('new visits preload effects while remaining silent', () => {
   const app = setup();
   app.sound.play('cd'); app.sound.play('click');
   assert.equal(app.sound.muted, true);
-  assert.equal(app.audio.length, 6);
+  assert.equal(app.audio.length, 18);
   assert.ok(app.audio.every(sound => sound.loads === 1 && sound.plays === 0));
   assert.equal(app.button.attributes['aria-label'], 'Unmute sound effects');
+});
+
+test('unmute, subsequent gestures, notes and every transition avoid Web Audio startup', () => {
+  const app = setup();
+  app.button.click();
+  app.events.pointerdown(); app.events.keydown();
+  app.sound.softClick(); app.sound.note(61);
+  for (const type of ['tape', 'cd', 'film', 'crt']) app.sound.transition(type);
+  for (const from of ['games.html', 'projects.html']) for (const phase of ['in', 'out']) app.sound.transition('iris', phase, from);
+  assert.equal(app.contextAttempts(), 0, 'no interaction may touch either AudioContext constructor');
+  const clips = app.voices.map(voice => voice.src.split('/').at(-1));
+  for (const name of ['transition-tape', 'transition-cd', 'iris-games-in', 'iris-games-out', 'iris-projects-in', 'iris-projects-out']) {
+    assert.ok(clips.includes(`${name}.wav`), name);
+  }
+});
+
+test('every preloaded effect exists, with valid short PCM clips for the former synth sounds', () => {
+  for (const sound of setup().audio) {
+    const relative = new URL(sound.src).pathname.replace('/portfolio/', '');
+    const data = fs.readFileSync(`${__dirname}/../${relative}`);
+    if (!relative.includes('/generated/')) continue;
+    assert.equal(data.toString('ascii', 0, 4), 'RIFF');
+    assert.equal(data.toString('ascii', 8, 12), 'WAVE');
+    assert.equal(data.readUInt16LE(20), 1, 'uncompressed PCM');
+    const duration = data.readUInt32LE(40) / data.readUInt32LE(28);
+    assert.ok(duration >= .28 && duration <= .53, relative);
+  }
 });
 
 test('achievement PC uses the compact speaker and its shutdown sound respects mute', () => {
@@ -88,7 +112,7 @@ test('unmute enables effects, mute stops them immediately and blocks new playbac
   const app = setup();
   app.button.click();
   app.sound.play('cd'); app.sound.play('click');
-  assert.equal(app.audio.length, 6);
+  assert.equal(app.audio.length, 18);
   assert.equal(app.audio[0].src, 'https://example.com/portfolio/Sound/Click.MP3');
   assert.equal(app.audio[0].plays, 1);
   assert.equal(app.label.textContent, 'Unmuted');
@@ -125,8 +149,9 @@ test('soft notes have stable pitches and respect mute immediately', () => {
   assert.equal(app.notes.length, 0);
   app.button.click();
   app.sound.note(60); app.sound.note(67); app.sound.note(60);
-  assert.equal(app.notes[0].hz, app.notes[2].hz);
-  assert.notEqual(app.notes[0].hz, app.notes[1].hz);
+  assert.equal(app.notes[0].src, app.notes[2].src);
+  assert.notEqual(app.notes[0].src, app.notes[1].src);
+  assert.ok(app.notes.every(note => note.preservesPitch === false && note.playbackRate === 1));
   app.button.click();
   assert.ok(app.notes.every(note => note.muted));
   app.sound.note(72);
@@ -141,6 +166,41 @@ test('rapid notes limit overlapping voices and page exit stops them', () => {
   assert.ok(app.notes.every(note => note.muted));
 });
 
+test('a late-loading note or latch is dropped instead of queued', () => {
+  const app = setup();
+  app.audio.forEach(sound => { sound.readyState = 0; });
+  app.button.click(); app.sound.softClick(); app.sound.transition('tape');
+  assert.equal(app.voices.length, 0);
+  assert.ok(app.audio.every(sound => sound.plays === 0));
+});
+
+test('pending playback expires and cannot restart after muting or leaving', async () => {
+  for (const stop of ['expire', 'mute', 'pagehide']) {
+    const app = setup();
+    let resolvePlay;
+    app.audio.find(sound => sound.src.endsWith('note-60.wav')).playPromise = new Promise(resolve => { resolvePlay = resolve; });
+    app.button.click(); app.sound.note(60);
+    const voice = app.voices[0];
+    if (stop === 'expire') app.expire();
+    if (stop === 'mute') app.button.click();
+    if (stop === 'pagehide') app.windowEvents.pagehide();
+    assert.ok(voice.pauses > 0, stop);
+    assert.equal(app.deadlines.size, 0);
+    const pauses = voice.pauses;
+    resolvePlay(); await new Promise(setImmediate);
+    assert.ok(voice.pauses > pauses, 'a late play resolution is stopped again');
+  }
+});
+
+test('blocked note playback releases its voice and timer', async () => {
+  const app = setup();
+  app.audio.find(sound => sound.src.endsWith('note-60.wav')).playError = new Error('NotAllowedError');
+  app.button.click(); app.sound.note(60);
+  await new Promise(setImmediate);
+  assert.equal(app.voices[0].pauses, 1);
+  assert.equal(app.deadlines.size, 0);
+});
+
 test('click notes vary, continue across pages, and stay silent when muted', () => {
   const storage = new Map();
   const first = setup(storage);
@@ -148,11 +208,10 @@ test('click notes vary, continue across pages, and stay silent when muted', () =
   assert.equal(first.notes.length, 0);
   first.button.click();
   first.sound.softClick(); first.sound.softClick();
-  assert.notEqual(first.notes[0].hz, first.notes[1].hz);
-  assert.equal(first.notes[0].type, 'sine');
+  assert.notEqual(first.notes[0].src, first.notes[1].src);
   const second = setup(storage);
   second.sound.softClick();
-  assert.notEqual(second.notes[0].hz, first.notes[1].hz);
+  assert.notEqual(second.notes[0].src, first.notes[1].src);
   second.button.click(); second.sound.softClick();
   assert.equal(second.notes.length, 1);
   assert.ok(second.notes[0].muted);
@@ -161,9 +220,9 @@ test('click notes vary, continue across pages, and stay silent when muted', () =
 test('a cold effect uses an immediate note instead of queuing late playback', () => {
   const app = setup();
   app.button.click();
-  app.audio.forEach(sound => { sound.readyState = 0; });
+  app.audio.find(sound => sound.src.endsWith('CD.MP3')).readyState = 0;
   app.sound.play('cd');
-  assert.ok(app.audio.filter(sound => !sound.src.endsWith('/cassette-toggle.mp3')).every(sound => sound.plays === 0));
+  assert.equal(app.audio.find(sound => sound.src.endsWith('CD.MP3')).plays, 0);
   assert.equal(app.notes.length, 1);
   app.audio.forEach(sound => { sound.readyState = 4; });
   app.sound.play('cd');
@@ -178,11 +237,10 @@ test('2D desktop retains the compact speaker control and original labels', () =>
   assert.equal(app.label.textContent, 'Mute sound effects');
 });
 
-test('home arrow volume increases the soft note without changing its envelope', () => {
+test('home arrow volume increases the same pre-rendered soft note', () => {
   const app = setup(); app.button.click();
   app.sound.softClick(); app.sound.softClick(1.8);
-  const notes = app.gains.filter(gain => gain.peak !== undefined);
-  assert.ok(Math.abs(notes[1].peak / notes[0].peak - 1.8) < 0.001);
+  assert.ok(Math.abs(app.notes[1].volume / app.notes[0].volume - 1.8) < 0.001);
 });
 
 test('cassette latch sounds on both toggle directions, with no sound on initial load', () => {

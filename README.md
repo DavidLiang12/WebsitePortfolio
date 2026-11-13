@@ -13,3 +13,5 @@ The 2D project windows are Quick Sketches, Pixel Art, Rat Character, Magic Redes
 Unlocked/locked filters are local to the collection page. Locked descriptions and percentages stay hidden. Visitor percentages are fixed presentation values, not shared analytics; no server or personal visitor identity is involved.
 
 Run the interaction and state checks with `node --test tests/*.test.cjs`.
+
+Notes and musical page transitions use the short WAV clips in `Sound/generated/` through HTML audio. This avoids a multi-second synchronous `AudioContext` startup stall observed in Chrome on macOS. Regenerate the clips with `python3 scripts/generate-sound-clips.py`. Effects preload silently; unavailable clips are skipped, pending playback expires after 120 ms, and muting or leaving stops active voices.
