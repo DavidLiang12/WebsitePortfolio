@@ -23,13 +23,23 @@ test('first project, category exploration and repeated visits use distinct proje
 });
 test('all Games, Side B, all 2D projects and the full collection have independent goals', () => {
   assert.equal(model.achievements.length, 11);
-  assert.equal(paths.length, 16);
+  assert.equal(paths.length, 17);
   assert.equal(earned(visitAll('games'), 'games'), true);
   assert.equal(earned(visitAll('projects'), 'projects'), true);
   assert.equal(earned(visitAll('art2d'), 'art2d'), true);
   const onlyDetails = paths.filter(path => !path.includes('#')).reduce(model.visit, null);
   assert.equal(earned(onlyDetails, 'all'), false);
   assert.equal(earned(visitAll(), 'all'), true);
+});
+test('Fudge It is required for the expanded Games and full-collection achievements', () => {
+  const fudge = 'games/fudge-it.html';
+  const previousGames = paths.filter(path => model.projects[path] === 'games' && path !== fudge).reduce(model.visit, null);
+  assert.equal(previousGames.visited.length, 6);
+  assert.equal(earned(previousGames, 'games'), false);
+  assert.equal(earned(model.visit(previousGames, fudge), 'games'), true);
+  const previousCollection = paths.filter(path => path !== fudge).reduce(model.visit, null);
+  assert.equal(earned(previousCollection, 'all'), false);
+  assert.equal(earned(model.visit(previousCollection, fudge), 'all'), true);
 });
 test('tab visits, opening 2D art, Ollie and saving Paint are separate actions', () => {
   let state = model.enter(null, 'art-2d.html');
@@ -47,7 +57,7 @@ test('tab visits, opening 2D art, Ollie and saving Paint are separate actions', 
 });
 test('End of the line requires every page and project bottom, not just opening them', () => {
   let state = model.pages.reduce(model.enter, visitAll());
-  assert.equal(model.completionTargets.length, 23);
+  assert.equal(model.completionTargets.length, 24);
   assert.equal(earned(state, 'bottoms'), false);
   const last = model.completionTargets.at(-1);
   state = model.completionTargets.slice(0,-1).reduce(model.complete, state);

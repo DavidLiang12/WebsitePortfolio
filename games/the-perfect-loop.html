@@ -90,6 +90,7 @@ a { color: inherit; }
 .project-section + .project-section { border-top: 1px solid var(--line); padding-top: 2.2rem; margin-top: 2.6rem; }
 .project-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; align-items: start; margin-top: 1.6rem; }
 .project-images.single { grid-template-columns: 1fr; }
+.loop-ideation { margin-bottom: 1.4rem; }
 .project-images figure { min-width: 0; background: #edd1a9; padding: .65rem; }
 .project-images img { width: 100%; height: auto; }
 .project-images figcaption { color: var(--muted); padding: .65rem .15rem .1rem; font-size: .75rem; line-height: 1.5; }
@@ -153,7 +154,7 @@ a { color: inherit; }
 
 
   <link rel="stylesheet" href="../css/achievements.css?v=exploration-3">
-  <script defer src="../js/achievement-state.js?v=achievement-rules-4"></script>
+  <script defer src="../js/achievement-state.js?v=achievement-rules-5"></script>
   <script defer src="../js/achievement-notifications.js?v=boot-aware-4"></script>
   <script defer src="../js/site-achievements.js?v=achievement-rules-5"></script>
 </head>
@@ -190,13 +191,14 @@ a { color: inherit; }
 <div class="project-images"><figure><img src="../images/PerfectLOOp/T0T1MCnvIjByu2ZSyRNeov9NWU.jpg" alt="Completed road loop around a low-poly city" width="2048" height="1140" loading="lazy" decoding="async"></figure><figure><img src="../images/PerfectLOOp/3be6G3XMuEy0vt3At5Q5gaGBAQ.jpg" alt="A looping route connecting a Mars colony" width="2048" height="1147" loading="lazy" decoding="async"></figure></div>
 </section>
 <section class="project-section">
-<div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2>Design Goals</h2></div>
+<div class="section-heading"><span class="section-number" aria-hidden="true">02</span><h2 id="design-goals">Design Goals</h2></div>
+<div class="project-images single loop-ideation"><figure><img src="../images/PerfectLOOp/design-ideation-web.webp" alt="Early forest, city, and Mars puzzle sketches alongside documented questions about clues, tutorials, completion feedback, and animation." width="2048" height="1431" loading="lazy" decoding="async"><figcaption>Early ideation and visual sketches explored how the game could look, while documenting design problems and questions about clues, tutorials, and completion feedback.</figcaption></figure></div>
 <p>The core goal behind The Perfect LOOP was to explore the theme of “loop” through puzzles. My starting inspiration came from the image of river flowing through land, bringing life to its surroundings. The more trees there were, the more water was needed, which naturally translated into a puzzle mechanic where certain areas required more sides of the loop to be covered.</p>
 <p>From there, the concept turned into creating new themes such as cities and Mars colonies, allowing players to feel a sense of progression as they advanced through the levels.</p>
 <p>I sketched out the early level to introduce players to the mechanic on a 3x3 grid, then layered in complexity by combining clue types and expanding grid size. Each level had to be tested to make sure there's only one unique solution.</p>
 <p>Due to time constraints, I wasn’t able to implement a fully dynamic grid checker. Instead, I created a hardcoded solution system where vertical and horizontal lines were separated into two grid maps, and I manually defined the correct solution by editing coordinates for each level. While less scalable than a dynamic system, this approach allowed me to validate solutions reliably and complete the prototype within the project deadline.</p>
-<div class="project-images single"><figure><img src="../images/PerfectLOOp/5VeRzEX2tvoHAGzHrEbStMWL7Ak-web.webp" alt="Hand-drawn 3 by 3 and 4 by 3 puzzle grids with vertical and horizontal edge coordinates" width="2048" height="1236" loading="lazy" decoding="async"></figure></div>
-<div class="project-images single"><figure><img src="../images/PerfectLOOp/RJyuC5EfgLSOww077fxA5vnLC58.jpg" alt="Unity Inspector showing the manually defined solution edges alongside a forest level" width="1999" height="1296" loading="lazy" decoding="async"></figure></div>
+<div class="project-images single"><figure><img src="../images/PerfectLOOp/5VeRzEX2tvoHAGzHrEbStMWL7Ak-web.webp" alt="Hand-drawn 3 by 3 and 4 by 3 puzzle grids with vertical and horizontal edge coordinates" width="2048" height="1236" loading="lazy" decoding="async"><figcaption>Paper puzzle sketches map horizontal and vertical edges to coordinates, making it easier to script the correct answer for each level.</figcaption></figure></div>
+<div class="project-images single"><figure><img src="../images/PerfectLOOp/RJyuC5EfgLSOww077fxA5vnLC58.jpg" alt="Unity Inspector showing the manually defined solution edges alongside a forest level" width="1999" height="1296" loading="lazy" decoding="async"><figcaption>In Unity, these coordinates define the solution edges used to check whether the player has completed each level correctly.</figcaption></figure></div>
 </section>
 <section class="project-section">
 <div class="section-heading"><span class="section-number" aria-hidden="true">03</span><h2>Challenges</h2></div>

@@ -366,3 +366,14 @@
   .desktop-icons .desktop-icon { min-height: 74px; }
   .desktop-utilities { grid-template-columns: 1fr; }
 }
+
+/* Files in the Trash Bin use the same image viewer as desktop artwork. */
+.trash-files { align-items: flex-start; justify-content: flex-start; }
+.trash-file { display: flex; flex-direction: column; align-items: center; gap: .5rem; padding: 12px; border: 1px solid transparent; background: transparent; color: #222; font: .8rem 'Courier New', monospace; cursor: pointer; }
+.trash-file:hover, .trash-file:focus-visible { background: #dce7ed; border-color: #65849b; }
+
+.trash-file { width: 96px; padding: 6px 4px; gap: 4px; }
+.trash-file-name { max-width: 100%; line-height: 1.35; text-align: center; overflow-wrap: anywhere; }
+#worlds-2024 { width: min(480px, calc(100% - 28px)); height: auto; }
+#worlds-2024 .gallery-stage { position: relative; flex: 0 1 auto; aspect-ratio: 1846 / 1292; min-height: 0; }
+#worlds-2024 .gallery-stage > img { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); }

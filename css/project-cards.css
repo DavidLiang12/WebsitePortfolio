@@ -1,4 +1,5 @@
 /* Project card fonts and hover palettes mirror their detail pages. */
+.cd-project-link[data-cover="fudge"] { --card-font: 'DM Sans'; --card-weight: 700; --card-paper: #f5ce95; --card-ink: #512c28; --card-accent: #f5749f; }
 .cd-project-link[data-cover="pending"] { --card-font: 'Arial Black'; --card-weight: 700; --card-paper: #c8cbc8; --card-ink: #202b38; --card-accent: #174c9b; }
 .cd-project-link[data-cover="loop"] { --card-font: 'Playwrite US Modern'; --card-weight: 400; --card-paper: #e6dfc2; --card-ink: #344632; --card-accent: #405a45; }
 .cd-project-link[data-cover="handspell"] { --card-font: 'Cinzel'; --card-weight: 600; --card-paper: #2a111b; --card-ink: #f5e9cd; --card-accent: #e0bd77; }

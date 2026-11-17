@@ -1,7 +1,7 @@
 # DOOM desktop app
 
 `doom.html` isolates the js-dos player in a same-origin iframe. The runtime is
-served locally from `vendor/js-dos/` only after Play DOOM is clicked. Closing the
+served locally from `vendor/js-dos/` when the DOOM window opens. Closing the
 window unloads it; minimizing or hiding the tab pauses emulation. The game has no external runtime download and needs no account. Serve the site
 over HTTP(S); browsers block WASM/worker loading from `file://` pages.
 
@@ -20,5 +20,11 @@ Sources:
 DOOM1.WAD SHA-256: `1d7d43be501e67d927e415e0b8f3e29c3bf33075e859721816f652a526cac771`
 
 The DOSBox configuration mounts the bundle and starts DOOM.EXE. DEFAULT.CFG
-uses arrow keys for movement, Ctrl to fire, and Space to use doors. Game files
-are unchanged; only the emulator configuration and keyboard settings differ.
+uses arrow keys for forward/back and A/D for strafing, Ctrl to fire, and Space
+to use doors. The iframe input adapter maps WASD and all four arrows to those
+movement actions. Mouse capture is enabled in both the DOSBox configuration and
+the player; click the game to capture, then move the mouse horizontally to turn.
+The original engine has no vertical camera pitch, so vertical mouse motion is
+ignored instead of accidentally walking the player forward/backward. Movement
+and mouse buttons release on focus loss, pointer unlock, minimize and tab hide.
+The executable and IWAD are unchanged; only emulator/input settings differ.

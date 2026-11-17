@@ -1,0 +1,114 @@
+/* Strawberry Picnic palette, within the shared project-detail layout. */
+.fudge-project {
+  --paper: #f8dbe3; --ink: #5b3540; --muted: #714851;
+  --green: #eda0b8; --on-green: #5b3540; --rust: #9b3f61;
+  --yellow: #fff0bf; --line: #d77998; --surface: #fff5dd;
+  --stripe: #e9759b; --glow: #fff4d966;
+  --project-display: 'Poetsen One'; --project-weight: 400; --project-tracking: -.02em;
+  position: relative; isolation: isolate;
+  background: linear-gradient(#f5b6cf 0, #ffe6ce 800px, #f8dbe3 1450px);
+}
+.fudge-background {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: url('../images/FudgeIt/candyland-sky.svg'), url('../images/FudgeIt/candyland-clouds-right.svg'), url('../images/FudgeIt/candyland-background.svg');
+  background-position: left clamp(12px, 3vw, 48px) top, right clamp(12px, 3vw, 48px) top, top center;
+  /* Inset cloud columns cannot be clipped by horizontal tile boundaries.
+     Crop the ground below its natural width instead of squeezing its curves. */
+  background-size: 180px 1450px, 180px 1450px, max(1280px, 100%) 1450px;
+  background-repeat: repeat-y;
+}
+.fudge-project .project-heading { grid-template-columns: minmax(0, 1fr); margin-bottom: 1.5rem; }
+.fudge-project .project-title,
+.fudge-project .project-section h2 {
+  color: #0093a5;
+  -webkit-text-stroke: .18em #fff2d9;
+  paint-order: stroke fill;
+  text-shadow: none;
+}
+.fudge-project .project-title span { color: inherit; }
+.fudge-project .project-section h2 {
+  -webkit-text-stroke-width: .18em;
+  text-shadow: none;
+}
+.fudge-project .project-intro { max-width: 52rem; margin-bottom: 1.6rem; }
+.fudge-project .project-actions { gap: .8rem 1.4rem; }
+.fudge-project .play-link {
+  background: var(--rust); color: #fff5dd;
+  border: 2px solid #86344e; border-radius: 16px;
+  box-shadow: 0 4px 0 #e5a5b5;
+}
+.fudge-project .play-link:hover { background: #793149; }
+.fudge-sidebar { min-width: 0; }
+.fudge-project .project-meta {
+  width: 100%; border: 2px solid var(--line); border-radius: 24px 40px 24px 24px;
+  box-shadow: 0 6px 0 #e8b0c1;
+}
+.fudge-project .project-section > p { font-size: 1rem; line-height: 1.8; }
+.fudge-project .project-section + .project-section,
+.fudge-project .project-footer { border-top-width: 2px; }
+.fudge-project .project-images + p { margin-top: 1.4rem; }
+/* Equal columns and media heights keep each row aligned, including its captions. */
+.fudge-project .project-images { gap: 1.6rem; margin-top: 2rem; align-items: stretch; }
+.fudge-card-pair, .fudge-process-pair, .fudge-polish-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.fudge-project .project-images figure {
+  position: relative; display: flex; flex-direction: column; min-width: 0;
+  padding: 12px; border: 3px solid var(--line); border-radius: 28px;
+  background: var(--surface); box-shadow: 0 7px 0 #e7a7ba;
+}
+.fudge-image-frame {
+  position: relative; flex: none; width: 100%; aspect-ratio: 4 / 3;
+  border: 3px solid #ffe9b8; border-radius: 18px; background: #fffaf0;
+}
+.fudge-project .fudge-image-frame > img:not(.fudge-candy),
+.fudge-chart-link img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: contain; border-radius: 14px;
+}
+.fudge-process-pair .fudge-image-frame { aspect-ratio: 1394 / 1222; }
+.fudge-project .fudge-process-pair .fudge-image-frame > img:not(.fudge-candy) { object-fit: cover; }
+.fudge-project .fudge-polish-pair .fudge-image-frame > img:not(.fudge-candy) { object-fit: cover; }
+.fudge-project .fudge-polish-pair .fudge-box-shopping { object-position: center 60%; }
+.fudge-natural-frame { aspect-ratio: auto; }
+.fudge-project .fudge-natural-frame > img:not(.fudge-candy) { position: static; width: 100%; height: auto; }
+.fudge-cropped-photo { display: block; width: 100%; height: auto; border-radius: 14px; overflow: hidden; }
+.fudge-chart-link { position: absolute; inset: 0; display: block; }
+.fudge-project .project-images figcaption {
+  flex: 1; padding: .9rem .2rem .2rem; font-size: .875rem; line-height: 1.7;
+}
+/* The only candy decorations are pinned to corners of the image borders. */
+.fudge-project .fudge-candy {
+  position: absolute; z-index: 1; width: 87px; height: auto;
+  pointer-events: none; user-select: none; filter: drop-shadow(0 3px 1px #75344318);
+}
+.fudge-project .corner-ne { top: -23px; right: -23px; transform: rotate(12deg); }
+.fudge-project .corner-nw { top: -23px; left: -23px; transform: rotate(-16deg); }
+@media (max-width: 850px) {
+  .fudge-card-pair, .fudge-process-pair, .fudge-polish-pair { grid-template-columns: 1fr; }
+  .fudge-project .fudge-candy { width: 75px; }
+  .fudge-project .corner-ne { right: -18px; top: -20px; }
+  .fudge-project .corner-nw { left: -18px; top: -20px; }
+}
+@media (max-width: 600px) {
+  .fudge-project .project-heading { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .fudge-project .project-title { font-size: clamp(2.5rem, 10vw, 3.7rem); -webkit-text-stroke-width: .18em; }
+  .fudge-project .project-images { gap: 1.6rem; }
+  .fudge-project .project-meta dl { grid-template-columns: 1fr 1fr; }
+  .fudge-project .meta-item:last-child { grid-column: auto; }
+  .fudge-project .project-images figure { padding: 9px; border-radius: 23px; }
+  .fudge-image-frame { border-radius: 14px; }
+  .fudge-project .fudge-candy { width: 64.5px; }
+  .fudge-project .corner-ne { right: -14px; top: -18px; }
+  .fudge-project .corner-nw { left: -14px; top: -18px; }
+}
+
+/* Natural chart height removes letterboxing and rounds the actual image corners. */
+.fudge-chart-frame { aspect-ratio: auto; }
+.fudge-chart-frame .fudge-chart-link { position: static; }
+.fudge-chart-frame .fudge-chart-link img { position: static; width: 100%; height: auto; }
+.fudge-project .fudge-chart-frame .corner-nw { left: -55px; top: -45px; }
+@media (max-width: 600px) {
+  .fudge-project .fudge-chart-frame .corner-nw { left: -35px; top: -32px; }
+}
+/* Rotate the original photograph without re-encoding or cropping it. */
+.fudge-rotated-frame { aspect-ratio: auto; }
+.fudge-rotated-photo { display: block; width: 100%; height: auto; border-radius: 14px; overflow: hidden; }

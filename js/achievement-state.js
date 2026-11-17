@@ -17,6 +17,7 @@
   };
   const icon = name => `<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">${icons[name] || icons.star}</svg>`;
   const projects = {
+    'games/fudge-it.html': 'games',
     'games/pending-departures.html': 'games',
     'games/the-perfect-loop.html': 'games',
     'games/handspell.html': 'games',

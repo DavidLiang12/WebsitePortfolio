@@ -12,6 +12,46 @@
   let attempt = 0;
   let download;
   let bundleUrl;
+  let command;
+  const heldKeys = new Map();
+  // js-dos CommandInterface uses its KBD_* values, not DOM keyCode/scancodes.
+  const moveKeys = { KeyW: 265, ArrowUp: 265, KeyS: 264, ArrowDown: 264,
+    KeyA: 65, ArrowLeft: 65, KeyD: 68, ArrowRight: 68 };
+
+  function releaseControls() {
+    if (command) {
+      try {
+        new Set(heldKeys.values()).forEach(key => command.sendKeyEvent(key, false));
+        [0, 1, 2].forEach(button => command.sendMouseButton(button, false));
+      } catch (_) { /* A disposed backend must not prevent window cleanup. */ }
+    }
+    heldKeys.clear();
+  }
+
+  function movement(event, pressed) {
+    const key = moveKeys[event.code];
+    if (key === undefined) return;
+    const wasHeld = heldKeys.has(event.code);
+    if (!wasHeld && (paused || document.hidden || !command || container.dataset.state !== 'ready' ||
+      event.ctrlKey || event.altKey || event.metaKey ||
+      event.target?.closest?.('input, textarea, select, button, a, [contenteditable="true"]'))) return;
+    // Capture before js-dos's window listener so arrows strafe instead of also
+    // turning, and WASD does not produce duplicate native key events.
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    if (pressed) {
+      if (wasHeld) return;
+      if (![...heldKeys.values()].includes(key)) command.sendKeyEvent(key, true);
+      heldKeys.set(event.code, key);
+    } else if (wasHeld) {
+      heldKeys.delete(event.code);
+      if (![...heldKeys.values()].includes(key)) command.sendKeyEvent(key, false);
+    }
+  }
+  window.addEventListener('keydown', event => movement(event, true), { capture: true });
+  window.addEventListener('keyup', event => movement(event, false), { capture: true });
+  window.addEventListener('blur', releaseControls);
+  document.addEventListener('pointerlockchange', () => { if (!document.pointerLockElement) releaseControls(); });
 
   function releaseMouse() {
     if (document.pointerLockElement) document.exitPointerLock?.();
@@ -41,6 +81,8 @@
   }
 
   function dispose() {
+    releaseControls();
+    command = null;
     releaseMouse();
     clearTimeout(timeout);
     download?.abort();
@@ -81,7 +123,7 @@
       if (id !== attempt) return;
       status.textContent = 'Loading shareware episode…';
       download = new AbortController();
-      const response = await fetch('doom-shareware.jsdos?v=3', { signal: download.signal });
+      const response = await fetch('doom-shareware.jsdos?v=wasd-mouse-4', { signal: download.signal });
       if (!response.ok) throw new Error('The game files could not load. Please reload the page.');
       const bytes = new Uint8Array(await response.arrayBuffer());
       if (id !== attempt) return;
@@ -101,6 +143,11 @@
         fsChanges: { local: false },
         onEvent: (event, ci) => {
           if (event !== 'ci-ready' || id !== attempt) return;
+          command = ci;
+          // Original DOOM has horizontal mouse look only. Ignore vertical mouse
+          // deltas, which the DOS executable otherwise interprets as walking.
+          const relativeMotion = ci.sendMouseRelativeMotion.bind(ci);
+          ci.sendMouseRelativeMotion = (x, _y) => relativeMotion(x, 0);
           ci.events().onMessage((type, ...messages) => {
             // DOSBox also labels harmless legacy hardware notices as 'error'.
             if (type === 'panic' || /backend crashed|memory access out of bounds|aborted\(/i.test(messages.join(' '))) {
@@ -115,6 +162,8 @@
             clearTimeout(timeout);
             container.dataset.state = 'ready';
             launcher.hidden = true;
+            // DOSBox configuration can overwrite the initial player option.
+            player?.setMouseCapture(true);
             player?.setPaused(paused || document.hidden);
           });
         }
@@ -130,11 +179,11 @@
   window.addEventListener('message', event => {
     if (event.origin !== location.origin || event.source !== parent || event.data?.type !== 'desktop-game-state') return;
     paused = Boolean(event.data.paused);
-    if (paused) releaseMouse();
+    if (paused) { releaseControls(); releaseMouse(); }
     if (container.dataset.state === 'ready') player?.setPaused(paused || document.hidden);
   });
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) releaseMouse();
+    if (document.hidden) { releaseControls(); releaseMouse(); }
     if (container.dataset.state === 'ready') player?.setPaused(paused || document.hidden);
   });
   window.addEventListener('pagehide', () => { attempt++; dispose(); });

@@ -15,7 +15,7 @@
   <!-- Page-local styling keeps the other portfolio sections unchanged. -->
   <link rel="stylesheet" href="css/retro.css?v=pointer-tilt-1">
   <link rel="stylesheet" href="css/portfolio.css?v=selected-motion-8">
-  <link rel="stylesheet" href="css/art-2d.css?v=crt-rgb-11">
+  <link rel="stylesheet" href="css/art-2d.css?v=compact-trash-13">
   <link rel="stylesheet" href="css/page-transitions.css?v=crt-curtain-18">
   <script src="js/page-transitions.js?v=crt-curtain-20"></script>
   <link rel="stylesheet" href="css/sound.css?v=cassette-3">
@@ -23,7 +23,7 @@
 
 
   <link rel="stylesheet" href="css/achievements.css?v=exploration-3">
-  <script defer src="js/achievement-state.js?v=achievement-rules-4"></script>
+  <script defer src="js/achievement-state.js?v=achievement-rules-5"></script>
   <script defer src="js/achievement-notifications.js?v=boot-aware-4"></script>
   <script defer src="js/site-achievements.js?v=achievement-rules-5"></script>
   <style id="desktop-screen-effects">
@@ -81,8 +81,8 @@
 </button></div>
 <section class="os-window doom-window" id="doom" role="dialog" aria-labelledby="doom-title" tabindex="-1" hidden>
 <div class="os-titlebar" data-drag><span class="os-window-title" id="doom-title">DOOM</span><div class="os-window-controls"><button type="button" data-minimize aria-label="Minimize DOOM">_</button><button type="button" data-close aria-label="Close DOOM">×</button></div></div>
-<div class="doom-content"><iframe data-src="desktop/doom.html?v=mouse-capture-7" data-desktop-game title="Play DOOM shareware" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
-<div class="os-statusbar doom-controls"><span>Click game to capture mouse · Mouse: turn / fire · Arrows: move · Space: use · Esc: release mouse / menu</span><span>Shareware / Episode 1</span></div>
+<div class="doom-content"><iframe data-src="desktop/doom.html?v=wasd-mouse-8" data-desktop-game title="Play DOOM shareware" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+<div class="os-statusbar doom-controls"><span>Click game to capture mouse · WASD / arrows: move &amp; strafe · Mouse: turn · Left click / Ctrl: fire · Space: use · Esc: release mouse / menu</span><span>Shareware / Episode 1</span></div>
 </section>
 <section class="os-window paint-window" id="paint" role="dialog" aria-labelledby="paint-title" tabindex="-1" hidden>
 <div class="os-titlebar" data-drag><span class="os-window-title" id="paint-title">Untitled — Paint</span><div class="os-window-controls"><button type="button" data-minimize aria-label="Minimize Paint">_</button><button type="button" data-close aria-label="Close Paint">×</button></div></div>
@@ -259,11 +259,26 @@
 <button type="button" data-minimize aria-label="Minimize Trash Bin">_</button>
 <button type="button" data-close aria-label="Close Trash Bin">×</button>
 </div></div>
-<div class="os-toolbar"><span class="os-path">Art desk / Trash Bin</span><span>0 items</span>
-</div><div class="trash-content"><span class="recycle-icon" aria-hidden="true"><img src="images/desktop/recycle-bin.png" alt="" width="540" height="500"></span>
-<h2>The bin is empty.</h2>
-<p>No discarded files here.</p>
-</div><div class="os-statusbar"><span>Trash Bin</span><span>0 items</span>
+<div class="os-toolbar"><span class="os-path">Art desk / Trash Bin</span><span>1 item</span>
+</div><div class="trash-content trash-files"><button class="trash-file" type="button" data-open="worlds-2024" aria-label="Open Worlds_2024.jpg"><span class="image-file-icon" aria-hidden="true"><svg viewBox="0 0 56 64" fill="none"><path d="M7 2h29l13 13v47H7z" fill="#e5e7d8" stroke="#162b25" stroke-width="2"/><path d="M36 2v14h13" fill="#99afa0" stroke="#162b25" stroke-width="2"/><path d="M14 39l9-10 7 7 5-5 8 8v7H14z" fill="#397d61"/><path d="M16 23h5v5h-5z" fill="#b49b41"/><text x="28" y="57" text-anchor="middle" fill="#162b25" font-family="monospace" font-size="10" font-weight="bold">JPG</text></svg></span><span class="trash-file-name">Worlds_<wbr>2024.jpg</span></button>
+</div><div class="os-statusbar"><span>Trash Bin</span><span>1 item</span>
+</div></section>
+<section class="os-window gallery-window" id="worlds-2024" role="dialog" aria-labelledby="worlds-2024-title" tabindex="-1" hidden>
+<div class="os-titlebar" data-drag><span class="os-window-title" id="worlds-2024-title">Worlds_2024.jpg</span>
+<div class="os-window-controls">
+<button type="button" data-minimize aria-label="Minimize Worlds_2024.jpg">_</button>
+<button type="button" data-close aria-label="Close Worlds_2024.jpg">×</button>
+</div></div>
+<div class="os-toolbar"><span class="os-path">Art desk / Trash Bin / Worlds_2024.jpg</span><span>1 image</span>
+</div><div class="gallery " data-gallery>
+<figure class="gallery-stage"><img data-gallery-image src="images/2D%20Art/Trash/Worlds_2024.jpg" alt="Worlds_2024.jpg" decoding="async">
+</figure><div class="gallery-navigation">
+<div class="gallery-caption" aria-live="polite"><span data-gallery-name>Worlds_2024.jpg</span><span data-gallery-count>1 / 1</span>
+</div></div>
+<div class="gallery-thumbnails" aria-label="Images in Worlds_2024.jpg">
+<button type="button" data-gallery-index="0" data-src="images/2D%20Art/Trash/Worlds_2024.jpg" data-name="Worlds_2024.jpg" aria-label="View Worlds_2024.jpg" aria-pressed="true"><img src="images/2D%20Art/Trash/Worlds_2024.jpg" alt="" loading="lazy" decoding="async">
+</button></div>
+</div><div class="os-statusbar"><span>Worlds_2024.jpg</span><span>Image viewer</span>
 </div></section>
 </div><div class="desktop-taskbar">
 <button type="button" class="desktop-start"><img src="images/desktop/david-os.svg" alt="" width="22" height="22"> Art desk</button>
