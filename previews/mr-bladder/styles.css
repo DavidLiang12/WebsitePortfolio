@@ -1,0 +1,129 @@
+.bladder-preview {
+  --paper: #fff0cf;
+  --ink: #482a13;
+  --muted: #6f4629;
+  --rust: #904108;
+  --green: #106e67;
+  --on-green: #fff9e6;
+  --line: #dda976;
+  --surface: #ffebbf;
+  --bladder-radius: 25px;
+  background: var(--paper);
+}
+
+.bladder-preview-nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem .6rem;
+  padding: .55rem max(1.25rem, calc((100% - 1120px) / 2));
+  background: var(--ink);
+  color: #fff8e8;
+  font-size: .8rem;
+}
+.bladder-preview-nav > span { font-weight: 700; margin-right: .55rem; }
+.bladder-preview-nav a {
+  border: 1px solid #fff6;
+  border-radius: 999px;
+  padding: .2rem .75rem;
+  text-decoration: none;
+}
+.bladder-preview-nav a:hover { background-color: #fff2; }
+.bladder-preview-nav .bladder-preview-original { margin-inline-start: auto; }
+.bladder-preview:not(:has(#park-day:target, #toy-town:target)) a[href="#orange-soda"],
+.bladder-preview:has(#park-day:target) a[href="#park-day"],
+.bladder-preview:has(#toy-town:target) a[href="#toy-town"] {
+  background: #fff8e8;
+  color: var(--ink);
+}
+.bladder-preview-targets { height: 0; }
+.bladder-preview-targets span { display: block; scroll-margin-top: 12rem; }
+
+.bladder-preview .bladder-hero {
+  padding: clamp(1.3rem, 4vw, 3rem);
+  border-radius: 48px 92px 42px 56px;
+  border: 1px solid var(--line);
+  background-color: #fff6df;
+  background-image: radial-gradient(ellipse at 112% -22%, #29b79f 0 30%, #fff3d7 30.2% 32%, #93dacc 32.2% 34%, transparent 34.3%),
+    radial-gradient(ellipse at -10% 125%, #ffce66 0 25%, #ffe7ac 25.2% 29%, transparent 29.3%);
+  box-shadow: 0 7px 0 #e5b58166;
+}
+.bladder-preview .project-images figure { border: 1px solid var(--line); }
+.bladder-preview .bladder-hero .project-intro { max-width: 39rem; }
+.bladder-preview .bladder-title { width: min(100%, 535px); }
+
+.bladder-preview:has(#park-day:target) {
+  --paper: #e0f1df;
+  --ink: #194738;
+  --muted: #345e50;
+  --rust: #296955;
+  --green: #d1ebc0;
+  --on-green: #194738;
+  --surface: #f7fae8;
+  --line: #98c4a6;
+  --bladder-radius: 32px;
+}
+.bladder-preview:has(#park-day:target) .bladder-hero {
+  border-radius: 68px 68px 34px 34px;
+  text-align: center;
+  background-color: #def4f5;
+  background-image: radial-gradient(ellipse at 8% 151%, #b8dc9d 0 51%, transparent 51.3%),
+    radial-gradient(ellipse at 98% 145%, #cde6ad 0 51%, transparent 51.3%),
+    radial-gradient(ellipse at 84% 13%, #ffefae 0 8%, transparent 8.3%);
+  box-shadow: 0 7px 0 #a9cb9f88;
+}
+.bladder-preview:has(#park-day:target) .bladder-title,
+.bladder-preview:has(#park-day:target) .bladder-hero .project-intro { margin-inline: auto; }
+.bladder-preview:has(#park-day:target) .project-body { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+.bladder-preview:has(#park-day:target) .project-meta { border-radius: var(--bladder-radius); }
+.bladder-preview:has(#park-day:target) .project-meta dl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.bladder-preview:has(#park-day:target) .meta-item:last-child { grid-column: auto; }
+
+.bladder-preview:has(#toy-town:target) {
+  --paper: #fbe3eb;
+  --ink: #442e56;
+  --muted: #604766;
+  --rust: #88477c;
+  --green: #eadcf8;
+  --on-green: #442e56;
+  --line: #c499c2;
+  --surface: #fff7f3;
+  --bladder-radius: 26px;
+  background-image: conic-gradient(#fff5 25%, transparent 0 50%, #fff5 0 75%, transparent 0);
+  background-size: 48px 48px;
+}
+.bladder-preview:has(#toy-town:target) .bladder-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem 2.4rem;
+  border: 0;
+  outline: 1px solid var(--line);
+  border-radius: 72px 36px 72px 36px;
+  background-color: #fce8ee;
+  background-image: radial-gradient(ellipse at 104% 117%, #a9dadd 0 37%, transparent 37.2%),
+    radial-gradient(ellipse at 9% 3%, #ffe7a9 0 30%, transparent 30.3%);
+  box-shadow: 7px 7px 0 #d7b4e5;
+}
+.bladder-preview:has(#toy-town:target) .bladder-hero .project-intro {
+  margin: 0;
+  padding: 1.15rem 1.35rem;
+  background: #fff9f4;
+  border-radius: 25px;
+}
+.bladder-preview:has(#toy-town:target) .project-meta { box-shadow: 5px 6px 0 #d6b7de; }
+.bladder-preview:has(#toy-town:target) .project-images figure:nth-child(even) { background: #e8f4f4; }
+.bladder-preview:has(#toy-town:target) .project-images figure { box-shadow: 4px 5px 0 #d7b4e57a; }
+
+@media (max-width: 760px) {
+  .bladder-preview .bladder-hero { border-radius: 36px; }
+  .bladder-preview:has(#toy-town:target) .bladder-hero { grid-template-columns: 1fr; border-radius: 36px; }
+}
+
+@media (max-width: 480px) {
+  .bladder-preview-nav .bladder-preview-original { margin-inline-start: 0; }
+  .bladder-preview:has(#park-day:target) .project-meta dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
