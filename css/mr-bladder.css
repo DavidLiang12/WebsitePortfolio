@@ -166,6 +166,15 @@
 }
 .bladder-orange .meta-heading { font-size: 1rem; }
 
+.bladder-details {
+  grid-column: 1 / -1;
+  width: min(100%, 52.5rem);
+  margin: 1.1rem auto 0;
+  padding-top: 2.2rem;
+  border-top: 3px solid var(--line);
+}
+.bladder-details .project-section + .project-section { border-top-width: 3px; }
+
 .bladder-role-list { margin-block: 0; padding-inline-start: 1.3rem; color: var(--muted); }
 .bladder-role-list li + li { margin-top: .35rem; }
 .bladder-tutorial figure { max-width: 420px; }
