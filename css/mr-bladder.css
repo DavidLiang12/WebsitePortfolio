@@ -24,9 +24,29 @@
 .bladder-title img { height: auto; }
 .bladder-title-first { width: 100%; }
 .bladder-title-second { width: 61%; margin: -2.75% 0 0 auto; position: relative; }
+.bladder-orange .project-breadcrumb { padding-block: .85rem .65rem; }
+.bladder-orange .bladder-hero { margin-bottom: 1.25rem; }
+.bladder-orange .project-body { row-gap: 1.5rem; }
+.bladder-title-art { width: min(100%, 52rem); margin-inline: auto; }
+.bladder-title-art img { display: block; width: 100%; height: auto; }
 .bladder-hero .project-intro { margin: 1.35rem 0 0; }
+.bladder-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(5rem, 28vw, 19rem);
+  align-items: center;
+  gap: clamp(.85rem, 3vw, 2rem);
+  width: min(100%, 61rem);
+  margin-inline: auto;
+}
+.bladder-intro .project-intro { margin: 0; }
+.bladder-intro img { width: 100%; height: auto; }
+
+@media (min-width: 58rem) {
+  .bladder-intro { margin-top: -.75rem; }
+  .bladder-intro img { margin-block: -1.4rem -2rem; }
+}
 .bladder-orange {
-  --paper: #ffdfa1;
+  --paper: #fee1a9;
   --green: #ffaf00;
   --on-green: #46311c;
   --line: #d3a862;
@@ -34,25 +54,123 @@
   --bladder-radius: 14px;
   background: var(--paper);
 }
-.bladder-banner {
-  padding: .65rem;
-  background: var(--surface);
+@supports (color: color(display-p3 1 1 1)) {
+  .bladder-orange { --paper: color(display-p3 .97647 .88627 .6902); }
 }
-.bladder-banner img { width: 100%; height: auto; }
+.bladder-orange .portfolio-header { background-color: var(--paper); }
+.bladder-layout {
+  position: relative;
+  isolation: isolate;
+}
+.bladder-edge-art {
+  display: none;
+  --edge-width: 15rem;
+  /* Crop the outer fill before the curves reach the content column. */
+  --edge-offset: min(0px, calc((100% - 1120px) / 2 - var(--edge-width) - .75rem));
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.bladder-edge {
+  position: absolute;
+  inset-block: 0;
+  width: var(--edge-width);
+}
+.bladder-edge--left { left: var(--edge-offset); }
+.bladder-edge--right { right: var(--edge-offset); scale: -1 1; --edge-stagger: 9rem; }
+
+.bladder-wave {
+  --wave-height: 150rem;
+  --wave-profile: ellipse(98% 52% at left center);
+  --trace-width: 5px;
+  --trace-gap: 10px;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: var(--wave-height);
+  background-color: var(--wave-color);
+  clip-path: var(--wave-profile);
+}
+.bladder-wave:nth-child(1) { top: -9rem; --wave-shoulder: 94%; --wave-control: 99%; }
+.bladder-wave:nth-child(2) { top: calc((100% - var(--wave-height)) / 3 + var(--edge-stagger, 0rem)); }
+.bladder-wave:nth-child(3) { top: calc((100% - var(--wave-height)) * 2 / 3 + var(--edge-stagger, 0rem)); }
+.bladder-wave:nth-child(4) { bottom: -1rem; --wave-tail: 72%; --wave-tail-control: 62%; }
+.bladder-wave--orange { --wave-color: #fdb32c; }
+.bladder-wave--teal { --wave-color: #35c4a6; }
+.bladder-wave--blue { --wave-color: #5fa4c8; }
+.bladder-wave--pink { --wave-color: #f1a9c0; }
+
+.bladder-wave::before, .bladder-wave::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  clip-path: var(--wave-profile);
+}
+.bladder-wave::before {
+  inset-block: -.35%;
+  right: var(--trace-width);
+  background-color: var(--paper);
+}
+.bladder-wave::after {
+  inset-block: -.7%;
+  right: calc(var(--trace-width) + var(--trace-gap));
+  background-color: var(--wave-color);
+}
+@supports (clip-path: shape(from 0 0, hline to 100%, close)) {
+  .bladder-wave {
+    --wave-profile: shape(
+      from 0 0, hline to var(--wave-shoulder, 0%),
+      curve to 87% 16% with var(--wave-control, 45%) 2% / 95% 9%,
+      curve to 48% 36% with 73% 28% / 48% 28%,
+      curve to 89% 56% with 48% 46% / 89% 45%,
+      curve to 43% 82% with 89% 68% / 46% 75%,
+      curve to var(--wave-tail, 0%) 100% with 40% 89% / var(--wave-tail-control, 23%) 96%,
+      hline to 0, close
+    );
+  }
+  .bladder-wave:nth-child(3) {
+    --wave-profile: shape(
+      from 0 0,
+      curve to 67% 16% with 34% 2% / 64% 5%,
+      curve to 93% 40% with 71% 29% / 93% 29%,
+      curve to 36% 68% with 93% 53% / 40% 55%,
+      curve to 0 100% with 32% 81% / 30% 91%,
+      close
+    );
+  }
+}
+@media (min-width: 90rem) and (hover: hover) and (pointer: fine) {
+  .bladder-edge-art { display: block; }
+}
 .bladder-project .project-meta { border-radius: var(--bladder-radius) calc(var(--bladder-radius) * 2) var(--bladder-radius) var(--bladder-radius); }
 .bladder-orange .project-meta { border-radius: var(--bladder-radius); }
-.bladder-banner,
+@media (max-width: 600px) {
+  .bladder-orange .project-meta .meta-item:last-child { grid-column: auto; }
+}
 .bladder-project .project-images figure { border-radius: var(--bladder-radius); }
-.bladder-banner img,
 .bladder-project .project-images img { border-radius: max(6px, calc(var(--bladder-radius) - .65rem)); }
 .bladder-concepts { align-items: stretch; }
 .bladder-concepts img { width: 100%; aspect-ratio: 19 / 10; object-fit: cover; }
+.bladder-character-sheet img { object-fit: contain; }
+.bladder-wip { display: block; margin-top: .2rem; font-weight: 700; }
+
+.bladder-orange .project-section h2,
+.bladder-orange .meta-heading,
+.bladder-docs-title,
+.bladder-status {
+  font-family: 'Chewy', cursive;
+  font-weight: 400;
+  letter-spacing: .015em;
+}
+.bladder-orange .meta-heading { font-size: 1rem; }
 
 .bladder-role-list { margin-block: 0; padding-inline-start: 1.3rem; color: var(--muted); }
 .bladder-role-list li + li { margin-top: .35rem; }
 .bladder-tutorial figure { max-width: 420px; }
 .bladder-orange .bladder-tutorial figure { width: 100%; margin-inline: auto; }
-.bladder-docs-title { margin: 1.6rem 0 .65rem; font: 700 1.15rem 'Fraunces', Georgia, serif; }
+.bladder-docs-title { margin: 1.6rem 0 .65rem; font-size: 1.2rem; }
 .bladder-docs {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 215px), 1fr));
@@ -76,3 +194,16 @@
 }
 .bladder-docs a:hover { text-decoration: underline; }
 .bladder-docs span { color: var(--muted); font-size: .7rem; letter-spacing: .07em; }
+
+.bladder-status {
+  margin: clamp(3rem, 8vw, 6rem) 0 0;
+  color: #fff7e2;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  letter-spacing: .035em;
+  line-height: 1.2;
+  text-align: center;
+  -webkit-text-stroke: clamp(5px, .75vw, 10px) var(--ink);
+  paint-order: stroke fill;
+}
+
+.bladder-status + .project-footer { margin-top: clamp(2rem, 5vw, 3rem); }
